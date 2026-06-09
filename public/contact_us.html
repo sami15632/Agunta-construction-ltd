@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Agunta Construction Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --orange:   #d44d1d;
+      --od:       #b03a10;
+      --og:       rgba(212,77,29,0.13);
+      --black:    #09090d;
+      --char:     #111117;
+      --steel:    #181820;
+      --panel:    #1e1e28;
+      --line:     rgba(255,255,255,0.07);
+      --white:    #ffffff;
+      --muted:    #7a7a8c;
+      --ease:     cubic-bezier(0.16,1,0.3,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'Barlow',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden}
+    h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:.05em}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--char)}::-webkit-scrollbar-thumb{background:var(--orange);border-radius:3px}
+
+    /* ── CURSOR ── */
+    .cursor{width:8px;height:8px;background:var(--orange);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+    .cursor-ring{width:32px;height:32px;border:1px solid rgba(212,77,29,.5);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s var(--ease),height .3s var(--ease),border-color .3s}
+
+    /* ── HEADER ── */
+    header{position:fixed;top:0;left:0;width:100%;z-index:500;padding:18px 0;background:rgba(9,9,13,.9);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);transition:padding .4s var(--ease),border-color .4s}
+    header.scrolled{padding:12px 0;border-color:rgba(212,77,29,.2)}
+    .nav{max-width:1400px;margin:0 auto;padding:0 48px;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.18em}
+    .logo span{color:var(--orange)}
+    .nav-links{display:flex;gap:32px;align-items:center}
+    .nav-links a{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);position:relative;transition:color .25s}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--orange);transition:width .3s}
+    .nav-links a:hover{color:var(--white)}.nav-links a:hover::after{width:100%}
+    .nav-links a.active{color:var(--orange)}.nav-links a.active::after{width:100%}
+    .nav-cta{background:var(--orange)!important;color:var(--white)!important;padding:10px 24px;font-weight:600}
+    .nav-cta::after{display:none!important}.nav-cta:hover{background:var(--od)!important}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .hamburger span{width:24px;height:2px;background:var(--white);transition:.3s}
+
+    /* ── MOBILE MENU ── */
+    .mob-menu{display:none;position:fixed;inset:0;background:var(--black);z-index:600;flex-direction:column;align-items:center;justify-content:center;gap:40px}
+    .mob-menu.open{display:flex}
+    .mob-menu a{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.08em;transition:color .2s}
+    .mob-menu a:hover{color:var(--orange)}
+    .mob-close{position:absolute;top:24px;right:30px;background:none;border:none;color:var(--white);font-size:2rem;cursor:pointer}
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+    .reveal-left{opacity:0;transform:translateX(-36px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .reveal-left.visible{opacity:1;transform:none}
+    .reveal-right{opacity:0;transform:translateX(36px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .reveal-right.visible{opacity:1;transform:none}
+
+    /* ── LAYOUT ── */
+    .wrap{max-width:1400px;margin:0 auto;padding:0 48px}
+    .section-label{display:flex;align-items:center;gap:12px;font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-bottom:16px}
+    .section-label::before{content:'';width:28px;height:1px;background:var(--orange)}
+
+    /* ══════════════════════════
+       HERO
+    ══════════════════════════ */
+    .hero{position:relative;padding:160px 0 0;overflow:hidden;background:var(--char)}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 50% 20%,rgba(212,77,29,.08) 0%,transparent 70%)}
+    .hero::after{content:'';position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
+    .hero-inner{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:0 48px 80px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .hero-copy .section-label{margin-bottom:20px}
+    .hero-copy h1{font-size:clamp(3.5rem,7vw,7.5rem);line-height:.9;margin-bottom:24px;opacity:0;animation:fadeUp .9s .3s forwards}
+    .hero-copy h1 em{display:block;font-family:'DM Serif Display',serif;font-style:italic;color:var(--orange);font-size:.55em;line-height:1.4}
+    .hero-copy p{font-size:1rem;font-weight:300;color:rgba(255,255,255,.6);line-height:1.85;max-width:500px;opacity:0;animation:fadeUp .9s .5s forwards}
+    .hero-badge{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(212,77,29,.35);padding:7px 20px;font-size:.68rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);margin-bottom:28px;opacity:0;animation:fadeUp .7s .1s forwards}
+
+    /* Quick contact pills */
+    .hero-pills{display:flex;flex-wrap:wrap;gap:12px;margin-top:36px;opacity:0;animation:fadeUp .9s .7s forwards}
+    .pill{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);padding:10px 20px;font-size:.78rem;transition:border-color .25s,background .25s;cursor:pointer}
+    .pill:hover{border-color:var(--orange);background:var(--og)}
+    .pill i{color:var(--orange)}
+
+    /* Hero visual */
+    .hero-visual{position:relative;opacity:0;animation:fadeUp .9s .5s forwards}
+    .hero-map-preview{
+      width:100%;aspect-ratio:4/3;
+      background:var(--steel);border:1px solid var(--line);
+      position:relative;overflow:hidden;
+    }
+    .hmp-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,77,29,.07),transparent 60%);z-index:1;pointer-events:none}
+    /* Fake map grid lines */
+    .hmp-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px}
+    .hmp-label{position:absolute;bottom:20px;left:20px;background:var(--orange);color:#fff;padding:8px 16px;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;z-index:2}
+
+    /* ══════════════════════════
+       CONTACT DETAILS STRIP
+    ══════════════════════════ */
+    .details-strip{background:var(--orange);padding:0}
+    .ds-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid rgba(0,0,0,.12)}
+    .ds-item{padding:40px 32px;border-right:1px solid rgba(0,0,0,.12);transition:background .25s;cursor:default}
+    .ds-item:hover{background:var(--od)}
+    .ds-icon{font-size:1.4rem;color:rgba(0,0,0,.5);margin-bottom:16px;display:block}
+    .ds-label{font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:8px}
+    .ds-value{font-size:1rem;color:var(--black);font-weight:500;line-height:1.5}
+    .ds-value a{color:var(--black);transition:opacity .2s}
+    .ds-value a:hover{opacity:.7}
+
+    /* ══════════════════════════
+       MAIN CONTACT SECTION
+    ══════════════════════════ */
+    #contact-main{padding:100px 0;background:var(--char)}
+    .contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;align-items:start}
+
+    /* Left: Info */
+    .contact-info h2{font-size:clamp(2.5rem,4vw,4.5rem);line-height:.92;margin-bottom:24px}
+    .contact-info h2 em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--orange)}
+    .contact-info > p{font-size:.95rem;color:var(--muted);line-height:1.85;margin-bottom:44px;max-width:420px}
+
+    .info-blocks{display:flex;flex-direction:column;gap:0}
+    .info-block{padding:24px 0;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:20px;transition:border-color .25s}
+    .info-block:first-child{border-top:1px solid var(--line)}
+    .info-block:hover{border-color:rgba(212,77,29,.4)}
+    .ib-icon{width:44px;height:44px;border:1px solid rgba(212,77,29,.3);background:var(--og);display:flex;align-items:center;justify-content:center;color:var(--orange);font-size:.95rem;flex-shrink:0;transition:background .25s,border-color .25s}
+    .info-block:hover .ib-icon{background:var(--orange);color:#fff;border-color:var(--orange)}
+    .ib-text label{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px}
+    .ib-text p,.ib-text a{font-size:.95rem;color:var(--white);line-height:1.6}
+    .ib-text a:hover{color:var(--orange)}
+
+    .social-row{display:flex;gap:10px;margin-top:36px}
+    .soc-btn{width:40px;height:40px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.9rem;transition:border-color .25s,color .25s,background .25s}
+    .soc-btn:hover{border-color:var(--orange);color:var(--white);background:var(--orange)}
+
+    /* WhatsApp CTA */
+    .wa-cta{display:flex;align-items:center;gap:14px;background:#25D366;padding:16px 24px;margin-top:32px;transition:background .25s}
+    .wa-cta:hover{background:#1ebd58}
+    .wa-cta i{font-size:1.6rem}
+    .wa-cta-text span{display:block;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;opacity:.8}
+    .wa-cta-text strong{font-size:1rem}
+
+    /* Right: FORM */
+    .contact-form{background:var(--steel);border:1px solid var(--line);padding:52px}
+    .contact-form h3{font-size:2.4rem;margin-bottom:8px}
+    .contact-form > p{font-size:.85rem;color:var(--muted);margin-bottom:36px}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+    .form-group{display:flex;flex-direction:column}
+    .form-group.full{grid-column:span 2}
+    .form-group label{font-size:.62rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);margin-bottom:8px;font-weight:600}
+    .form-group input,.form-group select,.form-group textarea{background:var(--char);border:1px solid var(--line);color:var(--white);padding:14px 16px;font-family:'Barlow',sans-serif;font-size:.9rem;outline:none;transition:border-color .25s,background .25s;-webkit-appearance:none}
+    .form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.2)}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--orange);background:rgba(212,77,29,.04)}
+    .form-group select{cursor:pointer}
+    .form-group select option{background:var(--steel)}
+    .form-group textarea{resize:vertical;min-height:130px}
+    .form-group.error input,.form-group.error select,.form-group.error textarea{border-color:#e05252}
+    .err-msg{font-size:.65rem;color:#e05252;margin-top:5px;display:none}
+    .form-group.error .err-msg{display:block}
+
+    /* Budget range slider */
+    .slider-wrap{margin-top:4px}
+    .budget-display{font-size:.88rem;color:var(--orange);margin-bottom:8px;font-weight:500}
+    input[type=range]{width:100%;height:3px;background:var(--line);outline:none;appearance:none;-webkit-appearance:none;cursor:pointer;accent-color:var(--orange)}
+    input[type=range]::-webkit-slider-thumb{width:16px;height:16px;background:var(--orange);border-radius:50%;-webkit-appearance:none;cursor:pointer}
+
+    .form-submit{width:100%;padding:18px;background:var(--orange);color:#fff;border:none;font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.15em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;margin-top:8px;transition:background .25s,transform .2s;position:relative;overflow:hidden}
+    .form-submit::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,.1);border-radius:50%;transform:translate(-50%,-50%);transition:width .5s,height .5s;pointer-events:none}
+    .form-submit:active::before{width:400px;height:400px}
+    .form-submit:hover{background:var(--od)}
+    .form-submit.loading{pointer-events:none;opacity:.7}
+
+    /* Success */
+    .form-success{display:none;text-align:center;padding:32px 24px;border:1px solid rgba(37,211,102,.3);background:rgba(37,211,102,.06);margin-top:20px}
+    .form-success i{font-size:2rem;color:#25D366;margin-bottom:12px;display:block}
+    .form-success h4{font-size:1.5rem;margin-bottom:8px}
+    .form-success p{font-size:.85rem;color:var(--muted)}
+
+    /* ══════════════════════════
+       MAP SECTION
+    ══════════════════════════ */
+    #map-section{padding:0;background:var(--black)}
+    .map-header{padding:64px 0 36px;background:var(--black)}
+    .map-header-inner{max-width:1400px;margin:0 auto;padding:0 48px;display:flex;justify-content:space-between;align-items:flex-end}
+    .map-header h2{font-size:clamp(2.5rem,4vw,4.5rem);line-height:.92}
+    .map-header h2 em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--orange)}
+    .map-header p{max-width:400px;font-size:.9rem;color:var(--muted);line-height:1.8}
+
+    /* Map tabs */
+    .map-tabs{display:flex;gap:0;border:1px solid var(--line);width:fit-content}
+    .map-tab{padding:11px 28px;background:transparent;border:none;color:var(--muted);font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.1em;cursor:pointer;border-right:1px solid var(--line);transition:background .25s,color .25s}
+    .map-tab:last-child{border-right:none}
+    .map-tab:hover{background:var(--steel);color:var(--white)}
+    .map-tab.active{background:var(--orange);color:#fff}
+
+    /* Map container */
+    .map-wrapper{position:relative}
+
+    /* Map info overlay */
+    .map-overlay{
+      position:absolute;top:24px;left:24px;z-index:400;
+      background:rgba(9,9,13,.92);border:1px solid var(--line);
+      padding:20px 24px;min-width:220px;
+      backdrop-filter:blur(12px);
+    }
+    .mo-name{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;margin-bottom:6px;color:var(--white)}
+    .mo-addr{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:12px}
+    .mo-status{display:flex;align-items:center;gap:6px;font-size:.68rem;text-transform:uppercase;letter-spacing:.15em;color:#25D366}
+    .mo-status::before{content:'';width:7px;height:7px;background:#25D366;border-radius:50%;display:inline-block;animation:blink 2s infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+    /* Office location cards */
+    .offices-grid{max-width:1400px;margin:0 auto;padding:36px 48px 80px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+    .office-card{background:var(--char);padding:28px 22px;cursor:pointer;border-bottom:3px solid transparent;transition:background .25s,border-color .25s}
+    .office-card:hover,.office-card.active{background:var(--steel);border-color:var(--orange)}
+    .oc-flag{font-size:1.6rem;margin-bottom:10px;display:block}
+    .oc-country{font-size:1.2rem;margin-bottom:4px}
+    .oc-city{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+    .oc-status{display:inline-flex;align-items:center;gap:5px;font-size:.62rem;text-transform:uppercase;letter-spacing:.14em}
+    .oc-status.hq{color:var(--orange)}
+    .oc-status.active{color:#25D366}
+    .oc-status::before{content:'';width:5px;height:5px;border-radius:50%;display:inline-block}
+    .oc-status.hq::before{background:var(--orange)}
+    .oc-status.active::before{background:#25D366}
+
+    /* ══════════════════════════
+       FAQ
+    ══════════════════════════ */
+    #faq{padding:100px 0;background:var(--char)}
+    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+    .faq-copy h2{font-size:clamp(2.5rem,4vw,4.2rem);line-height:.92;margin-bottom:16px}
+    .faq-copy h2 em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--orange)}
+    .faq-copy p{font-size:.9rem;color:var(--muted);line-height:1.85;margin-bottom:32px}
+    .faq-list{display:flex;flex-direction:column;gap:0}
+    .faq-item{border-bottom:1px solid var(--line)}
+    .faq-item:first-child{border-top:1px solid var(--line)}
+    .faq-q{width:100%;background:none;border:none;color:var(--white);text-align:left;padding:20px 0;font-family:'Barlow',sans-serif;font-size:.95rem;font-weight:500;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color .25s}
+    .faq-q:hover{color:var(--orange)}
+    .faq-q i{color:var(--orange);font-size:.8rem;flex-shrink:0;transition:transform .35s}
+    .faq-item.open .faq-q i{transform:rotate(45deg)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .45s var(--ease),padding .35s}
+    .faq-item.open .faq-a{max-height:300px}
+    .faq-a p{font-size:.88rem;color:var(--muted);line-height:1.85;padding-bottom:20px}
+
+    /* ══════════════════════════
+       CTA BAND
+    ══════════════════════════ */
+    .cta-band{background:var(--black);padding:100px 0;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--line)}
+    .cta-band::before{content:'CONTACT';position:absolute;font-family:'Bebas Neue',sans-serif;font-size:16rem;color:rgba(255,255,255,.018);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap}
+    .cta-band h2{font-size:clamp(3rem,6vw,6rem);line-height:.92;margin-bottom:24px}
+    .cta-band h2 em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--orange)}
+    .cta-band p{font-size:.95rem;color:var(--muted);max-width:480px;margin:0 auto 44px;line-height:1.85}
+    .cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-primary{background:var(--orange);color:#fff;padding:16px 40px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;display:inline-flex;align-items:center;gap:10px;transition:background .25s,transform .25s}
+    .btn-primary:hover{background:var(--od);transform:translateX(4px)}
+    .btn-ghost{border:1px solid rgba(255,255,255,.2);color:#fff;padding:15px 40px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;border-radius:50px;transition:border-color .25s,background .25s}
+    .btn-ghost:hover{border-color:var(--orange);background:var(--og)}
+
+    /* ══════════════════════════
+       FOOTER
+    ══════════════════════════ */
+    footer{background:var(--black);border-top:1px solid var(--line);padding:64px 48px 0}
+    .footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:52px}
+    .footer-brand .logo{font-size:1.5rem;margin-bottom:16px;display:block}
+    .footer-brand p{font-size:.82rem;color:var(--muted);line-height:1.8;max-width:250px}
+    .footer-socials{display:flex;gap:10px;margin-top:22px}
+    .footer-socials a{width:34px;height:34px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.8rem;transition:border-color .25s,color .25s}
+    .footer-socials a:hover{border-color:var(--orange);color:var(--orange)}
+    .footer-col h4{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.2em;color:var(--orange);margin-bottom:18px}
+    .footer-col ul{display:flex;flex-direction:column;gap:10px;list-style:none}
+    .footer-col ul a{font-size:.82rem;color:var(--muted);transition:color .25s}
+    .footer-col ul a:hover{color:var(--white)}
+    .footer-bottom{max-width:1400px;margin:0 auto;border-top:1px solid var(--line);padding:20px 0;display:flex;justify-content:space-between;align-items:center}
+    .footer-bottom p{font-size:.7rem;color:var(--muted);letter-spacing:.05em}
+
+    /* ── WHATSAPP WIDGET ── */
+    .chat-widget{position:fixed;bottom:28px;right:28px;z-index:400}
+    .wa-fab{width:56px;height:56px;background:#25D366;border:none;border-radius:50%;color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 24px rgba(37,211,102,.4);transition:transform .3s,box-shadow .3s}
+    .wa-fab:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(37,211,102,.5)}
+    .wa-popup{position:absolute;bottom:70px;right:0;width:290px;background:#fff;border-radius:12px;box-shadow:0 16px 50px rgba(0,0,0,.35);overflow:hidden;display:none;animation:popUp .35s var(--ease)}
+    @keyframes popUp{from{transform:translateY(12px) scale(.96);opacity:0}to{transform:none;opacity:1}}
+    .wa-popup.open{display:block}
+    .wa-head{background:#075E54;padding:16px 18px;display:flex;align-items:center;gap:12px;position:relative}
+    .wa-av{width:36px;height:36px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+    .wa-info h4{color:#fff;font-size:.88rem}
+    .wa-status{font-size:.68rem;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:4px}
+    .wa-status::before{content:'';width:6px;height:6px;background:#25D366;border-radius:50%;display:inline-block}
+    .wa-x{position:absolute;right:12px;top:12px;background:none;border:none;color:#fff;font-size:1.3rem;cursor:pointer;opacity:.7}
+    .wa-body{padding:16px;background:#ece5dd}
+    .wa-bubble{background:#fff;border-radius:8px;padding:12px;font-size:.84rem;color:#333;line-height:1.6;margin-bottom:14px}
+    .wa-go{width:100%;background:#25D366;color:#fff;border:none;padding:11px;border-radius:6px;font-weight:600;font-size:.84rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .25s}
+    .wa-go:hover{background:#1ebd58}
+
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1100px){
+      .hero-inner{grid-template-columns:1fr;gap:48px}
+      .contact-grid{grid-template-columns:1fr;gap:48px}
+      .ds-inner{grid-template-columns:repeat(2,1fr)}
+      .offices-grid{grid-template-columns:repeat(2,1fr)}
+      .faq-grid{grid-template-columns:1fr;gap:48px}
+      .map-header-inner{flex-direction:column;align-items:flex-start;gap:20px}
+      .footer-inner{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:768px){
+      .nav-links{display:none}.hamburger{display:flex}
+      .hero{padding:120px 0 0}
+      .hero-inner,.wrap{padding:0 24px 60px}
+      .form-row{grid-template-columns:1fr}
+      .form-group.full{grid-column:span 1}
+      .contact-form{padding:32px 24px}
+      .offices-grid{grid-template-columns:1fr 1fr;padding:28px 24px 60px}
+      .ds-inner{grid-template-columns:1fr}
+      .footer-inner{grid-template-columns:1fr;gap:32px}
+      footer{padding:48px 24px 0}
+      .map-overlay{display:none}
+      .map-header-inner{padding:0 24px}
+      .offices-grid{padding:24px}
+    }
+    @media(max-width:500px){
+      .offices-grid{grid-template-columns:1fr}
+      .hero-pills{flex-direction:column}
+      .cta-band h2{font-size:2.8rem}
+    }
+  
+    /* ── SITE LOGO ── */
+    .site-logo { display:flex; align-items:center; text-decoration:none; }
+    .site-logo img {
+      height: 48px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      transition: opacity 0.25s;
+    }
+    .site-logo img:hover { opacity: 0.82; }
+    .footer-logo img {
+      height: 58px;
+      width: auto;
+      max-width: 260px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      margin-bottom: 14px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Mobile Menu -->
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" onclick="closeMob()"><i class="fa-solid fa-xmark"></i></button>
+    <a href="index.html" onclick="closeMob()">Home</a>
+    <a href="about.html" onclick="closeMob()">About</a>
+    <a href="index.html#services" onclick="closeMob()">Services</a>
+    <a href="our-machines.html" onclick="closeMob()">Machines</a>
+    <a href="org-chart.html" onclick="closeMob()">Structure</a>
+    <a href="#" onclick="closeMob()">Contact</a>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="nav">
+      <a href="index.html" class="site-logo"><img src="aguntalogo.png"></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="our_machines.html">Machines</a>
+        <a href="contact_us.html" class="active nav-cta">Contact Us</a>
+      </div>
+      <div class="hamburger" onclick="openMob()"><span></span><span></span><span></span></div>
+    </div>
+  </header>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="hero-badge"><i class="fa-solid fa-message"></i> &nbsp; Get In Touch</div>
+        <h1 id="con_heroTitle">LET'S<br>BUILD<br><em>Together.</em></h1>
+        <p id="con_heroSub">Whether you have a project in mind, a question about our services, or simply want to know more — our team is ready to respond within 24 hours.</p>
+        <div class="hero-pills">
+          <a href="tel:+256393242285" class="pill" id="con_pill_phone"><i class="fa-solid fa-phone"></i> +256 393 242 285</a>
+          <a href="https://wa.me/256393242285" target="_blank" class="pill"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-map-preview">
+          <div class="hmp-grid"></div>
+          <div class="hmp-overlay"></div>
+          <!-- Animated map pulse -->
+          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;text-align:center">
+            <div style="width:20px;height:20px;background:var(--orange);border-radius:50%;margin:0 auto;position:relative">
+              <div style="position:absolute;inset:-8px;border:2px solid var(--orange);border-radius:50%;animation:ripple 2s infinite"></div>
+              <div style="position:absolute;inset:-16px;border:1px solid rgba(212,77,29,.4);border-radius:50%;animation:ripple 2s .5s infinite"></div>
+            </div>
+            <div style="margin-top:16px;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.15em;color:var(--white)">KABALAGALA, KAMPALA</div>
+            <div style="font-size:.7rem;color:var(--muted);letter-spacing:.12em;margin-top:4px">HEADQUARTERS</div>
+          </div>
+          <div class="hmp-label"><i class="fa-solid fa-location-dot" style="margin-right:6px"></i> Uganda · South Sudan · Ethiopia · Eritrea</div>
+        </div>
+        @keyframes ripple{0%{transform:scale(.6);opacity:1}100%{transform:scale(2);opacity:0}}
+        <!-- Open hours badge -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:1px">
+          <div style="background:var(--steel);padding:16px 20px">
+            <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Working Hours</div>
+            <div style="font-size:.9rem;font-weight:500">Mon – Fri: 8AM – 6PM</div>
+          </div>
+          <div style="background:var(--steel);padding:16px 20px">
+            <div style="font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Response Time</div>
+            <div style="font-size:.9rem;font-weight:500">Within 24 Hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT DETAILS STRIP ═══ -->
+  <div class="details-strip">
+    <div class="ds-inner">
+      <div class="ds-item reveal">
+        <i class="fa-solid fa-phone ds-icon"></i>
+        <div class="ds-label">Phone</div>
+        <div class="ds-value"><a href="tel:+256393242285">+256 393 242 285</a></div>
+      </div>
+      <div class="ds-item reveal" style="transition-delay:.08s">
+        <i class="fa-solid fa-envelope ds-icon"></i>
+        <div class="ds-label">Email</div>
+        <div class="ds-value"><a href="mailto:aguntacon@gmail.com">aguntacon@gmail.com</a></div>
+      </div>
+      <div class="ds-item reveal" style="transition-delay:.16s">
+        <i class="fa-solid fa-location-dot ds-icon"></i>
+        <div class="ds-label">Headquarters</div>
+        <div class="ds-value">Kabalagala, Kampala<br>Uganda, East Africa</div>
+      </div>
+      <div class="ds-item reveal" style="transition-delay:.24s">
+        <i class="fa-solid fa-clock ds-icon"></i>
+        <div class="ds-label">Office Hours</div>
+        <div class="ds-value">Mon – Fri: 8:00 AM – 6:00 PM<br><span style="font-size:.82rem;opacity:.7">East Africa Time (EAT)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MAIN CONTACT SECTION ═══ -->
+  <section id="contact-main">
+    <div class="wrap">
+      <div class="contact-grid">
+
+        <!-- LEFT: Info -->
+        <div class="reveal-left">
+          <div class="section-label">Reach Out</div>
+          <h2>How Can We<br><em>Help You?</em></h2>
+          <p>Our team of engineers and project specialists are ready to discuss your construction needs — from initial consultation through to project handover.</p>
+
+          <div class="info-blocks">
+            <div class="info-block">
+              <div class="ib-icon"><i class="fa-solid fa-phone"></i></div>
+              <div class="ib-text">
+                <label>Phone / WhatsApp</label>
+                <a href="tel:+256393242285" class="p" id="con_phone">+256 393 242 285</a>
+              </div>
+            </div>
+            <div class="info-block">
+              <div class="ib-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div class="ib-text">
+                <label>Email Address</label>
+                <a href="mailto:info@aguntaconstruction.com" id="con_email">info@aguntaconstruction.com</a>
+              </div>
+            </div>
+            <div class="info-block">
+              <div class="ib-icon"><i class="fa-solid fa-building"></i></div>
+              <div class="ib-text">
+                <label>Head Office</label>
+                <p id="con_address">Kabalagala, Kampala — Uganda</p>
+              </div>
+            </div>
+            <div class="info-block">
+              <div class="ib-icon"><i class="fa-solid fa-globe-africa"></i></div>
+              <div class="ib-text">
+                <label>Regional Operations</label>
+                <p>South Sudan · Ethiopia · Eritrea</p>
+              </div>
+            </div>
+            <div class="info-block">
+              <div class="ib-icon"><i class="fa-solid fa-clock"></i></div>
+              <div class="ib-text">
+                <label>Working Hours</label>
+                <p id="con_hours">Monday – Friday: 8:00 AM – 6:00 PM EAT</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div class="social-row">
+            <a href="#" class="soc-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="#" class="soc-btn"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="#" class="soc-btn"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="soc-btn"><i class="fa-brands fa-twitter"></i></a>
+          </div>
+
+          <!-- WhatsApp CTA -->
+          <a href="https://wa.me/256393242285" target="_blank" class="wa-cta">
+            <i class="fa-brands fa-whatsapp"></i>
+            <div class="wa-cta-text">
+              <span>Chat directly with our team</span>
+              <strong>Open WhatsApp Now</strong>
+            </div>
+            <i class="fa-solid fa-arrow-right" style="margin-left:auto;font-size:.8rem"></i>
+          </a>
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="reveal-right">
+          <div class="contact-form">
+            <h3>Send Us a Message</h3>
+            <p>Fill in the form and we'll get back to you within 24 hours.</p>
+
+            <div class="form-row">
+              <div class="form-group" id="fg-fname">
+                <label>First Name *</label>
+                <input type="text" id="fname" placeholder="John">
+                <span class="err-msg">Please enter your first name</span>
+              </div>
+              <div class="form-group" id="fg-lname">
+                <label>Last Name *</label>
+                <input type="text" id="lname" placeholder="Doe">
+                <span class="err-msg">Please enter your last name</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group" id="fg-email">
+                <label>Email Address *</label>
+                <input type="email" id="email" placeholder="john@company.com">
+                <span class="err-msg">Please enter a valid email</span>
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phone" placeholder="+256 ...">
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <div class="form-group full" id="fg-msg">
+                <label>Project Details *</label>
+                <textarea id="message" placeholder="Briefly describe your project — location, scope, timeline, and any specific requirements..."></textarea>
+                <span class="err-msg">Please describe your project</span>
+              </div>
+            </div>
+
+            <!-- File upload -->
+            <div class="form-row" style="margin-bottom:20px">
+              <div class="form-group full">
+                <label>Attachments (optional)</label>
+                <div id="drop-zone" style="border:2px dashed var(--line);padding:20px;text-align:center;cursor:pointer;transition:border-color .25s;font-size:.82rem;color:var(--muted)" onclick="document.getElementById('fileInput').click()">
+                  <i class="fa-solid fa-cloud-arrow-up" style="font-size:1.4rem;color:var(--orange);margin-bottom:8px;display:block"></i>
+                  Drop files here or <span style="color:var(--orange)">click to upload</span><br>
+                  <span style="font-size:.72rem">Plans, drawings, photos (max 10MB each)</span>
+                </div>
+                <input type="file" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png,.dwg" style="display:none" onchange="handleFiles(this.files)">
+                <div id="file-list" style="margin-top:8px;display:flex;flex-direction:column;gap:4px"></div>
+              </div>
+            </div>
+
+            <button class="form-submit" id="submitBtn" onclick="submitForm()">
+              <span id="submitLabel">Send Message</span>
+              <i class="fa-solid fa-paper-plane" id="submitIcon"></i>
+            </button>
+
+            <div class="form-success" id="formSuccess">
+              <i class="fa-solid fa-circle-check"></i>
+              <h4>Message Sent!</h4>
+              <p>Thank you for reaching out. Our team will respond within 24 hours. Check your email for a confirmation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MAP SECTION ═══ -->
+  <section id="map-section">
+    <div class="map-header">
+      <div class="map-header-inner">
+        <div>
+          <div class="section-label reveal">Our Locations</div>
+          <h2 class="reveal" style="transition-delay:.1s">Find Us<br><em>Across Africa</em></h2>
+        </div>
+        <div class="reveal" style="transition-delay:.15s">
+          <p>Click any office card to highlight that location on the map.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom SVG Africa Map -->
+    <div class="map-wrapper" style="background:#0b0b0f;padding:0;position:relative;overflow:hidden">
+      <div id="custom-map" style="width:100%;height:560px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden">
+        <!-- Scanline overlay -->
+        <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.08) 3px,rgba(0,0,0,.08) 4px);pointer-events:none;z-index:3"></div>
+        <!-- Grid lines -->
+        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:2"></div>
+
+        <svg id="africaSvg" viewBox="0 0 520 600" style="height:100%;max-height:560px;width:auto;position:relative;z-index:4" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="strongGlow">
+              <feGaussianBlur stdDeviation="6" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+
+          <!-- Africa continent shape -->
+          <path id="africa-shape" d="
+            M 195 18
+            C 185 16 170 18 158 22
+            C 145 26 130 30 120 38
+            C 108 46 100 58 95 70
+            C 90 82 88 96 85 110
+            C 82 124 78 138 72 150
+            C 66 162 56 172 50 184
+            C 44 196 40 210 38 224
+            C 36 238 36 252 38 266
+            C 40 280 44 294 50 306
+            C 56 318 64 328 72 338
+            C 80 348 90 356 98 366
+            C 106 376 112 388 116 400
+            C 120 412 122 426 124 440
+            C 126 452 128 464 132 474
+            C 136 484 142 492 150 498
+            C 158 504 168 508 178 510
+            C 188 512 200 512 210 508
+            C 220 504 228 496 234 488
+            C 240 480 244 470 248 460
+            C 252 450 256 438 262 428
+            C 268 418 276 410 282 400
+            C 288 390 292 378 294 366
+            C 296 354 296 340 298 328
+            C 300 316 304 304 310 294
+            C 316 284 324 276 332 268
+            C 340 260 350 254 358 246
+            C 366 238 372 228 376 218
+            C 380 208 382 196 382 184
+            C 382 172 380 160 376 150
+            C 372 140 366 130 360 122
+            C 354 114 346 106 340 98
+            C 334 90 328 82 322 74
+            C 316 66 308 60 300 54
+            C 292 48 282 44 272 40
+            C 262 36 250 34 240 30
+            C 230 26 220 22 210 20
+            C 205 19 200 18 195 18 Z
+          " fill="#1a2234" stroke="#2a3a54" stroke-width="1.5"/>
+
+          <!-- Country highlights -->
+          <!-- Uganda (HQ) -->
+          <ellipse id="dot-ug" cx="268" cy="330" rx="22" ry="16" fill="rgba(212,77,29,0.2)" stroke="#d44d1d" stroke-width="1"/>
+          <!-- South Sudan -->
+          <ellipse id="dot-ss" cx="252" cy="282" rx="18" ry="13" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+          <!-- Ethiopia -->
+          <ellipse id="dot-et" cx="308" cy="272" rx="20" ry="14" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+          <!-- Eritrea -->
+          <ellipse id="dot-er" cx="306" cy="238" rx="14" ry="10" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+
+          <!-- Connection lines from HQ -->
+          <line x1="268" y1="322" x2="252" y2="292" stroke="rgba(212,77,29,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="268" y1="322" x2="300" y2="278" stroke="rgba(212,77,29,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+          <line x1="268" y1="322" x2="298" y2="246" stroke="rgba(212,77,29,0.3)" stroke-width="1" stroke-dasharray="4,3"/>
+
+          <!-- HQ pulse rings -->
+          <circle id="pulse1" cx="268" cy="330" r="8" fill="none" stroke="#d44d1d" stroke-width="1.5" opacity="1"/>
+          <circle id="pulse2" cx="268" cy="330" r="8" fill="none" stroke="#d44d1d" stroke-width="1" opacity="0.6"/>
+
+          <!-- Office dots -->
+          <!-- Uganda HQ -->
+          <circle cx="268" cy="330" r="8" fill="#d44d1d" filter="url(#strongGlow)"/>
+          <circle cx="268" cy="330" r="5" fill="#ff6b3d"/>
+          <!-- South Sudan -->
+          <circle cx="252" cy="283" r="5" fill="#fff" filter="url(#glow)" opacity="0.85"/>
+          <circle cx="252" cy="283" r="3" fill="#fff"/>
+          <!-- Ethiopia -->
+          <circle cx="308" cy="272" r="5" fill="#fff" filter="url(#glow)" opacity="0.85"/>
+          <circle cx="308" cy="272" r="3" fill="#fff"/>
+          <!-- Eritrea -->
+          <circle cx="306" cy="238" r="4" fill="#fff" filter="url(#glow)" opacity="0.85"/>
+          <circle cx="306" cy="238" r="2.5" fill="#fff"/>
+
+          <!-- Labels -->
+          <text x="268" y="348" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="9" fill="#d44d1d" letter-spacing="1">KAMPALA HQ</text>
+          <text x="238" y="273" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="8" fill="rgba(255,255,255,0.55)" letter-spacing="0.8">JUBA</text>
+          <text x="322" y="263" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="8" fill="rgba(255,255,255,0.55)" letter-spacing="0.8">ADDIS ABABA</text>
+          <text x="320" y="231" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="8" fill="rgba(255,255,255,0.55)" letter-spacing="0.8">ASMARA</text>
+        </svg>
+
+        <!-- Info panel -->
+        <div id="mapInfoPanel" style="position:absolute;top:24px;right:24px;background:rgba(9,9,13,0.92);border:1px solid rgba(212,77,29,0.35);padding:20px 24px;min-width:200px;z-index:10;backdrop-filter:blur(8px)">
+          <div id="mip-flag" style="font-size:1.6rem;margin-bottom:8px">🇺🇬</div>
+          <div id="mip-name" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.08em;color:#fff;margin-bottom:4px">Uganda — Headquarters</div>
+          <div id="mip-city" style="font-size:.75rem;color:rgba(255,255,255,.5);line-height:1.6">Kabalagala, Kampala<br>Uganda, East Africa</div>
+          <div id="mip-badge" style="margin-top:10px;font-size:.6rem;background:#d44d1d;color:#fff;padding:3px 10px;display:inline-block;letter-spacing:.15em;text-transform:uppercase">Headquarters</div>
+        </div>
+
+        <!-- Legend -->
+        <div style="position:absolute;bottom:20px;left:24px;display:flex;gap:20px;z-index:10">
+          <div style="display:flex;align-items:center;gap:7px;font-size:.65rem;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase">
+            <span style="width:10px;height:10px;background:#d44d1d;border-radius:50%;display:inline-block"></span>Headquarters
+          </div>
+          <div style="display:flex;align-items:center;gap:7px;font-size:.65rem;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase">
+            <span style="width:8px;height:8px;background:#fff;border-radius:50%;display:inline-block;opacity:.7"></span>Active Office
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Office Cards -->
+    <div class="offices-grid">
+      <div class="office-card active" id="card-ug" onclick="selectOffice('ug','🇺🇬','Uganda — Headquarters','Kabalagala, Kampala\nUganda, East Africa',true,'card-ug')">
+        <span class="oc-flag">🇺🇬</span>
+        <div class="oc-country">Uganda</div>
+        <div class="oc-city">Kampala · Kabalagala</div>
+        <div class="oc-status hq"><i class="fa-solid fa-star" style="font-size:.55rem"></i>&nbsp; Headquarters</div>
+      </div>
+      <div class="office-card" id="card-ss" onclick="selectOffice('ss','🇸🇸','South Sudan Office','Juba, South Sudan\nEast Africa',false,'card-ss')">
+        <span class="oc-flag">🇸🇸</span>
+        <div class="oc-country">South Sudan</div>
+        <div class="oc-city">Juba</div>
+        <div class="oc-status active">Active Operations</div>
+      </div>
+      <div class="office-card" id="card-et" onclick="selectOffice('et','🇪🇹','Ethiopia Office','Addis Ababa, Ethiopia\nEast Africa',false,'card-et')">
+        <span class="oc-flag">🇪🇹</span>
+        <div class="oc-country">Ethiopia</div>
+        <div class="oc-city">Addis Ababa</div>
+        <div class="oc-status active">Active Operations</div>
+      </div>
+      <div class="office-card" id="card-er" onclick="selectOffice('er','🇪🇷','Eritrea Office','Asmara, Eritrea\nEast Africa',false,'card-er')">
+        <span class="oc-flag">🇪🇷</span>
+        <div class="oc-country">Eritrea</div>
+        <div class="oc-city">Asmara</div>
+        <div class="oc-status active">Active Operations</div>
+      </div>
+      <div class="office-card" id="card-gh" onclick="selectOffice('gh','🇬🇭','Ghana Office','Accra, Ghana\nWest Africa',false,'card-gh')">
+        <span class="oc-flag">🇬🇭</span>
+        <div class="oc-country">Ghana</div>
+        <div class="oc-city">Accra</div>
+        <div class="oc-status active">Active Operations</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="faq-grid">
+        <div class="faq-copy reveal-left">
+          <div class="section-label">Common Questions</div>
+          <h2>Frequently<br>Asked <em>Questions</em></h2>
+          <p>Can't find what you're looking for? Reach out directly and our team will be happy to assist.</p>
+          <a href="https://wa.me/256393242285" target="_blank" class="btn-primary" style="margin-top:8px">
+            <i class="fa-brands fa-whatsapp"></i> Ask on WhatsApp
+          </a>
+        </div>
+        <div class="faq-list reveal-right">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              How quickly can Agunta mobilise on a new project?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-a"><p>We can typically mobilise our initial team and equipment within 2–4 weeks of contract signing, depending on project location and scope. For urgent infrastructure works, we have rapid-deployment capacity across all five of our operating countries.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Do you work with international NGOs and government agencies?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-a"><p>Yes — a significant portion of our portfolio includes contracts with government bodies, UN agencies, and international NGOs across East and West Africa. We are fully compliant with procurement standards including FIDIC, World Bank, and AfDB guidelines.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Can you provide a detailed cost estimate before contract?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-a"><p>Absolutely. Our Quantity Surveying team provides detailed Bills of Quantities (BOQs) and cost estimates at the pre-contract stage. Submit your project brief via the contact form and we'll prepare a preliminary estimate within 48 hours.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Do you offer equipment hire independently of construction contracts?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-a"><p>Yes. Our fleet of excavators, dump trucks, concrete mixers, graders, and other heavy equipment is available for hire independently. Contact us with your equipment requirements, location, and hire duration for a tailored quote.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              What certifications and quality standards do you hold?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-a"><p>We are certified to ISO 9001:2015 (Quality), ISO 45001 (Safety), and ISO 14001 (Environment). We are also registered with the Uganda National Roads Authority (UNRA) and the Uganda Registration of Engineers (URE), with operating licences in all four countries we serve.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              What is the minimum project size you take on?
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <div class="faq-a"><p>We work on projects ranging from small commercial renovations to large-scale infrastructure worth tens of millions of dollars. Our teams are structured to handle projects of all sizes with the same level of quality and attention to detail.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CTA ═══ -->
+  <div class="cta-band">
+    <div class="wrap" style="position:relative;z-index:2;text-align:center">
+      <div class="section-label reveal" style="justify-content:center">Start Today</div>
+      <h2 class="reveal" style="transition-delay:.1s">Ready to Start<br>Your <em>Project?</em></h2>
+      <p class="reveal" style="transition-delay:.2s">Send us your project brief and receive a free consultation and preliminary estimate within 48 hours — no obligation.</p>
+      <div class="cta-btns reveal" style="transition-delay:.3s">
+        <a href="#contact-main" class="btn-primary">Send a Message <i class="fa-solid fa-arrow-up"></i></a>
+        <a href="https://wa.me/256393242285" target="_blank" class="btn-ghost"><i class="fa-brands fa-whatsapp"></i> WhatsApp Us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo"><img src="aguntalogo.png"></a>
+        <p>Building the structures that define skylines and serve communities across Africa since 2007.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/256775975266"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="index.html#service">Services</a></li>
+          <li><a href="our-machines.html">Our Machines</a></li>
+          <li><a href="bord.html">Structure</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="project.html">Commercial</a></li>
+          <li><a href="project.html">Residential</a></li>
+          <li><a href="project.html">Infrastructure</a></li>
+          <li><a href="project.html">Industrial</a></li>
+          <li><a href="our_machines.html">Equipment Hire</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+256393242285">+256 393 242 285</a></li>
+          <li><a href="https://wa.me/256775975266">WhatsApp</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Agunta Construction Ltd. All rights reserved.</p>
+      <p>Privacy Policy &nbsp;·&nbsp; Terms of Service</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Widget -->
+  <div class="chat-widget">
+    <div class="wa-popup" id="waPopup">
+      <div class="wa-head">
+        <div class="wa-av">A</div>
+        <div class="wa-info"><h4>Agunta Construction</h4><div class="wa-status">Online · Replies instantly</div></div>
+        <button class="wa-x" onclick="toggleWA()">×</button>
+      </div>
+      <div class="wa-body">
+        <div class="wa-bubble">👷 Hi there! Ready to discuss your construction project? Chat with us now.</div>
+        <button class="wa-go" onclick="goWA()"><i class="fa-brands fa-whatsapp"></i> Start Chat</button>
+      </div>
+    </div>
+    <button class="wa-fab" onclick="toggleWA()"><i class="fa-brands fa-whatsapp"></i></button>
+  </div>
+
+  <script>
+    // ── Cursor ──
+    const cur=document.getElementById('cursor'),crg=document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+    (function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;crg.style.left=rx+'px';crg.style.top=ry+'px';requestAnimationFrame(loop)})();
+    document.querySelectorAll('a,button,.office-card,.ds-item,.info-block,.pill').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{crg.style.width='50px';crg.style.height='50px';crg.style.borderColor='var(--orange)'});
+      el.addEventListener('mouseleave',()=>{crg.style.width='32px';crg.style.height='32px'});
+    });
+
+    // ── Header scroll ──
+    window.addEventListener('scroll',()=>document.getElementById('header').classList.toggle('scrolled',scrollY>60));
+
+    // ── Reveal ──
+    const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.08});
+    document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>obs.observe(el));
+
+    // Budget slider (optional - only runs if element exists)
+    const slider=document.getElementById('budgetSlider');
+    const display=document.getElementById('budgetDisplay');
+    function formatBudget(v){
+      if(v>=1000000) return '$'+(v/1000000).toFixed(1)+'M';
+      if(v>=1000) return '$'+(v/1000).toFixed(0)+'K';
+      return '$'+v;
+    }
+    if(slider) slider.addEventListener('input',()=>display.textContent=formatBudget(+slider.value));
+
+    // ── File Upload ──
+    const dz=document.getElementById('drop-zone');
+    dz.addEventListener('dragover',e=>{e.preventDefault();dz.style.borderColor='var(--orange)'});
+    dz.addEventListener('dragleave',()=>dz.style.borderColor='var(--line)');
+    dz.addEventListener('drop',e=>{e.preventDefault();dz.style.borderColor='var(--line)';handleFiles(e.dataTransfer.files)});
+    function handleFiles(files){
+      const fl=document.getElementById('file-list');
+      Array.from(files).forEach(f=>{
+        const div=document.createElement('div');
+        div.style.cssText='display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--char);font-size:.78rem;color:var(--muted);border:1px solid var(--line)';
+        div.innerHTML=`<i class="fa-solid fa-file" style="color:var(--orange)"></i> ${f.name} <span style="margin-left:auto;font-size:.68rem">${(f.size/1024).toFixed(0)}KB</span>`;
+        fl.appendChild(div);
+      });
+    }
+
+    // ── Form Validation & Submit ──
+    function validateEmail(e){return/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
+    async function submitForm(){
+
+      // Validate only fields that exist in the HTML
+      let valid = true;
+      const fname   = document.getElementById('fname').value.trim();
+      const lname   = document.getElementById('lname').value.trim();
+      const email   = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if(!fname){
+        document.getElementById('fg-fname').classList.add('error'); valid=false;
+      } else { document.getElementById('fg-fname').classList.remove('error'); }
+
+      if(!lname){
+        document.getElementById('fg-lname').classList.add('error'); valid=false;
+      } else { document.getElementById('fg-lname').classList.remove('error'); }
+
+      if(!validateEmail(email)){
+        document.getElementById('fg-email').classList.add('error'); valid=false;
+      } else { document.getElementById('fg-email').classList.remove('error'); }
+
+      if(message.length < 5){
+        document.getElementById('fg-msg').classList.add('error'); valid=false;
+      } else { document.getElementById('fg-msg').classList.remove('error'); }
+
+      if(!valid) return;
+
+      // Show loading
+      const btn = document.getElementById('submitBtn');
+      const lbl = document.getElementById('submitLabel');
+      const ico = document.getElementById('submitIcon');
+      btn.classList.add('loading');
+      lbl.textContent = 'Sending...';
+      ico.className = 'fa-solid fa-spinner fa-spin';
+
+      const phoneEl = document.getElementById('phone');
+      const phone   = phoneEl ? phoneEl.value.trim() : '';
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name:        fname + ' ' + lname,
+            email:       email,
+            phone:       phone,
+            projectType: '',
+            message:     message
+          })
+        });
+
+        const data = await response.json();
+
+        if(response.ok && data.success){
+          btn.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+          ['fname','lname','email','phone','message'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.value = '';
+          });
+          try { document.getElementById('file-list').innerHTML = ''; } catch(e){}
+        } else {
+          btn.classList.remove('loading');
+          lbl.textContent = 'Send Message';
+          ico.className = 'fa-solid fa-paper-plane';
+          alert(data.error || 'Something went wrong. Please try again.');
+        }
+      } catch(err){
+        btn.classList.remove('loading');
+        lbl.textContent = 'Send Message';
+        ico.className = 'fa-solid fa-paper-plane';
+        alert('Cannot reach the server. Make sure node server.js is still running in CMD.');
+      }
+    }
+
+
+    // ── FAQ Accordion ──
+    function toggleFaq(btn){
+      const item=btn.closest('.faq-item');
+      const wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+      if(!wasOpen) item.classList.add('open');
+    }
+
+    // ── SVG Map — Select Office ──
+    function selectOffice(code, flag, name, city, isHq, cardId) {
+      // Update info panel
+      document.getElementById('mip-flag').textContent = flag;
+      document.getElementById('mip-name').textContent = name;
+      document.getElementById('mip-city').innerHTML = city.replace(/\n/g,'<br>');
+      const badge = document.getElementById('mip-badge');
+      if(isHq){ badge.textContent='Headquarters'; badge.style.background='#d44d1d'; badge.style.display='inline-block'; }
+      else { badge.textContent='Active Office'; badge.style.background='rgba(255,255,255,0.15)'; badge.style.display='inline-block'; }
+      // Highlight country ellipse
+      ['ug','ss','et','er'].forEach(c=>{
+        const el=document.getElementById('dot-'+c);
+        if(el){ el.style.fill=c===code?'rgba(212,77,29,0.3)':'rgba(255,255,255,0.06)'; el.style.stroke=c===code?'#d44d1d':'rgba(255,255,255,0.25)'; }
+      });
+      // Highlight card
+      document.querySelectorAll('.office-card').forEach(c=>c.classList.remove('active'));
+      document.getElementById(cardId).classList.add('active');
+    }
+
+    // ── Pulse animation for HQ dot ──
+    (function pulseHQ(){
+      const p1=document.getElementById('pulse1'), p2=document.getElementById('pulse2');
+      if(!p1||!p2) return;
+      let r=8, growing=true;
+      setInterval(()=>{
+        r = growing ? r+0.5 : r-0.5;
+        if(r>=22){ growing=false; } if(r<=8){ growing=true; }
+        p1.setAttribute('r', r);
+        p1.setAttribute('opacity', 1-(r-8)/18);
+        p2.setAttribute('r', r*0.6);
+        p2.setAttribute('opacity', 0.5-(r-8)/36);
+      }, 40);
+    })();
+
+    // ── Mobile Menu ──
+    function openMob(){document.getElementById('mobMenu').classList.add('open')}
+    function closeMob(){document.getElementById('mobMenu').classList.remove('open')}
+
+    // ── WhatsApp ──
+    function toggleWA(){document.getElementById('waPopup').classList.toggle('open')}
+    function goWA(){window.open('https://wa.me/256393242285','_blank');document.getElementById('waPopup').classList.remove('open')}
+    setTimeout(()=>document.getElementById('waPopup').classList.add('open'),5000);
+
+    // ── Load Dynamic Content from Admin ──
+    async function loadContactPageData() {
+      try {
+        const r = await fetch('/api/pages');
+        const pages = await r.json();
+        const co = pages.contact || {};
+        if(co.heroTitle) { const el=document.getElementById('con_heroTitle'); if(el) el.innerHTML=co.heroTitle; }
+        if(co.heroSub)   { const el=document.getElementById('con_heroSub');   if(el) el.textContent=co.heroSub; }
+        if(co.phone) {
+          const el=document.getElementById('con_phone'); if(el){ el.textContent=co.phone; el.href='tel:'+co.phone.replace(/\s/g,''); }
+          const pill=document.getElementById('con_pill_phone'); if(pill){ pill.innerHTML='<i class="fa-solid fa-phone"></i> '+co.phone; pill.href='tel:'+co.phone.replace(/\s/g,''); }
+        }
+        if(co.email) {
+          const el=document.getElementById('con_email'); if(el){ el.textContent=co.email; el.href='mailto:'+co.email; }
+          const pill=document.getElementById('con_pill_email'); if(pill){ pill.href='mailto:'+co.email; }
+        }
+        if(co.address) { const el=document.getElementById('con_address'); if(el) el.textContent=co.address; }
+        if(co.hours)   { const el=document.getElementById('con_hours');   if(el) el.textContent=co.hours; }
+      } catch(e) { /* keep defaults */ }
+    }
+    loadContactPageData();
+  </script>
+</body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Agunta Construction Ltd</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{--o:#d44d1d;--od:#b03a10;--og:rgba(212,77,29,0.13);--bk:#0b0b0b;--ch:#141414;--st:#1c1c1c;--ln:rgba(255,255,255,0.07);--wh:#fff;--mu:#888;--gr:#22c55e;--re:#ef4444;--ya:#f59e0b;--ease:cubic-bezier(0.16,1,0.3,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Barlow',sans-serif;background:var(--bk);color:var(--wh);overflow-x:hidden;min-height:100vh}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--ch)}::-webkit-scrollbar-thumb{background:var(--o);border-radius:4px}
+a{text-decoration:none;color:inherit}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;z-index:9999;background:var(--bk);display:flex;align-items:center;justify-content:center}
+.lbox{background:var(--ch);border:1px solid var(--ln);padding:52px 44px;width:420px;max-width:95vw}
+.llogo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.15em;margin-bottom:6px}.llogo span{color:var(--o)}
+.lsub{color:var(--mu);font-size:.8rem;margin-bottom:36px}
+.lbox label{display:block;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mu);margin-bottom:7px}
+.lbox input{width:100%;background:var(--st);border:1px solid var(--ln);color:var(--wh);padding:12px 14px;font-family:'Barlow',sans-serif;font-size:.88rem;outline:none;transition:border-color .25s;margin-bottom:18px}
+.lbox input:focus{border-color:var(--o)}
+.lbtn{width:100%;background:var(--o);color:var(--wh);border:none;padding:14px;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.15em;cursor:pointer;transition:background .25s}
+.lbtn:hover{background:var(--od)}
+.lerr{color:var(--re);font-size:.8rem;margin-top:10px;display:none}
+
+/* SHELL */
+#appShell{display:none;min-height:100vh}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--ch);border-right:1px solid var(--ln);display:flex;flex-direction:column;z-index:100;overflow-y:auto}
+.slogo{padding:24px;border-bottom:1px solid var(--ln);font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:.15em}.slogo span{color:var(--o)}
+.slabel{font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--mu);padding:18px 24px 6px;margin-top:6px}
+.nitem{display:flex;align-items:center;gap:11px;padding:11px 24px;cursor:pointer;transition:background .2s,color .2s;font-size:.8rem;letter-spacing:.04em;color:var(--mu);border-left:3px solid transparent}
+.nitem:hover{background:var(--st);color:var(--wh)}
+.nitem.active{background:var(--og);color:var(--wh);border-left-color:var(--o)}
+.nitem i{width:16px;text-align:center;font-size:.85rem}
+.nbadge{margin-left:auto;background:var(--o);color:var(--wh);font-size:.58rem;font-weight:700;padding:2px 6px;border-radius:20px}
+.sfoot{margin-top:auto;padding:18px 24px;border-top:1px solid var(--ln)}
+.apill{display:flex;align-items:center;gap:9px;background:var(--st);padding:9px 12px;margin-bottom:10px}
+.aav{width:30px;height:30px;background:var(--o);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:.95rem;flex-shrink:0}
+.aname{font-size:.78rem;font-weight:600}
+.arole{font-size:.62rem;color:var(--o);letter-spacing:.1em;text-transform:uppercase}
+.logbtn{width:100%;background:transparent;border:1px solid var(--ln);color:var(--mu);padding:8px;cursor:pointer;font-family:'Barlow',sans-serif;font-size:.75rem;letter-spacing:.1em;transition:border-color .25s,color .25s}
+.logbtn:hover{border-color:var(--re);color:var(--re)}
+
+/* MAIN */
+.main{margin-left:240px;min-height:100vh}
+.topbar{background:var(--ch);border-bottom:1px solid var(--ln);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.ttitle{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em}
+.ttag{background:var(--og);color:var(--o);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(212,77,29,.3)}
+.content{padding:32px}
+
+/* TABS */
+.tab{display:none}.tab.active{display:block}
+
+/* STAT CARDS */
+.sgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px}
+.scard{background:var(--ch);border:1px solid var(--ln);padding:20px;position:relative;overflow:hidden}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--o)}
+.scard.g::before{background:var(--gr)}.scard.b::before{background:#3b82f6}.scard.y::before{background:var(--ya)}.scard.p::before{background:#a855f7}
+.sicon{font-size:1.4rem;margin-bottom:12px;color:var(--mu)}
+.scard.g .sicon{color:var(--gr)}.scard.b .sicon{color:#60a5fa}.scard.y .sicon{color:var(--ya)}.scard.p .sicon{color:#c084fc}
+.sval{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;line-height:1}
+.slbl{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--mu);margin-top:4px}
+
+/* SECTION HEADER */
+.shd{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.shd h2{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.08em}
+
+/* BUTTONS */
+.btn{background:var(--o);color:var(--wh);border:none;padding:9px 20px;font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.08em;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:background .25s}
+.btn:hover{background:var(--od)}
+.btng{background:transparent;border:1px solid var(--ln);color:var(--mu);padding:7px 14px;font-size:.72rem;cursor:pointer;font-family:'Barlow',sans-serif;transition:border-color .2s,color .2s}
+.btng:hover{border-color:var(--o);color:var(--wh)}
+.btnd{background:transparent;border:1px solid var(--ln);color:var(--mu);padding:7px 12px;font-size:.72rem;cursor:pointer;font-family:'Barlow',sans-serif;transition:border-color .2s,color .2s}
+.btnd:hover{border-color:var(--re);color:var(--re)}
+
+/* TABLE */
+.twrap{background:var(--ch);border:1px solid var(--ln);overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{background:var(--st);text-align:left;padding:11px 14px;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);border-bottom:1px solid var(--ln)}
+tbody td{padding:13px 14px;border-bottom:1px solid var(--ln);font-size:.83rem;vertical-align:middle}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:rgba(255,255,255,.02)}
+.tdact{display:flex;gap:7px}
+.thumb{width:52px;height:40px;object-fit:cover;background:var(--st);display:flex;align-items:center;justify-content:center;color:var(--mu);font-size:1rem;flex-shrink:0}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.pinfo{display:flex;align-items:center;gap:12px}
+.pname{font-weight:600;font-size:.86rem;margin-bottom:2px}
+.psub{font-size:.7rem;color:var(--mu)}
+
+/* BADGES */
+.badge{display:inline-block;padding:2px 9px;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase}
+.bo{background:var(--og);color:var(--o);border:1px solid rgba(212,77,29,.3)}
+.bg{background:rgba(34,197,94,.1);color:var(--gr);border:1px solid rgba(34,197,94,.3)}
+.bb{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.3)}
+.by{background:rgba(245,158,11,.1);color:var(--ya);border:1px solid rgba(245,158,11,.3)}
+.bp{background:rgba(168,85,247,.1);color:#c084fc;border:1px solid rgba(168,85,247,.3)}
+
+/* MESSAGES */
+.mlist{display:flex;flex-direction:column;gap:10px}
+.mcard{background:var(--ch);border:1px solid var(--ln);padding:18px 22px;position:relative;transition:border-color .2s}
+.mcard.unread{border-left:3px solid var(--o)}
+.mhead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.msender{font-weight:600;font-size:.9rem;margin-bottom:3px}
+.mmeta{font-size:.7rem;color:var(--mu);display:flex;gap:10px;flex-wrap:wrap}
+.mmeta i{color:var(--o);margin-right:3px}
+.mbody{font-size:.83rem;color:rgba(255,255,255,.68);line-height:1.7}
+.udot{position:absolute;top:18px;right:20px;width:7px;height:7px;background:var(--o);border-radius:50%}
+
+/* EMPTY */
+.empty{text-align:center;padding:60px 20px;color:var(--mu)}
+.empty i{font-size:2.8rem;margin-bottom:14px;opacity:.35}
+.empty p{font-size:.86rem}
+
+/* MODAL */
+.mback{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:1000;display:none;align-items:center;justify-content:center;padding:20px}
+.mback.open{display:flex}
+.modal{background:var(--ch);border:1px solid var(--ln);width:100%;max-width:640px;max-height:90vh;overflow-y:auto;position:relative}
+.mhd{padding:22px 26px;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--ch);z-index:1}
+.mhd h3{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.08em}
+.mclose{background:none;border:none;color:var(--mu);font-size:1.4rem;cursor:pointer;line-height:1;transition:color .2s}.mclose:hover{color:var(--wh)}
+.mbdy{padding:24px 26px}
+.mft{padding:18px 26px;border-top:1px solid var(--ln);display:flex;gap:10px;justify-content:flex-end}
+
+/* FORM FIELDS */
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fg{margin-bottom:16px}.fg.full{grid-column:span 2}
+.fg label{display:block;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--mu);margin-bottom:7px}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--st);border:1px solid var(--ln);color:var(--wh);padding:10px 13px;font-family:'Barlow',sans-serif;font-size:.86rem;outline:none;transition:border-color .25s}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--o)}
+.fg textarea{resize:vertical;min-height:90px}
+.fg select{-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath fill='%23888' d='M5 7L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;cursor:pointer}
+.fg select option{background:var(--ch)}
+.ckl{display:flex!important;align-items:center;gap:8px;cursor:pointer;font-size:.8rem!important;text-transform:none!important;letter-spacing:0!important;color:var(--wh)!important}
+.ckl input[type=checkbox]{width:15px;height:15px;accent-color:var(--o)}
+
+/* IMG UPLOAD */
+.izone{border:1px dashed rgba(255,255,255,.18);padding:24px;text-align:center;cursor:pointer;transition:border-color .25s;position:relative}
+.izone:hover{border-color:var(--o)}
+.izone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.izone i{font-size:1.8rem;color:var(--mu);margin-bottom:7px}
+.izone p{font-size:.74rem;color:var(--mu)}
+.iprev{max-height:140px;max-width:100%;object-fit:cover;margin-top:10px;border:1px solid var(--ln);display:none}
+
+/* CONFIRM */
+.cbox{max-width:400px}
+.cbdy{padding:24px 26px}
+.cbdy p{color:rgba(255,255,255,.7);font-size:.87rem;line-height:1.7}
+
+/* TOAST */
+#toast{position:fixed;bottom:22px;right:22px;z-index:9000;display:flex;flex-direction:column;gap:8px}
+.tst{background:var(--ch);border:1px solid var(--ln);padding:12px 18px;display:flex;align-items:center;gap:10px;font-size:.83rem;min-width:240px;animation:tsin .3s var(--ease);border-left:3px solid var(--o)}
+.tst.s{border-left-color:var(--gr)}.tst.e{border-left-color:var(--re)}
+.tst i{font-size:.95rem}
+.tst.s i{color:var(--gr)}.tst.e i{color:var(--re)}.tst:not(.s):not(.e) i{color:var(--o)}
+@keyframes tsin{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+
+/* SPINNER */
+.spin{display:flex;align-items:center;justify-content:center;padding:60px}
+.spin::after{content:'';width:32px;height:32px;border:3px solid var(--ln);border-top-color:var(--o);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* PAGES EDITOR */
+.pagesGrid{display:grid;grid-template-columns:1fr;gap:20px}
+.pcard{background:var(--ch);border:1px solid var(--ln);padding:26px}
+.pcard h3{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;color:var(--o);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+
+@media(max-width:900px){.sidebar{width:0;overflow:hidden}.main{margin-left:0}.sgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.sgrid{grid-template-columns:1fr}.frow{grid-template-columns:1fr}.fg.full{grid-column:span 1}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="lbox">
+    <div class="llogo">AGU<span>NTA</span></div>
+    <p class="lsub">Administration Panel · Secure Login</p>
+    <label for="lu">Username</label>
+    <input type="text" id="lu" placeholder="admin" autocomplete="username">
+    <label for="lp">Password</label>
+    <input type="password" id="lp" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="lbtn" onclick="doLogin()">Sign In &nbsp;<i class="fa-solid fa-arrow-right"></i></button>
+    <p class="lerr" id="lerr"><i class="fa-solid fa-circle-exclamation"></i> Invalid username or password.</p>
+  </div>
+</div>
+
+<!-- APP SHELL -->
+<div id="appShell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="slogo">AGU<span>NTA</span> <small style="font-size:.52rem;color:var(--mu);letter-spacing:.15em">ADMIN</small></div>
+    <div class="slabel">Main</div>
+    <div class="nitem active" onclick="showTab('dashboard')"><i class="fa-solid fa-gauge-high"></i> Dashboard</div>
+    <div class="nitem" onclick="showTab('projects')"><i class="fa-solid fa-building"></i> Projects</div>
+    <div class="nitem" onclick="showTab('machines')"><i class="fa-solid fa-truck-monster"></i> Machines</div>
+    <div class="nitem" onclick="showTab('messages')"><i class="fa-solid fa-envelope"></i> Messages <span class="nbadge" id="ubadge" style="display:none">0</span></div>
+    <div class="slabel">Manage</div>
+    <div class="nitem" onclick="showTab('users')"><i class="fa-solid fa-users"></i> Users</div>
+    <div class="nitem" onclick="showTab('pages')"><i class="fa-solid fa-file-pen"></i> Edit Pages</div>
+    <div class="nitem" onclick="showTab('settings')"><i class="fa-solid fa-gear"></i> Settings</div>
+    <div class="slabel">Site</div>
+    <a class="nitem" href="index.html" target="_blank"><i class="fa-solid fa-house"></i> Homepage</a>
+    <a class="nitem" href="project.html" target="_blank"><i class="fa-solid fa-images"></i> Projects Page</a>
+    <a class="nitem" href="our_machines.html" target="_blank"><i class="fa-solid fa-truck-monster"></i> Machines Page</a>
+    <a class="nitem" href="about.html" target="_blank"><i class="fa-solid fa-circle-info"></i> About Page</a>
+    <a class="nitem" href="contact_us.html" target="_blank"><i class="fa-solid fa-phone"></i> Contact Page</a>
+    <div class="sfoot">
+      <div class="apill">
+        <div class="aav" id="aav">A</div>
+        <div><div class="aname" id="aname">Admin</div><div class="arole">Administrator</div></div>
+      </div>
+      <button class="logbtn" onclick="doLogout()"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <div class="topbar">
+      <div class="ttitle" id="ttitle">Dashboard</div>
+      <div class="ttag" id="ttag">Overview</div>
+    </div>
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="tab active" id="tab-dashboard">
+        <div class="sgrid">
+          <div class="scard"><div class="sicon"><i class="fa-solid fa-building"></i></div><div class="sval" id="stProj">–</div><div class="slbl">Projects</div></div>
+          <div class="scard g"><div class="sicon"><i class="fa-solid fa-truck-monster"></i></div><div class="sval" id="stMach">–</div><div class="slbl">Machines</div></div>
+          <div class="scard b"><div class="sicon"><i class="fa-solid fa-envelope"></i></div><div class="sval" id="stMsg">–</div><div class="slbl">Messages</div></div>
+          <div class="scard y"><div class="sicon"><i class="fa-solid fa-circle-exclamation"></i></div><div class="sval" id="stUnread">–</div><div class="slbl">Unread</div></div>
+          <div class="scard p"><div class="sicon"><i class="fa-solid fa-users"></i></div><div class="sval" id="stUsers">–</div><div class="slbl">Users</div></div>
+        </div>
+        <div class="shd"><h2>Recent Messages</h2><button class="btng" onclick="showTab('messages')">View All <i class="fa-solid fa-arrow-right"></i></button></div>
+        <div id="dashMsgs"><div class="spin"></div></div>
+        <div class="shd" style="margin-top:28px"><h2>Recent Projects</h2><button class="btng" onclick="showTab('projects')">View All <i class="fa-solid fa-arrow-right"></i></button></div>
+        <div id="dashProjs"><div class="spin"></div></div>
+      </div>
+
+      <!-- PROJECTS -->
+      <div class="tab" id="tab-projects">
+        <div class="shd"><h2>All Projects</h2><button class="btn" onclick="openProjModal()"><i class="fa-solid fa-plus"></i> Add Project</button></div>
+        <div class="twrap">
+          <table><thead><tr><th style="width:60px">Img</th><th>Project</th><th>Category</th><th>Status</th><th>Featured</th><th>Actions</th></tr></thead>
+          <tbody id="projTbody"></tbody></table>
+          <div id="projEmpty" class="empty" style="display:none"><i class="fa-solid fa-building"></i><p>No projects yet.</p></div>
+        </div>
+      </div>
+
+      <!-- MACHINES -->
+      <div class="tab" id="tab-machines">
+        <div class="shd"><h2>Our Machines</h2><button class="btn" onclick="openMachModal()"><i class="fa-solid fa-plus"></i> Add Machine</button></div>
+        <div class="twrap">
+          <table><thead><tr><th style="width:60px">Img</th><th>Machine</th><th>Category</th><th>Specs</th><th>Available</th><th>Actions</th></tr></thead>
+          <tbody id="machTbody"></tbody></table>
+          <div id="machEmpty" class="empty" style="display:none"><i class="fa-solid fa-truck-monster"></i><p>No machines yet.</p></div>
+        </div>
+      </div>
+
+      <!-- MESSAGES -->
+      <div class="tab" id="tab-messages">
+        <div class="shd"><h2>Inbox</h2><span id="msgCount" style="font-size:.78rem;color:var(--mu)">Loading…</span></div>
+        <div id="msgList"><div class="spin"></div></div>
+        <div id="msgEmpty" class="empty" style="display:none"><i class="fa-solid fa-inbox"></i><p>No messages yet.</p></div>
+      </div>
+
+      <!-- USERS -->
+      <div class="tab" id="tab-users">
+        <div class="shd"><h2>Admin Users</h2><button class="btn" onclick="openUserModal()"><i class="fa-solid fa-user-plus"></i> Add User</button></div>
+        <div class="twrap">
+          <table><thead><tr><th>Name</th><th>Username</th><th>Role</th><th>Created</th><th>Actions</th></tr></thead>
+          <tbody id="userTbody"></tbody></table>
+        </div>
+      </div>
+
+      <!-- PAGES EDITOR -->
+      <div class="tab" id="tab-pages">
+        <div class="shd"><h2>Edit Pages</h2><span style="font-size:.78rem;color:var(--mu)">Changes reflect on the live site immediately</span></div>
+        <div class="pagesGrid">
+
+          <!-- Homepage -->
+          <div class="pcard">
+            <h3><i class="fa-solid fa-house"></i> Homepage (index.html)</h3>
+            <div class="frow">
+              <div class="fg full"><label>Hero Title (HTML allowed)</label><input type="text" id="p_idx_heroTitle"></div>
+              <div class="fg full"><label>Hero Subtitle</label><textarea id="p_idx_heroSub" rows="2"></textarea></div>
+              <div class="fg"><label>About Section Title</label><input type="text" id="p_idx_aboutTitle"></div>
+              <div class="fg full"><label>About Section Text</label><textarea id="p_idx_aboutText" rows="3"></textarea></div>
+              <div class="fg"><label>Stat — Projects Completed</label><input type="number" id="p_idx_statsProjects" placeholder="100"></div>
+              <div class="fg"><label>Stat — Countries Served</label><input type="number" id="p_idx_statsCountries" placeholder="3"></div>
+              <div class="fg"><label>Stat — Staff Members</label><input type="number" id="p_idx_statsStaff" placeholder="250"></div>
+            </div>
+            <button class="btn" onclick="savePage('index')"><i class="fa-solid fa-floppy-disk"></i> Save Homepage</button>
+          </div>
+
+          <!-- About Page Stats -->
+          <div class="pcard">
+            <h3><i class="fa-solid fa-chart-bar"></i> About Page — Stats Strip</h3>
+            <div class="frow">
+              <div class="fg"><label>Projects Delivered</label><input type="number" id="p_abt_statsProjects" placeholder="120"></div>
+              <div class="fg"><label>African Nations</label><input type="number" id="p_abt_statsNations" placeholder="3"></div>
+              <div class="fg"><label>Staff Members</label><input type="number" id="p_abt_statsStaff" placeholder="250"></div>
+            </div>
+            <button class="btn" onclick="savePage('about')"><i class="fa-solid fa-floppy-disk"></i> Save About Stats</button>
+          </div>
+
+          <!-- About -->
+          <div class="pcard">
+            <h3><i class="fa-solid fa-circle-info"></i> About Page — Content (about.html)</h3>
+            <div class="frow">
+              <div class="fg"><label>Hero Title</label><input type="text" id="p_abt_heroTitle"></div>
+              <div class="fg"><label>Hero Subtitle</label><input type="text" id="p_abt_heroSub"></div>
+              <div class="fg"><label>Story Section Title</label><input type="text" id="p_abt_storyTitle"></div>
+              <div class="fg full"><label>Story Text</label><textarea id="p_abt_storyText" rows="4"></textarea></div>
+              <div class="fg full"><label>Vision Statement</label><textarea id="p_abt_visionText" rows="2"></textarea></div>
+              <div class="fg full"><label>Mission Statement</label><textarea id="p_abt_missionText" rows="2"></textarea></div>
+            </div>
+            <button class="btn" onclick="savePage('about_content')"><i class="fa-solid fa-floppy-disk"></i> Save About Page</button>
+          </div>
+
+          <!-- MVV Editor -->
+          <div class="pcard">
+            <h3><i class="fa-solid fa-bullseye"></i> Mission / Vision / Values</h3>
+            <div class="frow">
+              <div class="fg full"><label>Mission Statement</label><textarea id="p_mvv_mission" rows="3" placeholder="Our mission..."></textarea></div>
+              <div class="fg full"><label>Vision Statement</label><textarea id="p_mvv_vision" rows="3" placeholder="Our vision..."></textarea></div>
+              <div class="fg full"><label>Values</label><textarea id="p_mvv_values" rows="3" placeholder="Our values..."></textarea></div>
+            </div>
+            <button class="btn" onclick="savePage('mvv')"><i class="fa-solid fa-floppy-disk"></i> Save Mission / Vision / Values</button>
+          </div>
+
+          <!-- Certifications Editor -->
+          <div class="pcard">
+            <h3><i class="fa-solid fa-certificate"></i> Certifications &amp; Standards</h3>
+            <p style="font-size:.78rem;color:var(--mu);margin-bottom:16px">Edit, add or remove certifications shown on the About page.</p>
+            <div id="certsEditor"></div>
+            <div style="display:flex;gap:10px;margin-top:12px">
+              <button class="btn" onclick="addCert()"><i class="fa-solid fa-plus"></i> Add Certification</button>
+              <button class="btn" onclick="savePage('certs')" style="background:var(--or)"><i class="fa-solid fa-floppy-disk"></i> Save Certifications</button>
+            </div>
+          </div>
+
+          <!-- Contact -->
+          <div class="pcard">
+            <h3><i class="fa-solid fa-phone"></i> Contact Page (contact_us.html)</h3>
+            <div class="frow">
+              <div class="fg"><label>Hero Title</label><input type="text" id="p_con_heroTitle"></div>
+              <div class="fg full"><label>Hero Subtitle</label><textarea id="p_con_heroSub" rows="2"></textarea></div>
+              <div class="fg"><label>Phone Number</label><input type="text" id="p_con_phone"></div>
+              <div class="fg"><label>Email Address</label><input type="text" id="p_con_email"></div>
+              <div class="fg"><label>Office Address</label><input type="text" id="p_con_address"></div>
+              <div class="fg"><label>Office Hours</label><input type="text" id="p_con_hours"></div>
+            </div>
+            <button class="btn" onclick="savePage('contact')"><i class="fa-solid fa-floppy-disk"></i> Save Contact Page</button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="tab" id="tab-settings">
+        <div class="shd"><h2>Site Settings</h2></div>
+        <div class="pcard">
+          <h3><i class="fa-solid fa-globe"></i> Global Settings</h3>
+          <div class="frow">
+            <div class="fg"><label>Site Name</label><input type="text" id="s_siteName"></div>
+            <div class="fg"><label>Phone</label><input type="text" id="s_phone"></div>
+            <div class="fg"><label>Email</label><input type="email" id="s_email"></div>
+            <div class="fg"><label>WhatsApp (digits only)</label><input type="text" id="s_whatsapp"></div>
+            <div class="fg full"><label>Address</label><input type="text" id="s_address"></div>
+          </div>
+          <button class="btn" onclick="saveSettings()"><i class="fa-solid fa-floppy-disk"></i> Save Settings</button>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </main>
+</div>
+
+<!-- PROJECT MODAL -->
+<div class="mback" id="projModal">
+  <div class="modal">
+    <div class="mhd"><h3 id="projModalTitle">Add Project</h3><button class="mclose" onclick="closeProjModal()">×</button></div>
+    <div class="mbdy">
+      <input type="hidden" id="peid">
+      <div class="fg"><label>Project Image</label>
+        <div class="izone"><input type="file" id="pimg" accept="image/*" onchange="prevImg(this,'pprev','phint')"><i class="fa-solid fa-cloud-arrow-up"></i><p id="phint">Click to upload image (JPG, PNG, WEBP)</p><img id="pprev" class="iprev"></div>
+      </div>
+      <div class="frow">
+        <div class="fg full"><label>Title *</label><input type="text" id="ptitle" placeholder="e.g. CK Apartments Block A"></div>
+        <div class="fg"><label>Category *</label>
+          <select id="pcat"><option value="">Select…</option><option value="residential">Residential</option><option value="commercial">Commercial</option><option value="infrastructure">Infrastructure</option><option value="realstate">Real Estate</option><option value="renovation">Renovation</option></select>
+        </div>
+        <div class="fg"><label>Status</label><select id="pstat"><option value="ongoing">Ongoing</option><option value="completed">Completed</option></select></div>
+        <div class="fg"><label>Client</label><input type="text" id="pclient" placeholder="e.g. Uganda Police"></div>
+        <div class="fg"><label>Location</label><input type="text" id="ploc" placeholder="e.g. Kampala, Uganda"></div>
+        <div class="fg"><label>Duration</label><input type="text" id="pdur" placeholder="e.g. 2022–2024"></div>
+        <div class="fg full"><label>Description</label><textarea id="pdesc" rows="3"></textarea></div>
+        <div class="fg full"><label class="ckl"><input type="checkbox" id="pfeat"> Mark as Featured Project</label></div>
+      </div>
+    </div>
+    <div class="mft"><button class="btng" onclick="closeProjModal()">Cancel</button><button class="btn" onclick="saveProject()"><i class="fa-solid fa-floppy-disk"></i> <span id="psavelbl">Save</span></button></div>
+  </div>
+</div>
+
+<!-- MACHINE MODAL -->
+<div class="mback" id="machModal">
+  <div class="modal">
+    <div class="mhd"><h3 id="machModalTitle">Add Machine</h3><button class="mclose" onclick="closeMachModal()">×</button></div>
+    <div class="mbdy">
+      <input type="hidden" id="meid">
+      <div class="fg"><label>Machine Image</label>
+        <div class="izone"><input type="file" id="mimg" accept="image/*" onchange="prevImg(this,'mprev','mhint')"><i class="fa-solid fa-cloud-arrow-up"></i><p id="mhint">Click to upload image</p><img id="mprev" class="iprev"></div>
+      </div>
+      <div class="frow">
+        <div class="fg full"><label>Machine Name *</label><input type="text" id="mname" placeholder="e.g. CAT 320 Excavator"></div>
+        <div class="fg"><label>Category</label>
+          <select id="mcat"><option value="excavation">Excavation</option><option value="haulage">Haulage / Trucks</option><option value="concrete">Concrete</option><option value="lifting">Lifting / Cranes</option><option value="compaction">Compaction</option><option value="general">General</option></select>
+        </div>
+        <div class="fg"><label>Availability</label><select id="mavail"><option value="true">Available</option><option value="false">Not Available</option></select></div>
+        <div class="fg full"><label>Specs (short)</label><input type="text" id="mspecs" placeholder="e.g. 20t operating weight · 1.2m³ bucket"></div>
+        <div class="fg full"><label>Description</label><textarea id="mdesc" rows="3" placeholder="Describe what this machine is used for…"></textarea></div>
+      </div>
+    </div>
+    <div class="mft"><button class="btng" onclick="closeMachModal()">Cancel</button><button class="btn" onclick="saveMachine()"><i class="fa-solid fa-floppy-disk"></i> <span id="msavelbl">Save</span></button></div>
+  </div>
+</div>
+
+<!-- USER MODAL -->
+<div class="mback" id="userModal">
+  <div class="modal" style="max-width:480px">
+    <div class="mhd"><h3 id="userModalTitle">Add User</h3><button class="mclose" onclick="closeUserModal()">×</button></div>
+    <div class="mbdy">
+      <input type="hidden" id="ueid">
+      <div class="fg"><label>Full Name *</label><input type="text" id="uname" placeholder="e.g. John Doe"></div>
+      <div class="fg"><label>Username *</label><input type="text" id="uuname" placeholder="e.g. johndoe"></div>
+      <div class="fg"><label>Password <span id="upwdlbl" style="color:var(--mu);font-size:.6rem">(required for new user)</span></label><input type="password" id="upwd" placeholder="••••••••"></div>
+      <div class="fg"><label>Role</label><select id="urole"><option value="admin">Admin (full access)</option><option value="editor">Editor (no user management)</option></select></div>
+    </div>
+    <div class="mft"><button class="btng" onclick="closeUserModal()">Cancel</button><button class="btn" onclick="saveUser()"><i class="fa-solid fa-floppy-disk"></i> <span id="usavelbl">Save</span></button></div>
+  </div>
+</div>
+
+<!-- CONFIRM -->
+<div class="mback" id="confirmModal">
+  <div class="modal cbox">
+    <div class="mhd"><h3 id="ctitle">Confirm</h3><button class="mclose" onclick="closeConfirm()">×</button></div>
+    <div class="cbdy"><p id="cmsg">Are you sure?</p></div>
+    <div class="mft"><button class="btng" onclick="closeConfirm()">Cancel</button><button class="btn" id="cok" style="background:var(--re)">Delete</button></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const API = '';
+let TOKEN = localStorage.getItem('agunta_token');
+let ME = JSON.parse(localStorage.getItem('agunta_user')||'null');
+let allProjects=[], allMachines=[], allMessages=[], allUsers=[];
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+async function doLogin(){
+  const u=document.getElementById('lu').value.trim(), p=document.getElementById('lp').value;
+  if(!u||!p) return;
+  try{
+    const r=await fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+    const d=await r.json();
+    if(!r.ok){document.getElementById('lerr').style.display='block';return;}
+    TOKEN=d.token; ME=d.user;
+    localStorage.setItem('agunta_token',TOKEN);
+    localStorage.setItem('agunta_user',JSON.stringify(ME));
+    initApp();
+  }catch{document.getElementById('lerr').style.display='block';}
+}
+function doLogout(){TOKEN=null;ME=null;localStorage.clear();location.reload();}
+
+// ── API HELPERS ───────────────────────────────────────────────────────────────
+async function ag(url){const r=await fetch(API+url,{headers:{Authorization:`Bearer ${TOKEN}`}});if(r.status===401)doLogout();return r.json();}
+async function ap(url,body,form=false){const o={method:'POST',headers:{Authorization:`Bearer ${TOKEN}`}};form?o.body=body:(o.headers['Content-Type']='application/json',o.body=JSON.stringify(body));const r=await fetch(API+url,o);if(r.status===401)doLogout();return r.json();}
+async function apu(url,body,form=false){const o={method:'PUT',headers:{Authorization:`Bearer ${TOKEN}`}};form?o.body=body:(o.headers['Content-Type']='application/json',o.body=JSON.stringify(body));const r=await fetch(API+url,o);if(r.status===401)doLogout();return r.json();}
+async function ad(url){const r=await fetch(API+url,{method:'DELETE',headers:{Authorization:`Bearer ${TOKEN}`}});if(r.status===401)doLogout();return r.json();}
+async function apa(url){const r=await fetch(API+url,{method:'PATCH',headers:{Authorization:`Bearer ${TOKEN}`}});if(r.status===401)doLogout();return r.json();}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+function initApp(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('appShell').style.display='block';
+  if(ME){document.getElementById('aname').textContent=ME.name||ME.username;document.getElementById('aav').textContent=(ME.name||ME.username)[0].toUpperCase();}
+  loadAll();
+}
+async function loadAll(){
+  await Promise.all([loadProjects(),loadMachines(),loadMessages(),loadUsers(),loadSettings(),loadPages()]);
+  renderDash();
+}
+
+// ── TABS ──────────────────────────────────────────────────────────────────────
+const TABS={dashboard:['Dashboard','Overview'],projects:['Projects','Manage'],machines:['Machines','Fleet'],messages:['Messages','Inbox'],users:['Users','Access'],pages:['Edit Pages','Content'],settings:['Settings','Configure']};
+function showTab(n){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nitem').forEach(ni=>ni.classList.remove('active'));
+  document.getElementById('tab-'+n).classList.add('active');
+  document.querySelectorAll('.nitem').forEach(ni=>{if(ni.textContent.trim().toLowerCase().startsWith(TABS[n]?.[0].toLowerCase().split(' ')[0]))ni.classList.add('active');});
+  document.getElementById('ttitle').textContent=TABS[n]?.[0]||n;
+  document.getElementById('ttag').textContent=TABS[n]?.[1]||'';
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+function renderDash(){
+  const unread=allMessages.filter(m=>!m.read).length;
+  document.getElementById('stProj').textContent=allProjects.length;
+  document.getElementById('stMach').textContent=allMachines.length;
+  document.getElementById('stMsg').textContent=allMessages.length;
+  document.getElementById('stUnread').textContent=unread;
+  document.getElementById('stUsers').textContent=allUsers.length;
+  const badge=document.getElementById('ubadge');
+  badge.textContent=unread; badge.style.display=unread>0?'':'none';
+
+  // Recent messages
+  const dm=document.getElementById('dashMsgs');
+  const rm=allMessages.slice(0,3);
+  if(rm.length===0){dm.innerHTML='<p style="color:var(--mu);font-size:.83rem">No messages yet.</p>';}
+  else dm.innerHTML=rm.map(m=>`<div class="mcard ${m.read?'':'unread'}" style="margin-bottom:10px">${!m.read?'<div class="udot"></div>':''}<div class="mhead"><div><div class="msender">${e(m.name)}</div><div class="mmeta"><span><i class="fa-solid fa-envelope"></i>${e(m.email)}</span><span>${fd(m.createdAt)}</span></div></div></div><div class="mbody">${e(m.message).slice(0,100)}${m.message.length>100?'…':''}</div></div>`).join('');
+
+  // Recent projects
+  const dp=document.getElementById('dashProjs');
+  const rp=allProjects.slice(0,5);
+  if(rp.length===0){dp.innerHTML='<p style="color:var(--mu);font-size:.83rem">No projects yet.</p>';}
+  else dp.innerHTML=`<div class="twrap"><table><thead><tr><th style="width:60px">Img</th><th>Title</th><th>Category</th><th>Status</th></tr></thead><tbody>${rp.map(p=>`<tr><td>${th(p)}</td><td><b style="font-size:.86rem">${e(p.title)}</b></td><td><span class="badge bo">${e(p.category)}</span></td><td>${sb(p.status)}</td></tr>`).join('')}</tbody></table></div>`;
+}
+
+// ── PROJECTS ──────────────────────────────────────────────────────────────────
+async function loadProjects(){const d=await ag('/api/admin/projects');if(d)allProjects=d;renderProjects();}
+function renderProjects(){
+  const tb=document.getElementById('projTbody');
+  document.getElementById('projEmpty').style.display=allProjects.length===0?'block':'none';
+  tb.innerHTML=allProjects.map(p=>`<tr><td>${th(p)}</td><td><div class="pinfo"><div><div class="pname">${e(p.title)}</div><div class="psub">${p.client?e(p.client)+' · ':''}${e(p.location||'')}</div></div></div></td><td><span class="badge bo">${e(p.category)}</span></td><td>${sb(p.status)}</td><td>${p.featured?'<span class="badge by"><i class="fa-solid fa-star"></i> Featured</span>':'<span style="color:var(--mu);font-size:.8rem">—</span>'}</td><td><div class="tdact"><button class="btng" onclick="openEditProj('${p.id}')"><i class="fa-solid fa-pen"></i> Edit</button><button class="btnd" onclick="confirmDel('project','${p.id}','${e(p.title).replace(/'/g,"\\'")}')"><i class="fa-solid fa-trash"></i></button></div></td></tr>`).join('');
+}
+function openProjModal(){
+  document.getElementById('peid').value='';
+  document.getElementById('projModalTitle').textContent='Add Project';
+  document.getElementById('psavelbl').textContent='Save Project';
+  ['ptitle','pclient','ploc','pdur','pdesc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pcat').value='';document.getElementById('pstat').value='ongoing';document.getElementById('pfeat').checked=false;
+  document.getElementById('pimg').value='';document.getElementById('pprev').style.display='none';document.getElementById('phint').style.display='block';
+  document.getElementById('projModal').classList.add('open');
+}
+function openEditProj(id){
+  const p=allProjects.find(x=>x.id===id); if(!p) return;
+  document.getElementById('peid').value=id;
+  document.getElementById('projModalTitle').textContent='Edit Project';
+  document.getElementById('psavelbl').textContent='Update Project';
+  document.getElementById('ptitle').value=p.title;
+  document.getElementById('pcat').value=p.category;
+  document.getElementById('pstat').value=p.status;
+  document.getElementById('pclient').value=p.client||'';
+  document.getElementById('ploc').value=p.location||'';
+  document.getElementById('pdur').value=p.duration||'';
+  document.getElementById('pdesc').value=p.description||'';
+  document.getElementById('pfeat').checked=!!p.featured;
+  document.getElementById('pimg').value='';
+  if(p.image){document.getElementById('pprev').src=p.image;document.getElementById('pprev').style.display='block';document.getElementById('phint').style.display='none';}
+  else{document.getElementById('pprev').style.display='none';document.getElementById('phint').style.display='block';}
+  document.getElementById('projModal').classList.add('open');
+}
+function closeProjModal(){document.getElementById('projModal').classList.remove('open');}
+async function saveProject(){
+  const title=document.getElementById('ptitle').value.trim(), cat=document.getElementById('pcat').value;
+  if(!title||!cat){toast('Title and category required.','e');return;}
+  const id=document.getElementById('peid').value;
+  const fd=new FormData();
+  fd.append('title',title);fd.append('category',cat);fd.append('status',document.getElementById('pstat').value);
+  fd.append('client',document.getElementById('pclient').value.trim());fd.append('location',document.getElementById('ploc').value.trim());
+  fd.append('duration',document.getElementById('pdur').value.trim());fd.append('description',document.getElementById('pdesc').value.trim());
+  fd.append('featured',document.getElementById('pfeat').checked?'true':'false');
+  const img=document.getElementById('pimg').files[0]; if(img) fd.append('image',img);
+  const d=id?await apu(`/api/admin/projects/${id}`,fd,true):await ap('/api/admin/projects',fd,true);
+  if(!d||d.error){toast(d?.error||'Error','e');return;}
+  toast(id?'Project updated!':'Project added!','s');closeProjModal();await loadProjects();renderDash();
+}
+
+// ── MACHINES ──────────────────────────────────────────────────────────────────
+async function loadMachines(){const d=await ag('/api/admin/machines');if(d)allMachines=d;renderMachines();}
+function renderMachines(){
+  const tb=document.getElementById('machTbody');
+  document.getElementById('machEmpty').style.display=allMachines.length===0?'block':'none';
+  tb.innerHTML=allMachines.map(m=>`<tr><td>${th(m)}</td><td><div class="pinfo"><div><div class="pname">${e(m.name)}</div><div class="psub">${e(m.description||'').slice(0,60)}</div></div></div></td><td><span class="badge bo">${e(m.category)}</span></td><td style="font-size:.75rem;color:var(--mu);max-width:180px">${e(m.specs||'—')}</td><td>${m.available?'<span class="badge bg">Available</span>':'<span class="badge by">Unavailable</span>'}</td><td><div class="tdact"><button class="btng" onclick="openEditMach('${m.id}')"><i class="fa-solid fa-pen"></i> Edit</button><button class="btnd" onclick="confirmDel('machine','${m.id}','${e(m.name).replace(/'/g,"\\'")}')"><i class="fa-solid fa-trash"></i></button></div></td></tr>`).join('');
+}
+function openMachModal(){
+  document.getElementById('meid').value='';
+  document.getElementById('machModalTitle').textContent='Add Machine';
+  document.getElementById('msavelbl').textContent='Save Machine';
+  ['mname','mspecs','mdesc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('mcat').value='general';document.getElementById('mavail').value='true';
+  document.getElementById('mimg').value='';document.getElementById('mprev').style.display='none';document.getElementById('mhint').style.display='block';
+  document.getElementById('machModal').classList.add('open');
+}
+function openEditMach(id){
+  const m=allMachines.find(x=>x.id===id); if(!m) return;
+  document.getElementById('meid').value=id;
+  document.getElementById('machModalTitle').textContent='Edit Machine';
+  document.getElementById('msavelbl').textContent='Update Machine';
+  document.getElementById('mname').value=m.name;document.getElementById('mcat').value=m.category;
+  document.getElementById('mspecs').value=m.specs||'';document.getElementById('mdesc').value=m.description||'';
+  document.getElementById('mavail').value=m.available?'true':'false';
+  document.getElementById('mimg').value='';
+  if(m.image){document.getElementById('mprev').src=m.image;document.getElementById('mprev').style.display='block';document.getElementById('mhint').style.display='none';}
+  else{document.getElementById('mprev').style.display='none';document.getElementById('mhint').style.display='block';}
+  document.getElementById('machModal').classList.add('open');
+}
+function closeMachModal(){document.getElementById('machModal').classList.remove('open');}
+async function saveMachine(){
+  const name=document.getElementById('mname').value.trim(); if(!name){toast('Machine name required.','e');return;}
+  const id=document.getElementById('meid').value;
+  const fd=new FormData();
+  fd.append('name',name);fd.append('category',document.getElementById('mcat').value);
+  fd.append('specs',document.getElementById('mspecs').value.trim());fd.append('description',document.getElementById('mdesc').value.trim());
+  fd.append('available',document.getElementById('mavail').value);
+  const img=document.getElementById('mimg').files[0]; if(img) fd.append('image',img);
+  const d=id?await apu(`/api/admin/machines/${id}`,fd,true):await ap('/api/admin/machines',fd,true);
+  if(!d||d.error){toast(d?.error||'Error','e');return;}
+  toast(id?'Machine updated!':'Machine added!','s');closeMachModal();await loadMachines();renderDash();
+}
+
+// ── MESSAGES ──────────────────────────────────────────────────────────────────
+async function loadMessages(){const d=await ag('/api/admin/messages');if(d)allMessages=d;renderMessages();}
+function renderMessages(){
+  const list=document.getElementById('msgList'), empty=document.getElementById('msgEmpty');
+  const unread=allMessages.filter(m=>!m.read).length;
+  document.getElementById('msgCount').textContent=`${allMessages.length} total · ${unread} unread`;
+  if(allMessages.length===0){list.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  list.innerHTML=`<div class="mlist">${allMessages.map(m=>`<div class="mcard ${m.read?'':'unread'}">${!m.read?'<div class="udot"></div>':''}<div class="mhead"><div><div class="msender">${e(m.name)}</div><div class="mmeta"><span><i class="fa-solid fa-envelope"></i>${e(m.email)}</span>${m.phone?`<span><i class="fa-solid fa-phone"></i>${e(m.phone)}</span>`:''}<span>${fd(m.createdAt)}</span></div></div><div class="tdact">${!m.read?`<button class="btng" onclick="markRead('${m.id}')"><i class="fa-solid fa-check"></i> Read</button>`:''}<button class="btnd" onclick="confirmDel('message','${m.id}','this message')"><i class="fa-solid fa-trash"></i></button></div></div><div class="mbody">${e(m.message).replace(/\n/g,'<br>')}</div>${m.projectType?`<div style="margin-top:8px;font-size:.68rem;color:var(--mu)">Project type: <span style="color:var(--o)">${e(m.projectType)}</span></div>`:''}</div>`).join('')}</div>`;
+  const badge=document.getElementById('ubadge');badge.textContent=unread;badge.style.display=unread>0?'':'none';
+}
+async function markRead(id){await apa(`/api/admin/messages/${id}/read`);const m=allMessages.find(x=>x.id===id);if(m)m.read=true;renderMessages();renderDash();}
+
+// ── USERS ─────────────────────────────────────────────────────────────────────
+async function loadUsers(){const d=await ag('/api/admin/users');if(d)allUsers=d;renderUsers();}
+function renderUsers(){
+  document.getElementById('userTbody').innerHTML=allUsers.map(u=>`<tr><td><b>${e(u.name)}</b></td><td style="color:var(--mu)">${e(u.username)}</td><td><span class="badge ${u.role==='admin'?'bo':'bb'}">${e(u.role)}</span></td><td style="color:var(--mu);font-size:.75rem">${fd(u.createdAt)}</td><td><div class="tdact"><button class="btng" onclick="openEditUser('${u.id}')"><i class="fa-solid fa-pen"></i> Edit</button>${u.id!==ME?.id?`<button class="btnd" onclick="confirmDel('user','${u.id}','${e(u.name).replace(/'/g,"\\'")}')"><i class="fa-solid fa-trash"></i></button>`:''}</div></td></tr>`).join('');
+}
+function openUserModal(){
+  document.getElementById('ueid').value='';
+  document.getElementById('userModalTitle').textContent='Add User';
+  document.getElementById('usavelbl').textContent='Create User';
+  document.getElementById('upwdlbl').textContent='(required for new user)';
+  ['uname','uuname','upwd'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('urole').value='admin';
+  document.getElementById('uuname').disabled=false;
+  document.getElementById('userModal').classList.add('open');
+}
+function openEditUser(id){
+  const u=allUsers.find(x=>x.id===id);if(!u)return;
+  document.getElementById('ueid').value=id;
+  document.getElementById('userModalTitle').textContent='Edit User';
+  document.getElementById('usavelbl').textContent='Update User';
+  document.getElementById('upwdlbl').textContent='(leave blank to keep current)';
+  document.getElementById('uname').value=u.name;
+  document.getElementById('uuname').value=u.username;
+  document.getElementById('uuname').disabled=true;
+  document.getElementById('upwd').value='';
+  document.getElementById('urole').value=u.role;
+  document.getElementById('userModal').classList.add('open');
+}
+function closeUserModal(){document.getElementById('userModal').classList.remove('open');}
+async function saveUser(){
+  const id=document.getElementById('ueid').value;
+  const name=document.getElementById('uname').value.trim();
+  const username=document.getElementById('uuname').value.trim();
+  const pwd=document.getElementById('upwd').value;
+  const role=document.getElementById('urole').value;
+  if(!name||((!id)&&!username)){toast('Name and username required.','e');return;}
+  if(!id&&!pwd){toast('Password required for new user.','e');return;}
+  const body={name,role};if(pwd)body.password=pwd;if(!id)body.username=username;
+  const d=id?await apu(`/api/admin/users/${id}`,body):await ap('/api/admin/users',body);
+  if(!d||d.error){toast(d?.error||'Error','e');return;}
+  toast(id?'User updated!':'User created!','s');closeUserModal();await loadUsers();renderDash();
+}
+
+// ── PAGES EDITOR ──────────────────────────────────────────────────────────────
+async function loadPages(){
+  const d=await ag('/api/admin/pages');
+  if(!d)return;
+  const i=d.index||{},a=d.about||{},co=d.contact||{};
+  const mvv=d.mvv||{},certs=d.certs||{};
+  // Homepage
+  ['heroTitle','heroSub','aboutTitle','aboutText'].forEach(k=>{const el=document.getElementById(`p_idx_${k}`);if(el)el.value=i[k]||'';});
+  const sp=document.getElementById('p_idx_statsProjects'); if(sp) sp.value=i.statsProjects||'';
+  const sc=document.getElementById('p_idx_statsCountries'); if(sc) sc.value=i.statsCountries||'';
+  const ss=document.getElementById('p_idx_statsStaff'); if(ss) ss.value=i.statsStaff||'';
+  // About content
+  ['heroTitle','heroSub','storyTitle','storyText','visionText','missionText'].forEach(k=>{const el=document.getElementById(`p_abt_${k}`);if(el)el.value=a[k]||'';});
+  // About stats
+  const asp=document.getElementById('p_abt_statsProjects'); if(asp) asp.value=a.statsProjects||'';
+  const asn=document.getElementById('p_abt_statsNations'); if(asn) asn.value=a.statsNations||'';
+  const ass=document.getElementById('p_abt_statsStaff'); if(ass) ass.value=a.statsStaff||'';
+  // Contact
+  ['heroTitle','heroSub','phone','email','address','hours'].forEach(k=>{const el=document.getElementById(`p_con_${k}`);if(el)el.value=co[k]||'';});
+  // MVV
+  const mm=document.getElementById('p_mvv_mission'); if(mm) mm.value=mvv.mission||'';
+  const mv=document.getElementById('p_mvv_vision');  if(mv) mv.value=mvv.vision||'';
+  const mval=document.getElementById('p_mvv_values'); if(mval) mval.value=mvv.values||'';
+  // Certs
+  renderCertsEditor(certs.items||[]);
+}
+
+let certsData = [];
+function renderCertsEditor(certs){
+  certsData = certs.length ? certs : [
+    {icon:'fa-certificate',title:'ISO 9001:2015',desc:'Quality Management System certification ensuring consistent, high-standard project delivery.'},
+    {icon:'fa-shield-halved',title:'ISO 45001 — Safety',desc:'Occupational Health & Safety Management System.'},
+    {icon:'fa-leaf',title:'ISO 14001 — Environment',desc:'Environmental Management System.'},
+    {icon:'fa-building-columns',title:'Uganda National Roads Authority',desc:'Certified contractor for UNRA infrastructure projects.'},
+    {icon:'fa-hammer',title:'Uganda Registration of Engineers',desc:'Full registration with URE.'},
+    {icon:'fa-globe-africa',title:'Multi-National Operating Licences',desc:'Fully licensed in Uganda, South Sudan, Ethiopia and Eritrea.'},
+  ];
+  const el=document.getElementById('certsEditor');
+  el.innerHTML = certsData.map((cert,i)=>`
+    <div style="background:var(--st);border:1px solid var(--ln);padding:14px 16px;margin-bottom:8px;display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:start">
+      <div class="fg" style="margin:0"><label style="font-size:.6rem;color:var(--mu);letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:5px">Title</label><input type="text" value="${e(cert.title)}" oninput="certsData[${i}].title=this.value" style="width:100%;background:var(--bk);border:1px solid var(--ln);color:var(--wh);padding:8px 10px;font-family:Barlow,sans-serif;font-size:.82rem;outline:none"></div>
+      <div class="fg" style="margin:0"><label style="font-size:.6rem;color:var(--mu);letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:5px">Description</label><input type="text" value="${e(cert.desc)}" oninput="certsData[${i}].desc=this.value" style="width:100%;background:var(--bk);border:1px solid var(--ln);color:var(--wh);padding:8px 10px;font-family:Barlow,sans-serif;font-size:.82rem;outline:none"></div>
+      <button class="btnd" onclick="deleteCert(${i})" style="margin-top:20px"><i class="fa-solid fa-trash"></i></button>
+    </div>
+  `).join('');
+}
+function addCert(){
+  certsData.push({icon:'fa-certificate',title:'New Certification',desc:'Description here'});
+  renderCertsEditor(certsData);
+}
+function deleteCert(i){
+  certsData.splice(i,1);
+  renderCertsEditor(certsData);
+}
+async function savePage(page){
+  let body={};
+  if(page==='index'){
+    ['heroTitle','heroSub','aboutTitle','aboutText'].forEach(k=>{const el=document.getElementById(`p_idx_${k}`);if(el)body[k]=el.value;});
+    const sp=document.getElementById('p_idx_statsProjects'); if(sp) body.statsProjects=sp.value;
+    const sc=document.getElementById('p_idx_statsCountries'); if(sc) body.statsCountries=sc.value;
+    const ss=document.getElementById('p_idx_statsStaff'); if(ss) body.statsStaff=ss.value;
+  } else if(page==='about_content'){
+    ['heroTitle','heroSub','storyTitle','storyText','visionText','missionText'].forEach(k=>{const el=document.getElementById(`p_abt_${k}`);if(el)body[k]=el.value;});
+    // merge with about page in server
+    const d=await apu('/api/admin/pages/about',body);
+    if(!d||d.error){toast(d?.error||'Error','e');return;}
+    toast('Saved!','s'); return;
+  } else if(page==='about'){
+    // About stats strip
+    const asp=document.getElementById('p_abt_statsProjects'); if(asp) body.statsProjects=asp.value;
+    const asn=document.getElementById('p_abt_statsNations'); if(asn) body.statsNations=asn.value;
+    const ass=document.getElementById('p_abt_statsStaff'); if(ass) body.statsStaff=ass.value;
+  } else if(page==='contact'){
+    ['heroTitle','heroSub','phone','email','address','hours'].forEach(k=>{const el=document.getElementById(`p_con_${k}`);if(el)body[k]=el.value;});
+  } else if(page==='mvv'){
+    const mm=document.getElementById('p_mvv_mission'),mv=document.getElementById('p_mvv_vision'),mval=document.getElementById('p_mvv_values');
+    body={mission:mm?mm.value:'',vision:mv?mv.value:'',values:mval?mval.value:''};
+  } else if(page==='certs'){
+    body={items:certsData};
+  }
+  const d=await apu(`/api/admin/pages/${page}`,body);
+  if(!d||d.error){toast(d?.error||'Error','e');return;}
+  toast('Saved!','s');
+}
+
+// ── SETTINGS ──────────────────────────────────────────────────────────────────
+async function loadSettings(){
+  const d=await ag('/api/admin/settings');if(!d)return;
+  ['siteName','phone','email','whatsapp','address'].forEach(k=>{const el=document.getElementById('s_'+k);if(el)el.value=d[k]||'';});
+}
+async function saveSettings(){
+  const body={};
+  ['siteName','phone','email','whatsapp','address'].forEach(k=>{const el=document.getElementById('s_'+k);if(el)body[k]=el.value;});
+  const d=await apu('/api/admin/settings',body);
+  if(!d||d.error){toast(d?.error||'Error','e');return;}
+  toast('Settings saved!','s');
+}
+
+// ── DELETE CONFIRM ────────────────────────────────────────────────────────────
+function confirmDel(type,id,name){
+  document.getElementById('ctitle').textContent=`Delete ${type.charAt(0).toUpperCase()+type.slice(1)}`;
+  document.getElementById('cmsg').innerHTML=`Delete <strong>${name}</strong>? This cannot be undone.`;
+  document.getElementById('cok').onclick=async()=>{
+    let d;
+    if(type==='project') d=await ad(`/api/admin/projects/${id}`);
+    else if(type==='machine') d=await ad(`/api/admin/machines/${id}`);
+    else if(type==='message') d=await ad(`/api/admin/messages/${id}`);
+    else if(type==='user') d=await ad(`/api/admin/users/${id}`);
+    closeConfirm();
+    if(d?.error){toast(d.error,'e');return;}
+    toast(`${type.charAt(0).toUpperCase()+type.slice(1)} deleted.`,'s');
+    if(type==='project'){await loadProjects();}
+    else if(type==='machine'){await loadMachines();}
+    else if(type==='message'){allMessages=allMessages.filter(m=>m.id!==id);renderMessages();}
+    else if(type==='user'){await loadUsers();}
+    renderDash();
+  };
+  document.getElementById('confirmModal').classList.add('open');
+}
+function closeConfirm(){document.getElementById('confirmModal').classList.remove('open');}
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function e(s=''){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fd(iso){if(!iso)return'';const d=new Date(iso);return d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});}
+function th(p){if(p.image)return`<div class="thumb"><img src="${p.image}" loading="lazy"></div>`;return`<div class="thumb"><i class="fa-solid fa-image"></i></div>`;}
+function sb(s){return s==='completed'?'<span class="badge bg">Completed</span>':'<span class="badge bb">Ongoing</span>';}
+function prevImg(input,prevId,hintId){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{const img=document.getElementById(prevId);img.src=ev.target.result;img.style.display='block';document.getElementById(hintId).style.display='none';};r.readAsDataURL(f);}
+function toast(msg,type='i'){const icons={s:'fa-circle-check',e:'fa-circle-xmark',i:'fa-circle-info'};const el=document.createElement('div');el.className=`tst ${type}`;el.innerHTML=`<i class="fa-solid ${icons[type]||icons.i}"></i> ${msg}`;document.getElementById('toast').appendChild(el);setTimeout(()=>el.remove(),3200);}
+
+// Close modals on backdrop click
+['projModal','machModal','userModal','confirmModal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+});
+
+// ── BOOT ──────────────────────────────────────────────────────────────────────
+if(TOKEN&&ME) initApp();
+</script>
+</body>
+</html>

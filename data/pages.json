@@ -1,0 +1,69 @@
+{
+  "mvv": {
+    "mission": "To deliver high-quality construction and engineering solutions at fair and competitive prices through professionalism, innovation, safety, and efficient project execution.",
+    "vision": "To become a leading and trusted construction and real estate development company in East Africa, recognized for excellence, integrity, and sustainable infrastructure development.",
+    "values": "Integrity in every decision. Precision in every pour. Partnership with every client. Safety for every worker. These are not policies — they are who we are."
+  },
+  "certs": {
+    "items": [
+      {
+        "icon": "fa-certificate",
+        "title": "ISO 9001:2015",
+        "desc": "Quality Management System ensuring consistent, high-standard delivery."
+      },
+      {
+        "icon": "fa-shield-halved",
+        "title": "ISO 45001 — Safety",
+        "desc": "Occupational Health & Safety Management System."
+      },
+      {
+        "icon": "fa-leaf",
+        "title": "ISO 14001 — Environment",
+        "desc": "Environmental Management System ensuring minimal ecological impact."
+      },
+      {
+        "icon": "fa-building-columns",
+        "title": "Uganda National Roads Authority",
+        "desc": "Certified contractor for UNRA infrastructure projects."
+      },
+      {
+        "icon": "fa-hammer",
+        "title": "Uganda Registration of Engineers",
+        "desc": "Full registration with URE, maintaining professional engineering standards."
+      },
+      {
+        "icon": "fa-globe-africa",
+        "title": "Multi-National Operating Licences",
+        "desc": "Fully licensed and compliant in Uganda, South Sudan, Ethiopia and Eritrea."
+      }
+    ]
+  },
+  "index": {
+    "heroTitle": "We Build Africa's Futuremmm",
+    "heroSub": "A multinational civil engineering company headquartered in Kampala, Uganda, with operations across five African nations.",
+    "aboutTitle": "About Agunta Construction",
+    "aboutText": "Since 2007, Agunta Construction Ltd has delivered landmark projects across East and West Africa. From high-rise apartments in Kampala to military cantonments and telecom infrastructure — we combine engineering excellence with African expertise.",
+    "statsProjects": "50",
+    "statsCountries": "3",
+    "statsStaff": "250"
+  },
+  "about": {
+    "heroTitle": "Building Africa Since 2007",
+    "heroSub": "A story of precision, commitment and lasting impact across five nations.",
+    "storyTitle": "Our Story",
+    "storyText": "Agunta Construction Ltd was founded in Kampala, Uganda in 2007 with a vision to deliver world-class construction services across Africa. Over 17 years we have grown from a local contractor to a multinational engineering firm operating in Uganda, South Sudan, Ethiopia, Eritrea and Ghana.",
+    "visionText": "To be the leading construction and engineering company in Africa, known for quality, innovation and integrity.",
+    "missionText": "To deliver exceptional construction services that meet international standards while creating lasting value for our clients and communities across Africa.",
+    "statsProjects": "50",
+    "statsNations": "3",
+    "statsStaff": "250"
+  },
+  "contact": {
+    "heroTitle": "LET'S BUILD Together",
+    "heroSub": "Whether you have a project in mind or a question about our services — our team responds within 24 hours.",
+    "phone": "+256 775 975 2669",
+    "email": "aguntacon@gmail.com",
+    "address": "Kabalagala, Kampala, Uganda",
+    "hours": "Mon – Fri: 8:00 AM – 6:00 PM EA"
+  }
+}

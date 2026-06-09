@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Agunta Construction Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --orange: #d44d1d;
+      --orange-dark: #b03a10;
+      --orange-glow: rgba(212,77,29,0.18);
+      --black: #0b0b0b;
+      --charcoal: #141414;
+      --steel: #1a1a1a;
+      --line: rgba(255,255,255,0.07);
+      --white: #ffffff;
+      --off-white: #f0ece6;
+      --muted: #888888;
+      --transition: all 0.45s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
+    .serif { font-family: 'DM Serif Display', serif; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ─── CURSOR ─── */
+    .cursor { width: 10px; height: 10px; background: var(--orange); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
+    .cursor-ring { width: 36px; height: 36px; border: 1px solid var(--orange); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: width 0.3s, height 0.3s; opacity: 0.6; }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--charcoal); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 4px; }
+
+    /* ─── HEADER ─── */
+    header { position: fixed; top: 0; left: 0; width: 100%; z-index: 100; padding: 18px 0; border-bottom: 1px solid var(--line); background: rgba(11,11,11,0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); transition: var(--transition); }
+    header.scrolled { padding: 12px 0; border-color: rgba(212,77,29,0.2); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; }
+    .logo-old-hide { display:none; }
+    .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.15em; color: var(--white); }
+    .logo span { color: var(--orange); }
+    nav { display: flex; gap: 36px; align-items: center; }
+    nav a { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); transition: color 0.25s; position: relative; }
+    nav a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--orange); transition: width 0.3s; }
+    nav a:hover { color: var(--white); }
+    nav a:hover::after { width: 100%; }
+    nav a.active { color: var(--orange); }
+    nav a.active::after { width: 100%; }
+    .nav-cta { background: var(--orange); color: var(--white) !important; padding: 10px 22px; font-size: 0.75rem !important; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: background 0.25s !important; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--orange-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--white); transition: var(--transition); }
+
+    /* ─── MOBILE MENU ─── */
+    .mobile-menu { display: none; flex-direction: column; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--black); z-index: 200; justify-content: center; align-items: center; gap: 36px; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.1em; color: var(--white); }
+    .mobile-menu a:hover { color: var(--orange); }
+    .mobile-close { position: absolute; top: 24px; right: 30px; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; }
+
+    /* ─── PAGE HERO ─── */
+    .page-hero { position: relative; padding-top: 160px; padding-bottom: 80px; overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070') center/cover no-repeat; opacity: 0.08; }
+    .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 0%, var(--black) 100%); }
+    .page-hero-accent { position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(212,77,29,0.04)); clip-path: polygon(25% 0, 100% 0, 100% 100%, 0% 100%); }
+    .page-hero-content { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .breadcrumb { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+    .breadcrumb a { color: var(--muted); transition: color 0.25s; }
+    .breadcrumb a:hover { color: var(--orange); }
+    .breadcrumb-sep { color: var(--orange); }
+    .breadcrumb-current { color: var(--white); }
+    .page-hero-label { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--orange); font-weight: 600; }
+    .page-hero-label::before { content: ''; width: 30px; height: 1px; background: var(--orange); }
+    .page-hero h1 { font-size: clamp(3.5rem, 8vw, 8rem); line-height: 0.9; margin-bottom: 28px; }
+    .page-hero h1 em { color: var(--orange); font-family: 'DM Serif Display', serif; font-style: italic; }
+    .page-hero-sub { max-width: 560px; font-size: 1.05rem; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.65); }
+
+    /* ─── STATS STRIP ─── */
+    .stats-strip { background: var(--charcoal); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .stats-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat-item { padding: 28px 0 28px 24px; border-right: 1px solid var(--line); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--white); line-height: 1; display: block; }
+    .stat-num .orange { color: var(--orange); }
+    .stat-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+    /* ─── TICKER ─── */
+    .ticker { background: var(--orange); overflow: hidden; padding: 14px 0; white-space: nowrap; }
+    .ticker-track { display: inline-block; animation: ticker 28s linear infinite; }
+    .ticker-item { display: inline-block; font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.2em; color: var(--black); padding: 0 3rem; }
+    .ticker-item::before { content: '◆'; margin-right: 3rem; opacity: 0.4; }
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ─── FILTER BAR ─── */
+    .filter-section { background: var(--black); padding: 64px 0 0; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .filter-bar { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-bottom: 40px; border-bottom: 1px solid var(--line); flex-direction: column; }
+    .filter-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .filter-tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+    .filter-btn { padding: 10px 22px; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; background: var(--charcoal); color: var(--muted); border: 1px solid var(--line); cursor: pointer; transition: var(--transition); font-family: 'Barlow', sans-serif; }
+    .filter-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+    .filter-btn.active { background: var(--orange); color: var(--white); border-color: var(--orange); }
+    .filter-count { font-size: 0.72rem; letter-spacing: 0.15em; color: var(--muted); }
+    .filter-count span { color: var(--orange); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; }
+    .filter-row { width: 100%; }
+    .filter-row-bottom { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+
+    /* ─── PROJECTS GRID ─── */
+    .projects-section { background: var(--black); padding: 48px 0 110px; }
+
+    .featured-project { position: relative; overflow: hidden; height: 560px; margin-bottom: 2px; cursor: pointer; }
+    .featured-project img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .featured-project:hover img { transform: scale(1.04); }
+    .featured-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(11,11,11,0.9) 0%, rgba(11,11,11,0.3) 60%); display: flex; flex-direction: column; justify-content: flex-end; padding: 56px; transition: var(--transition); }
+    .featured-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: var(--white); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 6px 14px; margin-bottom: 20px; align-self: flex-start; }
+    .featured-badge i { font-size: 0.7rem; }
+    .featured-overlay h2 { font-size: clamp(2rem, 4vw, 3.8rem); line-height: 1; margin-bottom: 16px; max-width: 500px; }
+    .featured-overlay p { font-size: 0.95rem; color: rgba(255,255,255,0.7); line-height: 1.7; max-width: 460px; margin-bottom: 28px; }
+    .featured-meta { display: flex; gap: 32px; flex-wrap: wrap; }
+    .featured-meta-item label { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+    .featured-meta-item p { font-size: 0.88rem; color: var(--white); }
+    .featured-arrow { position: absolute; bottom: 56px; right: 56px; width: 52px; height: 52px; border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1rem; transition: background 0.3s, border-color 0.3s; }
+    .featured-project:hover .featured-arrow { background: var(--orange); border-color: var(--orange); }
+    /* Featured placeholder */
+    .featured-placeholder { background: var(--charcoal); height: 560px; display: flex; align-items: center; justify-content: center; margin-bottom: 2px; }
+    .featured-placeholder .ph-inner { text-align: center; color: var(--muted); }
+    .featured-placeholder i { font-size: 3rem; margin-bottom: 12px; opacity: 0.3; }
+    .featured-placeholder p { font-size: 0.82rem; }
+
+    .grid-projects { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    .project-card { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; background: var(--charcoal); }
+    .project-card.tall { aspect-ratio: 3/4; }
+    .project-card.wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .project-card:hover img { transform: scale(1.07); }
+    /* Placeholder for no image */
+    .project-card .no-img { width: 100%; height: 100%; background: var(--steel); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 2.5rem; }
+    .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,11,11,0.95) 0%, rgba(11,11,11,0.1) 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; opacity: 0; transform: translateY(12px); transition: var(--transition); }
+    .project-card:hover .project-overlay { opacity: 1; transform: translateY(0); }
+    .project-tag { display: inline-block; background: var(--orange); color: var(--white); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 4px 10px; margin-bottom: 10px; align-self: flex-start; }
+    .project-overlay h3 { font-size: 1.5rem; margin-bottom: 6px; line-height: 1.1; }
+    .project-overlay p { font-size: 0.8rem; color: rgba(255,255,255,0.65); line-height: 1.6; margin-bottom: 14px; }
+    .project-meta { display: flex; gap: 16px; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; flex-wrap: wrap; }
+    .project-meta .val { color: var(--orange); }
+    .card-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 24px; background: linear-gradient(to top, rgba(11,11,11,0.85) 0%, transparent 100%); pointer-events: none; transition: opacity 0.3s; }
+    .project-card:hover .card-label { opacity: 0; }
+    .card-label-tag { font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+    .card-label-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.05em; color: var(--white); }
+
+    /* ─── SECTION DIVIDER ─── */
+    .section-divider { display: flex; align-items: center; gap: 24px; margin: 64px 0 48px; }
+    .section-divider h3 { font-size: 2rem; white-space: nowrap; }
+    .section-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+
+    /* ─── REVEAL ─── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── NO RESULTS ─── */
+    .no-results { display: none; text-align: center; padding: 80px 40px; }
+    .no-results i { font-size: 3rem; color: var(--muted); margin-bottom: 20px; }
+    .no-results h3 { font-size: 2rem; color: var(--muted); }
+
+    /* ─── LOADING SPINNER ─── */
+    .projects-loading { display: flex; align-items: center; justify-content: center; padding: 80px; }
+    .projects-loading .spinner { width: 40px; height: 40px; border: 3px solid var(--line); border-top-color: var(--orange); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ─── CTA BAND ─── */
+    .cta-band { background: var(--orange); padding: 80px 0; position: relative; overflow: hidden; }
+    .cta-band::before { content: 'BUILD'; position: absolute; right: -20px; top: 50%; transform: translateY(-50%); font-family: 'Bebas Neue', sans-serif; font-size: 18rem; line-height: 1; color: rgba(0,0,0,0.08); letter-spacing: -0.05em; pointer-events: none; }
+    .cta-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; gap: 40px; position: relative; z-index: 1; }
+    .cta-text h2 { font-size: clamp(2.4rem, 5vw, 4.5rem); color: var(--black); line-height: 0.95; margin-bottom: 12px; }
+    .cta-text p { font-size: 1rem; color: rgba(0,0,0,0.65); max-width: 420px; }
+    .btn-dark { background: var(--black); color: var(--white); padding: 18px 40px; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: transform 0.25s, background 0.25s; white-space: nowrap; }
+    .btn-dark:hover { background: #222; transform: translateX(4px); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--black); border-top: 1px solid var(--line); padding: 72px 40px 0; }
+    .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 60px; }
+    .footer-brand .logo-old-hide { display:none; }
+    .logo { font-size: 1.6rem; margin-bottom: 20px; display: block; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.8; max-width: 260px; }
+    .footer-socials { display: flex; gap: 14px; margin-top: 28px; }
+    .footer-socials a { width: 36px; height: 36px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.9rem; transition: border-color 0.25s, color 0.25s; }
+    .footer-socials a:hover { border-color: var(--orange); color: var(--orange); }
+    .footer-col h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.2em; color: var(--orange); margin-bottom: 24px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; list-style: none; }
+    .footer-col ul a { font-size: 0.85rem; color: var(--muted); transition: color 0.25s; }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1280px; margin: 0 auto; border-top: 1px solid var(--line); padding: 24px 0; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: 0.75rem; color: var(--muted); }
+
+    /* ─── WHATSAPP WIDGET ─── */
+    .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 500; }
+    .wa-btn { width: 58px; height: 58px; background: #25D366; border: none; border-radius: 50%; color: white; font-size: 26px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 20px rgba(37,211,102,0.35); transition: transform 0.3s, box-shadow 0.3s; }
+    .wa-btn:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37,211,102,0.5); }
+    .chat-box { position: absolute; bottom: 74px; right: 0; width: 320px; background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); overflow: hidden; display: none; animation: popUp 0.35s cubic-bezier(0.16,1,0.3,1); }
+    @keyframes popUp { from { transform: translateY(16px) scale(0.97); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+    .chat-head { background: #075E54; padding: 20px; display: flex; align-items: center; gap: 14px; position: relative; }
+    .chat-avatar { width: 42px; height: 42px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 1rem; }
+    .chat-head-info h4 { color: white; font-size: 0.95rem; }
+    .chat-status { font-size: 0.72rem; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 5px; }
+    .chat-status::before { content: ''; width: 7px; height: 7px; background: #25D366; border-radius: 50%; display: inline-block; }
+    .chat-close { position: absolute; right: 14px; top: 14px; background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; opacity: 0.7; }
+    .chat-close:hover { opacity: 1; }
+    .chat-body-box { padding: 20px; background: #ece5dd; }
+    .chat-bubble { background: white; border-radius: 8px; padding: 14px; font-size: 0.88rem; color: #333; line-height: 1.6; box-shadow: 0 1px 3px rgba(0,0,0,0.08); margin-bottom: 18px; }
+    .chat-start { width: 100%; background: #25D366; color: white; border: none; padding: 13px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.25s; }
+    .chat-start:hover { background: #1ebd58; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .grid-projects { grid-template-columns: repeat(2,1fr); }
+      .project-card.wide { grid-column: span 2; }
+      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .cta-inner { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .hamburger { display: flex; }
+      .page-hero h1 { font-size: 3rem; }
+      .grid-projects { grid-template-columns: 1fr; }
+      .project-card.wide { grid-column: span 1; aspect-ratio: 4/3; }
+      .project-card.tall { aspect-ratio: 4/3; }
+      .featured-project { height: 420px; }
+      .featured-overlay { padding: 32px; }
+      .featured-arrow { display: none; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+      .cta-band::before { font-size: 8rem; }
+    }
+  
+    /* ── SITE LOGO ── */
+    .site-logo { display:flex; align-items:center; text-decoration:none; }
+    .site-logo img {
+      height: 58px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      transition: opacity 0.25s;
+    }
+    .site-logo img:hover { opacity: 0.82; }
+    .footer-logo img {
+      height: 68px;
+      width: auto;
+      max-width: 260px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      margin-bottom: 14px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" onclick="closeMobileMenu()"><i class="fa-solid fa-xmark"></i></button>
+    <a href="index.html" onclick="closeMobileMenu()">Home</a>
+    <a href="about.html" onclick="closeMobileMenu()">About</a>
+    <a href="index.html#services" onclick="closeMobileMenu()">Services</a>
+    <a href="project.html" onclick="closeMobileMenu()">Projects</a>
+    <a href="index.html#regions" onclick="closeMobileMenu()">Regions</a>
+    <a href="contact_us.html" onclick="closeMobileMenu()">Contact</a>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="nav-inner">
+      <a href="index.html" class="site-logo"><img src="aguntalogo.png"></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="project.html" class="active">Projects</a>
+        <a href="index.html#regions">Regions</a>
+        <a href="contact_us.html" class="nav-cta">Request a Quote</a>
+      </nav>
+      <div class="hamburger" onclick="openMobileMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-accent"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">Projects</span>
+      </div>
+      <div class="page-hero-label">Our Portfolio</div>
+      <h1 id="heroTitle">Built Across<br><em>Five Nations.</em></h1>
+      <p class="page-hero-sub" id="heroSub">From residential towers in Kampala to highway networks in South Sudan — every project reflects our commitment to precision, quality, and lasting impact.</p>
+    </div>
+  </div>
+
+  <!-- Stats Strip -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-num"><span class="orange" id="statTotal">–</span>+</span>
+        <p class="stat-label">Projects Completed</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">5</span>
+        <p class="stat-label">Countries Active</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num"><span class="orange">$2.4</span>B+</span>
+        <p class="stat-label">Construction Value</p>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">98<span class="orange">%</span></span>
+        <p class="stat-label">On-Time Delivery</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ticker -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Kampala</span>
+      <span class="ticker-item">Juba</span>
+      <span class="ticker-item">Addis Ababa</span>
+      <span class="ticker-item">Asmara</span>
+      <span class="ticker-item">Accra</span>
+      <span class="ticker-item">Commercial</span>
+      <span class="ticker-item">Residential</span>
+      <span class="ticker-item">Infrastructure</span>
+      <span class="ticker-item">Industrial</span>
+      <span class="ticker-item">Kampala</span>
+      <span class="ticker-item">Juba</span>
+      <span class="ticker-item">Addis Ababa</span>
+      <span class="ticker-item">Asmara</span>
+      <span class="ticker-item">Accra</span>
+      <span class="ticker-item">Commercial</span>
+      <span class="ticker-item">Residential</span>
+      <span class="ticker-item">Infrastructure</span>
+      <span class="ticker-item">Industrial</span>
+    </div>
+  </div>
+
+  <!-- Filter -->
+  <div class="filter-section">
+    <div class="container">
+      <div class="filter-bar reveal">
+        <div class="filter-row">
+          <div class="filter-label">Filter by category</div>
+          <div class="filter-tabs" id="categoryTabs">
+            <button class="filter-btn active" data-filter="all">All Projects</button>
+            <button class="filter-btn" data-filter="commercial">Commercial</button>
+            <button class="filter-btn" data-filter="residential">Residential</button>
+            <button class="filter-btn" data-filter="infrastructure">Infrastructure</button>
+            <button class="filter-btn" data-filter="realstate">Real Estate</button>
+            <button class="filter-btn" data-filter="renovation">Renovation</button>
+          </div>
+        </div>
+        <div class="filter-row filter-row-bottom">
+          <div>
+            <div class="filter-label">Filter by status</div>
+            <div class="filter-tabs" id="statusTabs">
+              <button class="filter-btn active" data-status="all">All</button>
+              <button class="filter-btn" data-status="ongoing">Ongoing</button>
+              <button class="filter-btn" data-status="completed">Completed</button>
+            </div>
+          </div>
+          <div class="filter-count">Showing <span id="projectCount">–</span> projects</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <div class="projects-section">
+    <!-- Loading state -->
+    <div class="projects-loading" id="projectsLoading">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Featured project (injected by JS) -->
+    <div id="featuredWrapper"></div>
+
+    <!-- Grid (injected by JS) -->
+    <div style="max-width:1280px;margin:0 auto;padding:0 40px;">
+      <div class="grid-projects" id="projectsGrid"></div>
+      <div class="no-results" id="noResults">
+        <i class="fa-solid fa-folder-open"></i>
+        <h3>No projects in this category</h3>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Band -->
+  <div class="cta-band">
+    <div class="cta-inner">
+      <div class="cta-text">
+        <h2>Ready to Build<br>Something Great?</h2>
+        <p>Talk to our engineering team. Free consultation, detailed proposal in 48 hours.</p>
+      </div>
+      <a href="contact_us.html" class="btn-dark">Start Your Project <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo"><img src="aguntalogo.png"></a>
+        <p>Building the structures that define skylines and serve communities across Africa.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/256775975266"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+     <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="project.html">Commercial</a></li>
+          <li><a href="project.html">Residential</a></li>
+          <li><a href="project.html">Industrial</a></li>
+          <li><a href="project.html">Infrastructure</a></li>
+          <li><a href="project.html">Renovation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="project.html">Projects</a></li>
+          <li><a href="index.html#process">Our Process</a></li>
+          <li><a href="index.html#regions">Regions</a></li>
+          <li><a href="contact_us.html">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+256775975266" id="footerPhone">+256 775 975 266</a></li>
+          <li><a href="https://wa.me/256758975266" id="footerWhatsapp">WhatsApp</a></li>
+          <li><a href="contact_us.html">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Agunta Construction Ltd. All rights reserved.</p>
+      <p>Privacy Policy &nbsp;·&nbsp; Terms of Service</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Widget -->
+  <div class="chat-widget">
+    <div class="chat-box" id="chatBox">
+      <div class="chat-head">
+        <div class="chat-avatar">A</div>
+        <div class="chat-head-info">
+          <h4>Agunta Construction</h4>
+          <div class="chat-status">Online · Replies promptly</div>
+        </div>
+        <button class="chat-close" onclick="toggleChat()">×</button>
+      </div>
+      <div class="chat-body-box">
+        <div class="chat-bubble">👋 Hello! Welcome to Agunta Construction. How can our engineering team assist you today?</div>
+        <button class="chat-start" onclick="openWhatsApp()"><i class="fa-brands fa-whatsapp"></i> Start Chat on WhatsApp</button>
+      </div>
+    </div>
+    <button class="wa-btn" onclick="toggleChat()"><i class="fa-brands fa-whatsapp"></i></button>
+  </div>
+
+  <script>
+    // ─── Custom Cursor ───────────────────────────────────────
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = (mx - 5) + 'px';
+      cursor.style.top  = (my - 5) + 'px';
+    });
+    (function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = (rx - 18) + 'px';
+      ring.style.top  = (ry - 18) + 'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { ring.style.width = '56px'; ring.style.height = '56px'; });
+      el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; });
+    });
+
+    // ─── Header scroll ───────────────────────────────────────
+    window.addEventListener('scroll', () => {
+      document.getElementById('header').classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // ─── Mobile Menu ─────────────────────────────────────────
+    function openMobileMenu()  { document.getElementById('mobileMenu').classList.add('open'); }
+    function closeMobileMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+    // ─── Scroll Reveal ───────────────────────────────────────
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // ─── WhatsApp ────────────────────────────────────────────
+    let waNumber = '256758975266';
+    function toggleChat() {
+      const box = document.getElementById('chatBox');
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+    function openWhatsApp() {
+      window.open(`https://wa.me/${waNumber}`, '_blank');
+      document.getElementById('chatBox').style.display = 'none';
+    }
+    setTimeout(() => {
+      const box = document.getElementById('chatBox');
+      if (box.style.display !== 'block') box.style.display = 'block';
+    }, 4000);
+
+    // ═══════════════════════════════════════════════════════════
+    // DYNAMIC PROJECT LOADING
+    // ═══════════════════════════════════════════════════════════
+    let allProjects = [];
+    let activeCategory = 'all';
+    let activeStatus   = 'all';
+
+    // Unsplash fallback images per category
+    const fallbacks = {
+      residential:    'https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=800',
+      commercial:     'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=800',
+      infrastructure: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800',
+      realstate:      'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800',
+      renovation:     'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=800',
+    };
+    function fallback(cat) { return fallbacks[cat] || fallbacks.commercial; }
+
+    async function loadProjects() {
+      try {
+        const r = await fetch('/api/projects');
+        allProjects = await r.json();
+      } catch {
+        allProjects = [];
+      }
+      document.getElementById('projectsLoading').style.display = 'none';
+      document.getElementById('statTotal').textContent = allProjects.length;
+      renderProjects();
+    }
+
+    async function loadSettings() {
+      try {
+        const r = await fetch('/api/settings');
+        const s = await r.json();
+        if (s.heroTitle) document.getElementById('heroTitle').innerHTML = s.heroTitle;
+        if (s.heroSub)   document.getElementById('heroSub').textContent = s.heroSub;
+        if (s.phone)     { const el = document.getElementById('footerPhone'); if(el){el.textContent = s.phone; el.href = 'tel:'+s.phone;} }
+        if (s.whatsapp)  { waNumber = s.whatsapp; document.getElementById('footerWhatsapp').href = 'https://wa.me/256775975266'+s.whatsapp; }
+        if (s.email)     { const el = document.getElementById('footerEmail'); if(el){ el.href = 'mailto:'+s.email; } }
+      } catch {}
+    }
+
+    function renderProjects() {
+      const featured  = allProjects.find(p => p.featured);
+      const nonFeatured = allProjects.filter(p => !p.featured);
+
+      renderFeatured(featured);
+      renderGrid(nonFeatured);
+      filterProjects();
+    }
+
+    function renderFeatured(p) {
+      const wrapper = document.getElementById('featuredWrapper');
+      if (!p) {
+        wrapper.innerHTML = '';
+        return;
+      }
+      const img = p.image || fallback(p.category);
+      wrapper.innerHTML = `
+        <div class="featured-project" id="featuredProject" data-category="${esc(p.category)}" data-status="${esc(p.status)}">
+          <img src="${esc(img)}" alt="${esc(p.title)}" loading="lazy">
+          <div class="featured-overlay">
+            <span class="featured-badge"><i class="fa-solid fa-star"></i> Featured Project</span>
+            <h2>${esc(p.title)}</h2>
+            <p>${esc(p.description || '')}</p>
+            <div class="featured-meta">
+              ${p.location ? `<div class="featured-meta-item"><label>Location</label><p>${esc(p.location)}</p></div>` : ''}
+              ${p.duration ? `<div class="featured-meta-item"><label>Duration</label><p>${esc(p.duration)}</p></div>` : ''}
+              ${p.category ? `<div class="featured-meta-item"><label>Category</label><p>${capitalise(p.category)}</p></div>` : ''}
+              ${p.status   ? `<div class="featured-meta-item"><label>Status</label><p>${capitalise(p.status)}</p></div>` : ''}
+            </div>
+          </div>
+          <div class="featured-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+        </div>
+      `;
+    }
+
+    function renderGrid(projects) {
+      const grid = document.getElementById('projectsGrid');
+      if (projects.length === 0) { grid.innerHTML = ''; return; }
+
+      // Give alternating width classes for visual variety
+      grid.innerHTML = projects.map((p, i) => {
+        const img = p.image || fallback(p.category);
+        const cls = (i % 9 === 4 || i % 9 === 5) ? 'wide' : '';
+        return `
+          <div class="project-card ${cls}" data-category="${esc(p.category)}" data-status="${esc(p.status)}" data-id="${esc(p.id)}">
+            <img src="${esc(img)}" alt="${esc(p.title)}" loading="lazy">
+            <div class="card-label">
+              <div class="card-label-tag">${capitalise(p.category)}</div>
+              <div class="card-label-title">${esc(p.title)}${p.duration ? ' ('+esc(p.duration)+')' : ''}</div>
+            </div>
+            <div class="project-overlay">
+              <span class="project-tag">${capitalise(p.category)}</span>
+              <h3>${esc(p.title)}</h3>
+              <p>${esc(p.description || '').slice(0,140)}${(p.description||'').length > 140 ? '…' : ''}</p>
+              <div class="project-meta">
+                ${p.client   ? `<div><span class="val">Client:</span> ${esc(p.client)}</div>` : ''}
+                ${p.location ? `<div><span class="val">Location:</span> ${esc(p.location)}</div>` : ''}
+                ${p.duration ? `<div><span class="val">Duration:</span> ${esc(p.duration)}</div>` : ''}
+                ${p.status   ? `<div><span class="val">Status:</span> ${capitalise(p.status)}</div>` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Touch overlay toggle
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const overlay = card.querySelector('.project-overlay');
+          const isVis   = overlay.style.opacity === '1';
+          document.querySelectorAll('.project-overlay').forEach(o => { o.style.opacity='0'; o.style.transform='translateY(12px)'; });
+          if (!isVis) { overlay.style.opacity='1'; overlay.style.transform='translateY(0)'; }
+        });
+      });
+    }
+
+    // ─── Filter Logic ─────────────────────────────────────────
+    function filterProjects() {
+      const cards    = document.querySelectorAll('#projectsGrid .project-card');
+      const featured = document.getElementById('featuredProject');
+      let visible    = 0;
+
+      function matches(el) {
+        const cat    = el.dataset.category;
+        const status = el.dataset.status;
+        const catOK  = activeCategory === 'all' || cat === activeCategory;
+        const stOK   = activeStatus   === 'all' || status === activeStatus;
+        return catOK && stOK;
+      }
+
+      if (featured) {
+        if (matches(featured)) { featured.style.display='block'; visible++; }
+        else featured.style.display='none';
+      }
+
+      cards.forEach(card => {
+        if (matches(card)) { card.style.display='block'; visible++; }
+        else card.style.display='none';
+      });
+
+      document.getElementById('projectCount').textContent = visible;
+      document.getElementById('noResults').style.display  = visible === 0 ? 'block' : 'none';
+    }
+
+    // ─── Category filter buttons ──────────────────────────────
+    document.querySelectorAll('#categoryTabs .filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#categoryTabs .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.dataset.filter;
+        filterProjects();
+      });
+    });
+
+    // ─── Status filter buttons ────────────────────────────────
+    document.querySelectorAll('#statusTabs .filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#statusTabs .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeStatus = btn.dataset.status;
+        filterProjects();
+      });
+    });
+
+    // ─── Helpers ─────────────────────────────────────────────
+    function esc(str = '') {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+    function capitalise(s = '') { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+    // ─── Boot ─────────────────────────────────────────────────
+    loadSettings();
+    loadProjects();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Agunta Construction Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --orange:      #d44d1d;
+      --orange-dark: #b03a10;
+      --orange-glow: rgba(212,77,29,0.14);
+      --black:       #0b0b0b;
+      --charcoal:    #141414;
+      --steel:       #1c1c1c;
+      --panel:       #212121;
+      --line:        rgba(255,255,255,0.07);
+      --white:       #ffffff;
+      --muted:       #7a7a7a;
+      --ease:        cubic-bezier(0.16,1,0.3,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
+    .serif { font-family: 'DM Serif Display', serif; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--charcoal); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    /* ── CURSOR ── */
+    .cursor { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s; }
+    .cursor-ring { width: 34px; height: 34px; border: 1px solid rgba(212,77,29,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.3s; }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
+      padding: 18px 0;
+      background: rgba(11,11,11,0.85);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      transition: padding 0.4s var(--ease), border-color 0.4s;
+    }
+    header.scrolled { padding: 12px 0; border-color: rgba(212,77,29,0.18); }
+    .nav { max-width: 1320px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; }
+    .logo-old-hide { display:none; }
+    .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.18em; color: var(--white); }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links a { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.55); position: relative; transition: color 0.25s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--orange); transition: width 0.3s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 24px; font-weight: 600; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--orange-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); transition: 0.3s; }
+
+    /* ── MOBILE MENU ── */
+    .mob-menu { display: none; position: fixed; inset: 0; background: var(--black); z-index: 300; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+    .mob-menu.open { display: flex; }
+    .mob-menu a { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.08em; color: var(--white); transition: color 0.2s; }
+    .mob-menu a:hover { color: var(--orange); }
+    .mob-close { position: absolute; top: 24px; right: 30px; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; }
+
+    /* ── SHARED LAYOUT ── */
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 48px; }
+    section { padding: 120px 0; }
+
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--orange); font-weight: 600; margin-bottom: 20px;
+    }
+    .section-label::before { content: ''; width: 28px; height: 1px; background: var(--orange); }
+
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+    .reveal-left.visible { opacity: 1; transform: none; }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+    .reveal-right.visible { opacity: 1; transform: none; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+    /* ──────────────────────────────
+       HERO
+    ────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex; align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2000') center/cover no-repeat;
+      transform: scale(1.06);
+      transition: transform 7s var(--ease);
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(170deg, rgba(11,11,11,0.3) 0%, rgba(11,11,11,0.92) 75%);
+    }
+    /* diagonal stripe accent */
+    .hero-stripe {
+      position: absolute; top: 0; right: 0;
+      width: 38%; height: 100%;
+      background: repeating-linear-gradient(
+        -55deg,
+        transparent,
+        transparent 18px,
+        rgba(212,77,29,0.03) 18px,
+        rgba(212,77,29,0.03) 36px
+      );
+    }
+    .hero-body {
+      position: relative; z-index: 2; width: 100%;
+      padding-bottom: 96px; padding-top: 180px;
+    }
+    .hero-bread {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 36px;
+      opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+    }
+    .hero-bread span { color: var(--orange); }
+    .hero h1 {
+      font-size: clamp(4rem, 10vw, 10rem);
+      line-height: 0.88; margin-bottom: 36px;
+      opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+    }
+    .hero h1 em {
+      display: block; font-family: 'DM Serif Display', serif;
+      font-style: italic; color: var(--orange); font-size: 0.6em; line-height: 1.2;
+    }
+    .hero-tagline {
+      max-width: 520px;
+      font-size: 1.05rem; font-weight: 300; line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      opacity: 0; animation: fadeUp 0.9s 0.6s forwards;
+    }
+    /* vertical text on right */
+    .hero-vertical {
+      position: absolute; right: 52px; bottom: 120px;
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      opacity: 0; animation: fadeUp 1s 1s forwards;
+    }
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      opacity: 0; animation: fadeUp 1s 1.2s forwards;
+    }
+    .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--orange), transparent); animation: scrollPulse 2s infinite; }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+    /* ──────────────────────────────
+       INTRO STRIP
+    ────────────────────────────── */
+    .intro-strip {
+      background: var(--orange); padding: 0;
+    }
+    .intro-strip-inner {
+      max-width: 1320px; margin: 0 auto; padding: 0 48px;
+      display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      gap: 0;
+    }
+    .intro-fact {
+      padding: 44px 40px; text-align: center;
+    }
+    .intro-fact .big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.6rem; color: var(--black); line-height: 1;
+    }
+    .intro-fact p {
+      font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(0,0,0,0.6); margin-top: 6px;
+    }
+    .intro-divider { background: rgba(0,0,0,0.15); }
+
+    /* ──────────────────────────────
+       STORY
+    ────────────────────────────── */
+    #story { background: var(--charcoal); padding: 140px 0; }
+    .story-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 100px; align-items: center;
+    }
+    .story-images { position: relative; height: 600px; }
+    .story-img-main {
+      position: absolute; top: 0; left: 0;
+      width: 78%; height: 80%; object-fit: cover;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    }
+    .story-img-accent {
+      position: absolute; bottom: 0; right: 0;
+      width: 55%; height: 52%; object-fit: cover;
+      border: 5px solid var(--charcoal);
+    }
+    .story-badge {
+      position: absolute; top: 50%; left: 60%;
+      transform: translate(-50%, -50%);
+      background: var(--orange); padding: 30px 24px;
+      text-align: center; z-index: 2;
+    }
+    .story-badge .yr { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; line-height: 1; }
+    .story-badge small { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.8; display: block; }
+    .story-copy .section-label { margin-bottom: 20px; }
+    .story-copy h2 { font-size: clamp(2.8rem, 4vw, 4.5rem); line-height: 0.95; margin-bottom: 32px; }
+    .story-copy h2 em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--orange); }
+    .story-copy p { font-size: 0.97rem; color: rgba(255,255,255,0.65); line-height: 1.85; margin-bottom: 20px; }
+    .story-copy p strong { color: var(--white); font-weight: 500; }
+    .story-quote {
+      border-left: 3px solid var(--orange); padding: 20px 28px;
+      margin: 36px 0; background: rgba(212,77,29,0.06);
+    }
+    .story-quote blockquote {
+      font-family: 'DM Serif Display', serif; font-style: italic;
+      font-size: 1.15rem; color: rgba(255,255,255,0.85); line-height: 1.6;
+    }
+    .story-quote cite {
+      display: block; margin-top: 12px;
+      font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--orange); font-style: normal;
+    }
+
+    /* ──────────────────────────────
+       TIMELINE
+    ────────────────────────────── */
+    #timeline { background: var(--black); }
+    .timeline-head { text-align: center; margin-bottom: 80px; }
+    .timeline-head h2 { font-size: clamp(2.8rem, 5vw, 5rem); }
+    .timeline-track { position: relative; }
+    .timeline-track::before {
+      content: ''; position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 1px; background: var(--line);
+      transform: translateX(-50%);
+    }
+    .t-item {
+      display: grid; grid-template-columns: 1fr 60px 1fr;
+      gap: 0; align-items: start; margin-bottom: 60px;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+    .t-item.visible { opacity: 1; transform: none; }
+    .t-left { text-align: right; padding-right: 40px; }
+    .t-right { padding-left: 40px; }
+    .t-mid {
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 6px;
+    }
+    .t-dot {
+      width: 14px; height: 14px;
+      background: var(--orange); border-radius: 50%;
+      border: 3px solid var(--black);
+      flex-shrink: 0;
+    }
+    .t-year {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem;
+      color: var(--orange); line-height: 1;
+    }
+    .t-title { font-size: 1.1rem; margin-bottom: 8px; }
+    .t-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.75; }
+    /* alternate: even items flip */
+    .t-item:nth-child(even) .t-left { order: 3; text-align: left; padding-right: 0; padding-left: 40px; }
+    .t-item:nth-child(even) .t-mid  { order: 2; }
+    .t-item:nth-child(even) .t-right { order: 1; text-align: right; padding-left: 0; padding-right: 40px; }
+
+    /* ──────────────────────────────
+       MISSION / VISION / VALUES
+    ────────────────────────────── */
+    #mvv { background: var(--charcoal); }
+    .mvv-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line); margin-top: 56px;
+    }
+    .mvv-card {
+      background: var(--steel); padding: 56px 44px;
+      position: relative; overflow: hidden;
+      transition: background 0.35s;
+    }
+    .mvv-card:hover { background: var(--panel); }
+    .mvv-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 0;
+      background: var(--orange); transition: height 0.35s;
+    }
+    .mvv-card:hover::before { height: 3px; }
+    .mvv-icon {
+      font-size: 1.6rem; color: var(--orange);
+      margin-bottom: 24px; display: block;
+      transition: transform 0.35s;
+    }
+    .mvv-card:hover .mvv-icon { transform: scale(1.1) rotate(-5deg); }
+    .mvv-card h3 { font-size: 2rem; margin-bottom: 16px; }
+    .mvv-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+    .mvv-watermark {
+      position: absolute; bottom: 16px; right: 20px;
+      font-family: 'Bebas Neue', sans-serif; font-size: 5rem;
+      color: rgba(255,255,255,0.025); line-height: 1;
+    }
+
+    /* ──────────────────────────────
+       TEAM
+    ────────────────────────────── */
+    #team { background: var(--black); }
+    .team-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; }
+    .team-head h2 { font-size: clamp(2.8rem, 5vw, 4.5rem); }
+    .team-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 2px;
+    }
+    .team-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4; cursor: pointer;
+    }
+    .team-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.6s var(--ease), filter 0.4s;
+      filter: grayscale(30%);
+    }
+    .team-card:hover img { transform: scale(1.05); filter: grayscale(0%); }
+    .team-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(11,11,11,0.95) 0%, transparent 55%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 28px 24px;
+      transform: translateY(10px); opacity: 0;
+      transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
+    }
+    .team-card:hover .team-overlay { opacity: 1; transform: none; }
+    .team-role {
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.22em;
+      color: var(--orange); margin-bottom: 6px;
+    }
+    .team-name { font-size: 1.4rem; }
+    .team-bio { font-size: 0.8rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-top: 8px; }
+    .team-socials { display: flex; gap: 12px; margin-top: 14px; }
+    .team-socials a {
+      width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; color: var(--white);
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .team-socials a:hover { border-color: var(--orange); background: var(--orange); }
+
+    /* ──────────────────────────────
+       STATS BAND
+    ────────────────────────────── */
+    .stats-band {
+      background: var(--orange); padding: 0;
+    }
+    .stats-band-inner {
+      max-width: 1320px; margin: 0 auto; padding: 0 48px;
+      display: grid; grid-template-columns: repeat(4,1fr);
+    }
+    .sb-item {
+      padding: 52px 0; text-align: center;
+      border-right: 1px solid rgba(0,0,0,0.15);
+    }
+    .sb-item:last-child { border: none; }
+    .sb-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 4rem;
+      color: var(--black); line-height: 1;
+    }
+    .sb-label {
+      font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(0,0,0,0.55); margin-top: 6px;
+    }
+
+    /* ──────────────────────────────
+       CULTURE / WHY
+    ────────────────────────────── */
+    #culture { background: var(--charcoal); }
+    .culture-grid {
+      display: grid; grid-template-columns: 1.1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .culture-copy h2 { font-size: clamp(2.8rem, 4vw, 4.5rem); margin-bottom: 32px; line-height: 0.95; }
+    .culture-copy h2 em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--orange); }
+    .culture-copy p { font-size: 0.97rem; color: rgba(255,255,255,0.6); line-height: 1.85; margin-bottom: 20px; }
+    .culture-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
+    .culture-point {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding: 22px 0; border-bottom: 1px solid var(--line);
+      transition: background 0.25s;
+    }
+    .culture-point:first-child { border-top: 1px solid var(--line); }
+    .c-icon {
+      width: 40px; height: 40px; background: var(--orange-glow);
+      border: 1px solid rgba(212,77,29,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); font-size: 0.9rem; flex-shrink: 0;
+    }
+    .c-text h4 { font-size: 1rem; margin-bottom: 4px; }
+    .c-text p { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+    .culture-visual { position: relative; }
+    .culture-visual img { width: 100%; aspect-ratio: 4/5; object-fit: cover; }
+    .cv-badge {
+      position: absolute; bottom: -20px; left: -20px;
+      background: var(--black); border: 1px solid var(--line);
+      padding: 24px 28px;
+    }
+    .cv-badge .big { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--orange); line-height: 1; }
+    .cv-badge small { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+    /* ──────────────────────────────
+       CERTIFICATIONS
+    ────────────────────────────── */
+    #certs { background: var(--black); }
+    .certs-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--line);
+      border: 1px solid var(--line); margin-top: 56px;
+    }
+    .cert-card {
+      background: var(--charcoal); padding: 40px 36px;
+      display: flex; align-items: flex-start; gap: 20px;
+      transition: background 0.3s;
+    }
+    .cert-card:hover { background: var(--steel); }
+    .cert-icon {
+      width: 48px; height: 48px; background: var(--orange-glow);
+      border: 1px solid rgba(212,77,29,0.3);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); font-size: 1.2rem; flex-shrink: 0;
+    }
+    .cert-body h4 { font-size: 1rem; margin-bottom: 6px; }
+    .cert-body p { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+    /* ──────────────────────────────
+       CTA BAND
+    ────────────────────────────── */
+    .cta-band {
+      background: var(--charcoal);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 100px 0;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-band::before {
+      content: 'BUILD'; position: absolute;
+      font-family: 'Bebas Neue', sans-serif; font-size: 20rem;
+      color: rgba(255,255,255,0.015); line-height: 1;
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none; white-space: nowrap;
+    }
+    .cta-band .section-label { justify-content: center; margin-bottom: 24px; }
+    .cta-band h2 { font-size: clamp(3rem, 6vw, 6.5rem); line-height: 0.92; margin-bottom: 32px; }
+    .cta-band h2 em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--orange); }
+    .cta-band p { font-size: 1rem; color: var(--muted); max-width: 500px; margin: 0 auto 48px; line-height: 1.8; }
+    .cta-actions { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--orange); color: var(--white);
+      padding: 16px 40px; font-size: 0.8rem; letter-spacing: 0.14em;
+      text-transform: uppercase; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 10px;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateX(4px); }
+    .btn-ghost {
+      border: 1px solid rgba(255,255,255,0.2); color: var(--white);
+      padding: 15px 40px; font-size: 0.8rem; letter-spacing: 0.14em;
+      text-transform: uppercase; font-weight: 500;
+      display: inline-flex; align-items: center; gap: 10px;
+      border-radius: 50px;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .btn-ghost:hover { border-color: var(--orange); background: var(--orange-glow); }
+
+    /* ──────────────────────────────
+       FOOTER
+    ────────────────────────────── */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--line);
+      padding: 72px 48px 0;
+    }
+    .footer-inner {
+      max-width: 1320px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px; padding-bottom: 60px;
+    }
+    .footer-brand .logo-old-hide { display:none; }
+    .logo { font-size: 1.6rem; margin-bottom: 20px; display: block; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.8; max-width: 260px; }
+    .footer-socials { display: flex; gap: 12px; margin-top: 28px; }
+    .footer-socials a {
+      width: 36px; height: 36px; border: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 0.85rem;
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .footer-socials a:hover { border-color: var(--orange); color: var(--orange); }
+    .footer-col h4 { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: 0.2em; color: var(--orange); margin-bottom: 24px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 12px; list-style: none; }
+    .footer-col ul a { font-size: 0.85rem; color: var(--muted); transition: color 0.25s; }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom {
+      max-width: 1320px; margin: 0 auto;
+      border-top: 1px solid var(--line); padding: 24px 0;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+
+    /* ── WHATSAPP ── */
+    .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 500; }
+    .wa-fab {
+      width: 56px; height: 56px; background: #25D366; border: none;
+      border-radius: 50%; color: white; font-size: 24px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .wa-fab:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37,211,102,0.5); }
+    .wa-popup {
+      position: absolute; bottom: 70px; right: 0; width: 300px;
+      background: #fff; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden; display: none;
+      animation: popUp 0.4s var(--ease);
+    }
+    @keyframes popUp { from { transform: translateY(16px) scale(0.96); opacity: 0; } to { transform: none; opacity: 1; } }
+    .wa-popup.open { display: block; }
+    .wa-head { background: #075E54; padding: 18px 20px; display: flex; align-items: center; gap: 12px; position: relative; }
+    .wa-av { width: 38px; height: 38px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; }
+    .wa-info h4 { color: white; font-size: 0.92rem; }
+    .wa-status { font-size: 0.7rem; color: rgba(255,255,255,0.65); display: flex; align-items: center; gap: 4px; }
+    .wa-status::before { content: ''; width: 7px; height: 7px; background: #25D366; border-radius: 50%; display: inline-block; }
+    .wa-x { position: absolute; right: 12px; top: 12px; background: none; border: none; color: white; font-size: 1.3rem; cursor: pointer; opacity: 0.7; }
+    .wa-x:hover { opacity: 1; }
+    .wa-body { padding: 18px; background: #ece5dd; }
+    .wa-bubble { background: white; border-radius: 8px; padding: 12px; font-size: 0.85rem; color: #333; line-height: 1.6; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .wa-go { width: 100%; background: #25D366; color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 600; font-size: 0.88rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.25s; }
+    .wa-go:hover { background: #1ebd58; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1100px) {
+      .story-grid, .culture-grid { grid-template-columns: 1fr; gap: 60px; }
+      .team-grid { grid-template-columns: repeat(2,1fr); }
+      .mvv-grid, .certs-grid { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .stats-band-inner { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .story-images { height: 380px; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+      .mvv-grid, .certs-grid { grid-template-columns: 1fr; }
+      .timeline-track::before { left: 24px; }
+      .t-item { grid-template-columns: 40px 1fr; }
+      .t-left { display: none; }
+      .t-right { text-align: left; padding-left: 20px; padding-right: 0; order: 3 !important; }
+      .t-mid { order: 1 !important; }
+      .t-item:nth-child(even) .t-right { text-align: left; padding-right: 0; padding-left: 20px; order: 3 !important; }
+      .t-item:nth-child(even) .t-mid { order: 1 !important; }
+      .intro-strip-inner { grid-template-columns: 1fr; }
+      .intro-divider { display: none; }
+      .stats-band-inner { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      section { padding: 80px 0; }
+      .wrap { padding: 0 24px; }
+    }
+    @media (max-width: 500px) {
+      .team-grid { grid-template-columns: 1fr; }
+      .cta-band h2 { font-size: 3rem; }
+    }
+  
+    /* ── SITE LOGO ── */
+    .site-logo { display:flex; align-items:center; text-decoration:none; }
+    .site-logo img {
+      height: 58px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      transition: opacity 0.25s;
+    }
+    .site-logo img:hover { opacity: 0.82; }
+    .footer-logo img {
+      height: 68px;
+      width: auto;
+      max-width: 260px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      margin-bottom: 14px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Mobile Menu -->
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" onclick="closeMob()"><i class="fa-solid fa-xmark"></i></button>
+    <a href="index.html" onclick="closeMob()">Home</a>
+    <a href="#story" onclick="closeMob()">Our Story</a>
+    <a href="#team" onclick="closeMob()">Team</a>
+    <a href="#mvv" onclick="closeMob()">Mission</a>
+    <a href="contact_us.html" onclick="closeMob()">Contact</a>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="nav">
+      <a href="index.html" class="site-logo"><img src="aguntalogo.png"></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#story">Our Story</a>
+        <a href="#mvv">Mission</a>
+        <a href="#team">Team</a>
+        <a href="#culture">Culture</a>
+        <a href="contact_us.html" class="nav-cta">Get a Quote</a>
+      </div>
+      <div class="hamburger" onclick="openMob()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-stripe"></div>
+    <div class="hero-body">
+      <div class="wrap">
+        <div class="hero-bread">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right" style="font-size:0.6rem"></i>
+          <span>About Us</span>
+        </div>
+        <h1 id="abt_heroTitle">WHO<br>WE<br><em>Are.</em></h1>
+        <p class="hero-tagline" id="abt_heroSub">A multinational civil engineering company built on African soil — driven by precision, trust, and an unbreakable commitment to the communities we serve.</p>
+      </div>
+    </div>
+    <div class="hero-vertical">Est. 2007 · Kampala, Uganda</div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- ══ INTRO STRIP ══ -->
+  <div class="intro-strip">
+    <div class="intro-strip-inner">
+      <div class="intro-fact reveal">
+        <div class="big counter" id="abt_stat_projects" data-target="120">0</div>
+        <p>Projects Delivered</p>
+      </div>
+      <div class="intro-divider"></div>
+      <div class="intro-fact reveal" style="transition-delay:0.1s">
+        <div class="big counter" id="abt_stat_nations" data-target="3">3</div>
+        <p>African Nations</p>
+      </div>
+      <div class="intro-divider"></div>
+      <div class="intro-fact reveal" style="transition-delay:0.2s">
+        <div class="big counter" id="abt_stat_staff" data-target="250">250</div>
+        <p>Staff Members</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STORY ══ -->
+  <section id="story">
+    <div class="wrap">
+      <div class="story-grid">
+        <div class="story-images reveal-left">
+          <img class="story-img-main" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=800" alt="Construction site">
+          <img class="story-img-accent" src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=600" alt="Infrastructure project">
+          <div class="story-badge">
+            <div class="yr">2007</div>
+            <small>Founded</small>
+          </div>
+        </div>
+        <div class="story-copy reveal-right">
+          <div class="section-label">Our Story</div>
+          <h2>Born from a <em>bold</em> African vision.</h2>
+          <p>Agunta Construction Ltd was founded in <strong>2007 in Kampala, Uganda</strong> with a single conviction: that Africa deserves world-class construction delivered by people who understand its soil, its people, and its potential.</p>
+          <p>What began as a regional contractor has grown into a <strong>multinational engineering force</strong> operating across Uganda, South Sudan, Ethiopia, Eritrea, and Ghana. Every project we undertake carries the weight of that founding belief.</p>
+          <div class="story-quote">
+            <blockquote>"We don't just build structures — we build the infrastructure that allows communities to grow, economies to thrive, and futures to take shape."</blockquote>
+            <cite>— Founder, Agunta Construction Ltd</cite>
+          </div>
+          <p>Today, our team of over 240 skilled engineers, architects, and construction professionals brings global standards to every African project — delivering results that speak for themselves.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ══ MISSION / VISION / VALUES ══ -->
+  <section id="mvv">
+    <div class="wrap">
+      <div class="reveal" style="text-align:center;margin-bottom:56px">
+        <div class="section-label" style="justify-content:center">What Drives Us</div>
+        <h2 style="font-size:clamp(2.8rem,5vw,5rem)">Mission, Vision<br>&amp; Values</h2>
+      </div>
+      <div class="mvv-grid reveal">
+        <div class="mvv-card">
+          <span class="mvv-icon"><i class="fa-solid fa-bullseye"></i></span>
+          <h3>Our Mission</h3>
+          <p id="mvv_mission">To deliver high-quality construction and engineering solutions at fair and competitive prices through professionalism, innovation, safety, and efficient project execution while creating long-term value for our clients, partners, and communities through a service-first, results-driven approach.</p>
+          <div class="mvv-watermark">M</div>
+        </div>
+        <div class="mvv-card">
+          <span class="mvv-icon"><i class="fa-solid fa-eye"></i></span>
+          <h3>Our Vision</h3>
+          <p id="mvv_vision">To become a leading and trusted construction and real estate development company in East Africa, recognized for excellence, integrity, and sustainable infrastructure development.</p>
+          <div class="mvv-watermark">V</div>
+        </div>
+        <div class="mvv-card">
+          <span class="mvv-icon"><i class="fa-solid fa-gem"></i></span>
+          <h3>Our Values</h3>
+          <p id="mvv_values">Integrity in every decision. Precision in every pour. Partnership with every client. Safety for every worker. These aren't policies — they are who we are.</p>
+          <div class="mvv-watermark">V</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ══ STATS BAND ══ -->
+  <div class="stats-band">
+    <div class="stats-band-inner">
+      <div class="sb-item reveal">
+        <div class="sb-num"><span class="counter" data-target="17">0</span>+</div>
+        <div class="sb-label">Years in Business</div>
+      </div>
+      <div class="sb-item reveal" style="transition-delay:0.1s">
+        <div class="sb-num"><span class="counter" data-target="98">0</span>%</div>
+        <div class="sb-label">On-Time Delivery Rate</div>
+      </div>
+      <div class="sb-item reveal" style="transition-delay:0.2s">
+        <div class="sb-num"><span class="counter" data-target="50">0</span>+</div>
+        <div class="sb-label">Corporate Clients</div>
+      </div>
+      <div class="sb-item reveal" style="transition-delay:0.3s">
+        <div class="sb-num">$<span class="counter" data-target="180">0</span>M+</div>
+        <div class="sb-label">Projects Value Delivered</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CULTURE ══ -->
+  <section id="culture">
+    <div class="wrap">
+      <div class="culture-grid">
+        <div class="culture-copy reveal-left">
+          <div class="section-label">How We Work</div>
+          <h2>A Culture Built on <em>Craft</em></h2>
+          <p>At Agunta, we believe great construction begins long before the first brick is laid. It starts with people — their expertise, their integrity, and their shared commitment to doing things right.</p>
+          <p>We invest in our teams as heavily as we invest in our equipment. Every engineer, site manager, and tradesperson carries our reputation on their shoulders, and we equip them with the tools, training, and leadership to succeed.</p>
+          <div class="culture-list">
+            <div class="culture-point">
+              <div class="c-icon"><i class="fa-solid fa-hard-hat"></i></div>
+              <div class="c-text">
+                <h4>Safety Above All</h4>
+                <p>Zero-incident culture, weekly safety audits, and mandatory training for every person on site.</p>
+              </div>
+            </div>
+            <div class="culture-point">
+              <div class="c-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+              <div class="c-text">
+                <h4>Continuous Learning</h4>
+                <p>We fund certifications, send engineers to international conferences, and promote from within.</p>
+              </div>
+            </div>
+            <div class="culture-point">
+              <div class="c-icon"><i class="fa-solid fa-users"></i></div>
+              <div class="c-text">
+                <h4>Community First</h4>
+                <p>We hire locally wherever we operate, contributing to jobs, skills transfer, and economic growth.</p>
+              </div>
+            </div>
+            <div class="culture-point">
+              <div class="c-icon"><i class="fa-solid fa-leaf"></i></div>
+              <div class="c-text">
+                <h4>Sustainable Practice</h4>
+                <p>Green building standards, responsible material sourcing, and reduced environmental footprint.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="culture-visual reveal-right">
+          <img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=700" alt="Construction team at work">
+          <div class="cv-badge">
+            <div class="big">250+</div>
+            <small>Skilled Professionals</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CERTIFICATIONS ══ -->
+  <section id="certs">
+    <div class="wrap">
+      <div class="reveal" style="text-align:center;margin-bottom:56px">
+        <div class="section-label" style="justify-content:center">Trust &amp; Compliance</div>
+        <h2 style="font-size:clamp(2.8rem,5vw,5rem)">Certifications &amp;<br>Standards</h2>
+      </div>
+      <div class="certs-grid reveal" id="certsGrid">
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+          <div class="cert-body">
+            <h4>ISO 9001:2015</h4>
+            <p>Quality Management System certification ensuring consistent, high-standard project delivery across all operations.</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <div class="cert-body">
+            <h4>ISO 45001 — Safety</h4>
+            <p>Occupational Health & Safety Management System — protecting workers and stakeholders on every site.</p>
+          </div>
+        </div>
+        <div class="cert-card">
+       <div class="cert-icon"><i class="fa-solid fa-gavel"></i></div>
+       <div class="cert-body">
+       <h4>PPDA Certified</h4>
+      <p>Public Procurement and Disposal of Assets — fully compliant and registered for public sector bidding and transparent tendering.</p>
+        </div>
+        </div>
+        <div class="cert-card">
+       <div class="cert-icon"><i class="fa-solid fa-file-signature"></i></div>
+       <div class="cert-body">
+        <h4>URSB Registered</h4>
+      <p>Uganda Registration Services Bureau — fully incorporated and legally recognized for formal business operations and corporate compliance.</p>
+          </div>
+           </div>
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fa-solid fa-leaf"></i></div>
+          <div class="cert-body">
+            <h4>ISO 14001 — Environment</h4>
+            <p>Environmental Management System ensuring minimal ecological impact throughout construction processes.</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fa-solid fa-building-columns"></i></div>
+          <div class="cert-body">
+            <h4>Uganda National Roads Authority</h4>
+            <p>Certified contractor for UNRA infrastructure projects across Uganda's national road network.</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fa-solid fa-hammer"></i></div>
+          <div class="cert-body">
+            <h4>Uganda Registration of Engineers</h4>
+            <p>Full registration with URE, maintaining professional engineering standards across all structural works.</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon"><i class="fa-solid fa-globe-africa"></i></div>
+          <div class="cert-body">
+            <h4>Multi-National Operating Licences</h4>
+            <p>Fully licensed and compliant to operate in Uganda, South Sudan, Ethiopia, Eritrea, and Ghana.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA BAND ══ -->
+  <div class="cta-band">
+    <div class="wrap">
+      <div class="section-label reveal">Start Building</div>
+      <h2 class="reveal" style="transition-delay:0.1s">Ready to Build<br>Something <em>Great?</em></h2>
+      <p class="reveal" style="transition-delay:0.2s">Tell us about your project and our team will provide a detailed consultation and proposal within 48 hours — at no cost.</p>
+      <div class="cta-actions reveal" style="transition-delay:0.3s">
+        <a href="contact_us.html" class="btn-primary">Request a Quote <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="project.html" class="btn-ghost"><i class="fa-solid fa-images"></i> View Our Projects</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo"><img src="aguntalogo.png"></a>
+        <p>Building the structures that define skylines and serve communities. Licensed, bonded, and committed to excellence since 2007.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/256775975266"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="project.html">Commercial</a></li>
+          <li><a href="project.html">Residential</a></li>
+          <li><a href="project.html">Industrial</a></li>
+          <li><a href="project.html">Infrastructure</a></li>
+          <li><a href="project.html">Renovation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#team">Our Team</a></li>
+          <li><a href="#timeline">Our History</a></li>
+          <li><a href="index.html#projects">Projects</a></li>
+          <li><a href="index.html#contact">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+256393242285">+256 393 242 285</a></li>
+          <li><a href="mailto:info@aguntaconstruction.com">Email Us</a></li>
+          <li><a href="https://wa.me/256775975266">WhatsApp</a></li>
+          <li><a href="contact_us.html">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Agunta Construction Ltd. All rights reserved.</p>
+      <p>Privacy Policy &nbsp;·&nbsp; Terms of Service</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Widget -->
+  <div class="chat-widget">
+    <div class="wa-popup" id="waPopup">
+      <div class="wa-head">
+        <div class="wa-av">A</div>
+        <div class="wa-info">
+          <h4>Agunta Construction</h4>
+          <div class="wa-status">Online · Replies instantly</div>
+        </div>
+        <button class="wa-x" onclick="toggleWA()">×</button>
+      </div>
+      <div class="wa-body">
+        <div class="wa-bubble">👋 Hi there! Looking to start a construction project? Our team is ready to help — chat with us on WhatsApp.</div>
+        <button class="wa-go" onclick="goWA()"><i class="fa-brands fa-whatsapp"></i> Start Chat</button>
+      </div>
+    </div>
+    <button class="wa-fab" onclick="toggleWA()"><i class="fa-brands fa-whatsapp"></i></button>
+  </div>
+
+  <script>
+    // ── Cursor ──
+    const cur = document.getElementById('cursor');
+    const crg = document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx+'px'; cur.style.top = my+'px';
+    });
+    (function loop(){
+      rx += (mx-rx)*0.11; ry += (my-ry)*0.11;
+      crg.style.left=(rx)+'px'; crg.style.top=(ry)+'px';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a,button,.mvv-card,.cert-card,.team-card').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ crg.style.width='52px'; crg.style.height='52px'; crg.style.borderColor='var(--orange)'; });
+      el.addEventListener('mouseleave',()=>{ crg.style.width='34px'; crg.style.height='34px'; });
+    });
+
+    // ── Header scroll ──
+    window.addEventListener('scroll',()=>{
+      document.getElementById('header').classList.toggle('scrolled', scrollY > 60);
+    });
+
+    // ── Hero BG ──
+    const hbg = document.getElementById('heroBg');
+    setTimeout(()=> hbg.classList.add('loaded'), 80);
+    window.addEventListener('scroll', ()=>{
+      hbg.style.transform = `scale(1) translateY(${scrollY*0.22}px)`;
+    });
+
+    // ── Counter animation ──
+    let countersRun = false;
+    function runCounters() {
+      if (countersRun) return; countersRun = true;
+      document.querySelectorAll('.counter').forEach(el => {
+        const target = +el.dataset.target;
+        let n = 0; const step = Math.max(1, Math.ceil(target/60));
+        const t = setInterval(()=>{
+          n = Math.min(n+step, target);
+          el.textContent = n;
+          if (n >= target) clearInterval(t);
+        }, 22);
+      });
+    }
+
+    // ── Scroll Reveal ──
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => obs.observe(el));
+
+    // ── Timeline items ──
+    const tobs = new IntersectionObserver(entries => {
+      entries.forEach((e,i) => {
+        if (e.isIntersecting) {
+          setTimeout(()=> e.target.classList.add('visible'), i*120);
+          tobs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.t-item').forEach(el => tobs.observe(el));
+
+    // ── Stats band trigger ──
+    const sobs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) runCounters();
+    }, { threshold: 0.2 });
+    const sb = document.querySelector('.stats-band');
+    if (sb) sobs.observe(sb);
+
+    // Also run counters on intro-strip when visible
+    const iobs = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) runCounters();
+    }, { threshold: 0.2 });
+    const intro = document.querySelector('.intro-strip');
+    if (intro) iobs.observe(intro);
+
+    // ── Mobile Menu ──
+    function openMob() { document.getElementById('mobMenu').classList.add('open'); }
+    function closeMob() { document.getElementById('mobMenu').classList.remove('open'); }
+
+    // ── WhatsApp ──
+    function toggleWA() {
+      document.getElementById('waPopup').classList.toggle('open');
+    }
+    function goWA() {
+      window.open('https://wa.me/256775975266','_blank');
+      document.getElementById('waPopup').classList.remove('open');
+    }
+    setTimeout(()=> document.getElementById('waPopup').classList.add('open'), 4500);
+
+    // ── Stagger reveal delays ──
+    document.querySelectorAll('.mvv-grid .mvv-card, .certs-grid .cert-card, .values-grid .value-card').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.08}s`;
+    });
+
+    // ── Load MVV and Certifications from Admin ──
+    async function loadDynamicContent() {
+      try {
+        const r = await fetch('/api/pages');
+        const pages = await r.json();
+
+        // Update hero
+        const abt = pages.about || {};
+        if(abt.heroTitle) { const el=document.getElementById('abt_heroTitle'); if(el) el.innerHTML=abt.heroTitle; }
+        if(abt.heroSub)   { const el=document.getElementById('abt_heroSub');   if(el) el.textContent=abt.heroSub; }
+
+        // Update MVV
+        if(pages.mvv) {
+          const m = pages.mvv;
+          if(m.mission && document.getElementById('mvv_mission')) document.getElementById('mvv_mission').textContent = m.mission;
+          if(m.vision  && document.getElementById('mvv_vision'))  document.getElementById('mvv_vision').textContent  = m.vision;
+          if(m.values  && document.getElementById('mvv_values'))  document.getElementById('mvv_values').textContent  = m.values;
+        }
+
+        // Update Certifications
+        if(pages.certs && pages.certs.items && pages.certs.items.length > 0) {
+          const grid = document.getElementById('certsGrid');
+          if(grid) {
+            grid.innerHTML = pages.certs.items.map(cert => `
+              <div class="cert-card">
+                <div class="cert-icon"><i class="fa-solid ${cert.icon || 'fa-certificate'}"></i></div>
+                <div class="cert-body">
+                  <h4>${cert.title || ''}</h4>
+                  <p>${cert.desc || ''}</p>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+
+        // Update About Stats Strip
+        if(pages.about) {
+          const a = pages.about;
+          if(a.statsProjects) {
+            const n = parseInt(a.statsProjects);
+            if(!isNaN(n)) { document.getElementById('abt_stat_projects').dataset.target = n; }
+          }
+          if(a.statsNations) {
+            const n = parseInt(a.statsNations);
+            if(!isNaN(n)) { document.getElementById('abt_stat_nations').dataset.target = n; }
+          }
+          if(a.statsStaff) {
+            const n = parseInt(a.statsStaff);
+            if(!isNaN(n)) { document.getElementById('abt_stat_staff').dataset.target = n; }
+          }
+        }
+
+      } catch(e) { console.log('Dynamic content load failed:', e); }
+    }
+    loadDynamicContent();
+
+  </script>
+</body>
+</html>

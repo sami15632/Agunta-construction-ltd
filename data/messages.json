@@ -1,0 +1,22 @@
+[
+  {
+    "id": "71af9b43-bc03-4a29-b146-7aee9ce66599",
+    "name": "Samuel",
+    "email": "samuel@test.com",
+    "phone": "0912345678",
+    "projectType": "",
+    "message": "Hello this is a test",
+    "read": false,
+    "createdAt": "2026-06-07T07:45:05.846Z"
+  },
+  {
+    "id": "550d507d-30e8-4208-9915-81870060a04a",
+    "name": "Samuel Test",
+    "email": "samuel@test.com",
+    "phone": "0912345678",
+    "projectType": "residential",
+    "message": "This is a test message from the contact form",
+    "read": false,
+    "createdAt": "2026-06-07T07:30:33.967Z"
+  }
+]

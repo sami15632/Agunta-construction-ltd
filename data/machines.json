@@ -1,0 +1,62 @@
+[
+  {
+    "id": "5ebe3170-4427-442c-bf84-fae474d4155a",
+    "name": "CAT 320 Excavatorsam",
+    "category": "compaction",
+    "description": "mmmmmmmmmmmmm",
+    "specs": "50t capacity",
+    "image": "/uploads/upload_bc2eb8ac-c34a-4d0f-b68a-b6a0aabec244.png",
+    "available": true,
+    "createdAt": "2026-06-08T05:26:55.206Z"
+  },
+  {
+    "id": "2f65aaa3-7fbf-4c4a-b2bf-1a0d9403fb27",
+    "name": "cat",
+    "category": "concrete",
+    "description": "gggggggggggggggggggggg",
+    "specs": "20t operating weight · 1.2m³ bucket · 140kW engine",
+    "image": "/uploads/upload_ed8533b9-385c-45af-8807-ddaca6d53d1d.png",
+    "available": true,
+    "createdAt": "2026-06-08T02:10:04.959Z"
+  },
+  {
+    "id": "b9a7e76a-2db8-469f-9162-a4ec42841d0c",
+    "name": "Test Crane",
+    "category": "lifting",
+    "description": "Test",
+    "specs": "50t capacity",
+    "image": null,
+    "available": true,
+    "createdAt": "2026-06-07T09:58:44.600Z"
+  },
+  {
+    "id": "b02027a7-f63d-4027-b813-e039ad749ef9",
+    "name": "CAT 320 Excavator",
+    "category": "excavation",
+    "description": "20-tonne hydraulic excavator for earthworks and foundation digging.",
+    "specs": "20t operating weight · 1.2m³ bucket · 140kW engine",
+    "image": null,
+    "available": true,
+    "createdAt": "2026-06-07T09:58:42.917Z"
+  },
+  {
+    "id": "183b7df4-9091-46c8-aa0c-93228fa959cc",
+    "name": "Volvo A40G Dump Truck",
+    "category": "haulage",
+    "description": "Articulated dump truck for bulk material transport on rough terrain.",
+    "specs": "39t payload · 6×6 drive · 294kW engine",
+    "image": null,
+    "available": true,
+    "createdAt": "2026-06-07T09:58:42.930Z"
+  },
+  {
+    "id": "03c2c876-998f-47c0-b308-1ffef5a241cc",
+    "name": "Concrete Mixer 8m³",
+    "category": "concrete",
+    "description": "Transit mixer for ready-mix concrete delivery on site.",
+    "specs": "8m³ drum · Mercedes chassis · hydraulic discharge",
+    "image": null,
+    "available": true,
+    "createdAt": "2026-06-07T09:58:42.930Z"
+  }
+]

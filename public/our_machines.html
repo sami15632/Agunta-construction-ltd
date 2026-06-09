@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Machines & Equipment — Agunta Construction Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --orange:      #d44d1d;
+      --orange-dark: #b03a10;
+      --orange-glow: rgba(212,77,29,0.13);
+      --black:       #0b0b0b;
+      --charcoal:    #141414;
+      --steel:       #1c1c1c;
+      --panel:       #222222;
+      --line:        rgba(255,255,255,0.07);
+      --white:       #ffffff;
+      --muted:       #7a7a7a;
+      --ease:        cubic-bezier(0.16,1,0.3,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.05em; }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--charcoal); }
+    ::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 3px; }
+
+    /* ── CURSOR ── */
+    .cursor { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); }
+    .cursor-ring { width: 34px; height: 34px; border: 1px solid rgba(212,77,29,0.5); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width 0.3s var(--ease), height 0.3s var(--ease); }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 200;
+      padding: 18px 0;
+      background: rgba(11,11,11,0.88);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      transition: padding 0.4s var(--ease), border-color 0.4s;
+    }
+    header.scrolled { padding: 12px 0; border-color: rgba(212,77,29,0.2); }
+    .nav { max-width: 1320px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; }
+    .logo-old-hide { display:none; }
+    .logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.18em; }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.55); position: relative; transition: color 0.25s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--orange); transition: width 0.3s; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--orange); }
+    .nav-links a.active::after { width: 100%; }
+    .nav-cta { background: var(--orange) !important; color: var(--white) !important; padding: 10px 24px; font-weight: 600; }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--orange-dark) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 24px; height: 2px; background: var(--white); }
+
+    /* ── MOBILE MENU ── */
+    .mob-menu { display: none; position: fixed; inset: 0; background: var(--black); z-index: 300; flex-direction: column; align-items: center; justify-content: center; gap: 40px; }
+    .mob-menu.open { display: flex; }
+    .mob-menu a { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.08em; transition: color 0.2s; }
+    .mob-menu a:hover { color: var(--orange); }
+    .mob-close { position: absolute; top: 24px; right: 30px; background: none; border: none; color: var(--white); font-size: 2rem; cursor: pointer; }
+
+    /* ── SHARED ── */
+    .wrap { max-width: 1320px; margin: 0 auto; padding: 0 48px; }
+    .section-label { display: flex; align-items: center; gap: 12px; font-size: 0.7rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--orange); font-weight: 600; margin-bottom: 18px; }
+    .section-label::before { content: ''; width: 28px; height: 1px; background: var(--orange); }
+
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+    /* ═══════════════════════════
+       HERO
+    ═══════════════════════════ */
+    .hero {
+      min-height: 80vh; position: relative;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('machine2.png') center/cover no-repeat;
+      transform: scale(1.05); transition: transform 7s var(--ease);
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(11,11,11,0.25) 0%, rgba(11,11,11,0.92) 80%);
+    }
+    /* diagonal stripe */
+    .hero-stripe {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(-55deg, transparent, transparent 20px, rgba(212,77,29,0.03) 20px, rgba(212,77,29,0.03) 40px);
+    }
+    .hero-body { position: relative; z-index: 2; width: 100%; padding: 0 0 90px; }
+    .hero-bread { display: flex; align-items: center; gap: 10px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 32px; opacity: 0; animation: fadeUp 0.7s 0.2s forwards; }
+    .hero-bread span { color: var(--orange); }
+    .hero h1 { font-size: clamp(3.5rem, 9vw, 9rem); line-height: 0.88; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.9s 0.4s forwards; }
+    .hero h1 em { display: block; font-family: 'DM Serif Display', serif; font-style: italic; color: var(--orange); font-size: 0.58em; line-height: 1.3; }
+    .hero-sub { max-width: 540px; font-size: 1rem; font-weight: 300; line-height: 1.8; color: rgba(255,255,255,0.65); opacity: 0; animation: fadeUp 0.9s 0.6s forwards; }
+    .hero-vertical { position: absolute; right: 52px; bottom: 110px; writing-mode: vertical-rl; font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.2); opacity: 0; animation: fadeUp 1s 1s forwards; }
+
+    /* scroll arrow */
+    .scroll-hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); opacity: 0; animation: fadeUp 1s 1.2s forwards; }
+    .scroll-line { width: 1px; height: 44px; background: linear-gradient(to bottom, var(--orange), transparent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+    /* ═══════════════════════════
+       INTRO BAND (orange)
+    ═══════════════════════════ */
+    .intro-band { background: var(--orange); padding: 40px 0; }
+    .intro-band-inner { max-width: 1320px; margin: 0 auto; padding: 0 48px; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+    .intro-band p { font-size: 1.1rem; font-weight: 300; color: rgba(0,0,0,0.8); max-width: 700px; line-height: 1.7; }
+    .intro-band strong { color: var(--black); }
+    .intro-stats { display: flex; gap: 48px; flex-shrink: 0; }
+    .is-item { text-align: center; }
+    .is-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--black); line-height: 1; }
+    .is-lab { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,0,0,0.55); }
+
+    /* ═══════════════════════════
+       FILTER TABS
+    ═══════════════════════════ */
+    .filter-section { padding: 72px 0 0; background: var(--charcoal); }
+    .filter-tabs { display: flex; gap: 0; border: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; }
+    .filter-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 16px 32px; background: transparent; border: none;
+      color: var(--muted); font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: 0.1em; cursor: pointer;
+      border-right: 1px solid var(--line); white-space: nowrap;
+      transition: background 0.25s, color 0.25s;
+    }
+    .tab-btn:last-child { border-right: none; }
+    .tab-btn:hover { background: var(--steel); color: var(--white); }
+    .tab-btn.active { background: var(--orange); color: var(--white); }
+
+    /* ═══════════════════════════
+       GALLERY GRID SECTION
+    ═══════════════════════════ */
+    .gallery-section { background: var(--charcoal); padding: 48px 0 100px; }
+
+    /* Category cards */
+    .cat-block { margin-bottom: 80px; }
+    .cat-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 20px; margin-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .cat-title-group { display: flex; align-items: baseline; gap: 16px; }
+    .cat-num { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: rgba(212,77,29,0.15); line-height: 1; }
+    .cat-name { font-size: 2rem; color: var(--white); }
+    .cat-count { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 4px 12px; }
+
+    /* Photo grid layouts */
+    .pg-1 { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; }
+    .pg-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+    .pg-3 { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3px; }
+    .pg-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
+    .pg-big { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3px; }
+    .pg-3x2 { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; }
+
+    /* Individual photo tile */
+    .photo-tile {
+      position: relative; overflow: hidden; cursor: pointer;
+      background: var(--steel);
+    }
+    .photo-tile.tall { grid-row: span 2; }
+    .photo-tile.wide { grid-column: span 2; }
+    .photo-tile img {
+      width: 100%; height: 100%; object-fit: cover;
+      min-height: 220px;
+      display: block;
+      transition: transform 0.6s var(--ease), filter 0.4s;
+      filter: brightness(0.88);
+    }
+    .photo-tile:hover img { transform: scale(1.06); filter: brightness(1); }
+    .photo-tile-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(11,11,11,0.85) 0%, transparent 55%);
+      opacity: 0; transition: opacity 0.4s;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 20px;
+    }
+    .photo-tile:hover .photo-tile-overlay { opacity: 1; }
+    .tile-label { font-size: 0.88rem; color: var(--white); font-weight: 500; }
+    .tile-sub { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+    /* orange corner accent */
+    .photo-tile::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; width: 0; height: 3px;
+      background: var(--orange); transition: width 0.4s;
+      z-index: 2;
+    }
+    .photo-tile:hover::before { width: 100%; }
+
+    /* ═══════════════════════════
+       FULL-WIDTH FEATURE IMAGE
+    ═══════════════════════════ */
+    .feature-img-block { position: relative; overflow: hidden; height: 480px; }
+    .feature-img-block img { width: 100%; height: 100%; object-fit: cover; transition: transform 8s var(--ease); }
+    .feature-img-block:hover img { transform: scale(1.04); }
+    .feature-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(11,11,11,0.88) 0%, transparent 60%);
+      display: flex; align-items: center; padding: 0 80px;
+    }
+    .feature-copy { max-width: 480px; }
+    .feature-copy h2 { font-size: clamp(2.5rem, 5vw, 5rem); line-height: 0.92; margin-bottom: 16px; }
+    .feature-copy h2 em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--orange); }
+    .feature-copy p { font-size: 0.95rem; color: rgba(255,255,255,0.65); line-height: 1.75; }
+
+    /* ═══════════════════════════
+       EQUIPMENT LIST TABLE
+    ═══════════════════════════ */
+    #equipment-list { background: var(--black); padding: 100px 0; }
+    .equip-table { width: 100%; border-collapse: collapse; margin-top: 48px; }
+    .equip-table th {
+      text-align: left; padding: 14px 20px;
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--orange); border-bottom: 1px solid var(--line);
+      font-family: 'Barlow', sans-serif; font-weight: 600;
+    }
+    .equip-table td { padding: 18px 20px; border-bottom: 1px solid var(--line); font-size: 0.88rem; vertical-align: middle; }
+    .equip-table tr:last-child td { border-bottom: none; }
+    .equip-table tbody tr { transition: background 0.2s; }
+    .equip-table tbody tr:hover { background: var(--charcoal); }
+    .equip-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--orange); }
+    .equip-name { font-weight: 500; color: var(--white); }
+    .equip-cat { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--muted); margin-top: 3px; }
+    .equip-badge {
+      display: inline-block; padding: 4px 12px;
+      font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em;
+      border-radius: 2px;
+    }
+    .badge-own { background: rgba(212,77,29,0.15); color: var(--orange); border: 1px solid rgba(212,77,29,0.3); }
+    .badge-fleet { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--line); }
+
+    /* ═══════════════════════════
+       LIGHTBOX
+    ═══════════════════════════ */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,0.95); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lb-inner { position: relative; max-width: 90vw; max-height: 90vh; }
+    .lb-inner img { max-width: 90vw; max-height: 85vh; object-fit: contain; border: 1px solid var(--line); }
+    .lb-close {
+      position: absolute; top: -44px; right: 0;
+      background: none; border: none; color: var(--white);
+      font-size: 2rem; cursor: pointer; opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .lb-close:hover { opacity: 1; color: var(--orange); }
+    .lb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(212,77,29,0.8); border: none;
+      color: white; width: 44px; height: 44px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem; transition: background 0.25s;
+    }
+    .lb-nav:hover { background: var(--orange); }
+    .lb-prev { right: calc(100% + 12px); }
+    .lb-next { left: calc(100% + 12px); }
+    .lb-caption { text-align: center; margin-top: 14px; font-size: 0.85rem; color: var(--muted); letter-spacing: 0.1em; }
+
+    /* ═══════════════════════════
+       CTA BAND
+    ═══════════════════════════ */
+    .cta-band {
+      background: var(--charcoal); padding: 100px 0;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-band::before { content: 'POWER'; position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 18rem; color: rgba(255,255,255,0.02); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; white-space: nowrap; }
+    .cta-band .section-label { justify-content: center; margin-bottom: 20px; }
+    .cta-band h2 { font-size: clamp(3rem, 6vw, 6rem); line-height: 0.92; margin-bottom: 28px; }
+    .cta-band h2 em { font-family: 'DM Serif Display', serif; font-style: italic; color: var(--orange); }
+    .cta-band p { font-size: 1rem; color: var(--muted); max-width: 500px; margin: 0 auto 44px; line-height: 1.8; }
+    .cta-actions { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: var(--orange); color: var(--white); padding: 16px 40px; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 600; display: inline-flex; align-items: center; gap: 10px; transition: background 0.25s, transform 0.25s; }
+    .btn-primary:hover { background: var(--orange-dark); transform: translateX(4px); }
+    .btn-ghost { border: 1px solid rgba(255,255,255,0.2); color: var(--white); padding: 15px 40px; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; display: inline-flex; align-items: center; gap: 10px; border-radius: 50px; transition: border-color 0.25s, background 0.25s; }
+    .btn-ghost:hover { border-color: var(--orange); background: var(--orange-glow); }
+
+    /* ═══════════════════════════
+       FOOTER
+    ═══════════════════════════ */
+    footer { background: var(--black); border-top: 1px solid var(--line); padding: 60px 48px 0; }
+    .footer-inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 52px; }
+    .footer-brand .logo-old-hide { display:none; }
+    .logo { font-size: 1.5rem; margin-bottom: 18px; display: block; }
+    .footer-brand p { font-size: 0.82rem; color: var(--muted); line-height: 1.8; max-width: 250px; }
+    .footer-socials { display: flex; gap: 12px; margin-top: 24px; }
+    .footer-socials a { width: 34px; height: 34px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 0.82rem; transition: border-color 0.25s, color 0.25s; }
+    .footer-socials a:hover { border-color: var(--orange); color: var(--orange); }
+    .footer-col h4 { font-family: 'Bebas Neue', sans-serif; font-size: 0.95rem; letter-spacing: 0.2em; color: var(--orange); margin-bottom: 20px; }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; list-style: none; }
+    .footer-col ul a { font-size: 0.82rem; color: var(--muted); transition: color 0.25s; }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom { max-width: 1320px; margin: 0 auto; border-top: 1px solid var(--line); padding: 22px 0; display: flex; justify-content: space-between; align-items: center; }
+    .footer-bottom p { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.05em; }
+
+    /* ── WHATSAPP ── */
+    .chat-widget { position: fixed; bottom: 28px; right: 28px; z-index: 500; }
+    .wa-fab { width: 54px; height: 54px; background: #25D366; border: none; border-radius: 50%; color: white; font-size: 22px; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 20px rgba(37,211,102,0.35); transition: transform 0.3s; }
+    .wa-fab:hover { transform: scale(1.1); }
+    .wa-popup { position: absolute; bottom: 66px; right: 0; width: 290px; background: #fff; border-radius: 10px; box-shadow: 0 16px 50px rgba(0,0,0,0.3); overflow: hidden; display: none; animation: popUp 0.35s var(--ease); }
+    @keyframes popUp { from { transform: translateY(14px) scale(0.96); opacity: 0; } to { transform: none; opacity: 1; } }
+    .wa-popup.open { display: block; }
+    .wa-head { background: #075E54; padding: 16px 18px; display: flex; align-items: center; gap: 12px; position: relative; }
+    .wa-av { width: 36px; height: 36px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 0.9rem; }
+    .wa-info h4 { color: white; font-size: 0.88rem; }
+    .wa-status { font-size: 0.68rem; color: rgba(255,255,255,0.65); display: flex; align-items: center; gap: 4px; }
+    .wa-status::before { content: ''; width: 6px; height: 6px; background: #25D366; border-radius: 50%; display: inline-block; }
+    .wa-x { position: absolute; right: 12px; top: 12px; background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; opacity: 0.7; }
+    .wa-body { padding: 16px; background: #ece5dd; }
+    .wa-bubble { background: white; border-radius: 8px; padding: 12px; font-size: 0.84rem; color: #333; line-height: 1.6; margin-bottom: 14px; }
+    .wa-go { width: 100%; background: #25D366; color: white; border: none; padding: 11px; border-radius: 6px; font-weight: 600; font-size: 0.84rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.25s; }
+    .wa-go:hover { background: #1ebd58; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .pg-3 { grid-template-columns: 1fr 1fr; }
+      .pg-4 { grid-template-columns: repeat(2,1fr); }
+      .pg-big { grid-template-columns: 1fr; }
+      .pg-3x2 { grid-template-columns: 1fr 1fr; }
+      .feature-overlay { padding: 0 48px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .pg-1, .pg-2, .pg-3, .pg-4, .pg-big, .pg-3x2 { grid-template-columns: 1fr; }
+      .photo-tile.tall, .photo-tile.wide { grid-row: auto; grid-column: auto; }
+      .feature-img-block { height: 320px; }
+      .feature-overlay { padding: 0 28px; }
+      .intro-band-inner { flex-direction: column; }
+      .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+      .wrap { padding: 0 24px; }
+      .equip-table { font-size: 0.8rem; }
+    }
+  
+    #adminMachinesSection { display: block !important; }
+    .admin-mach-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+    @media(max-width:900px){ .admin-mach-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:580px){ .admin-mach-grid { grid-template-columns: 1fr; } }
+    #adminMachinesGrid .mach-loading { grid-column: span 3; text-align:center; padding:60px; color: #888; font-size:.9rem; }
+
+    /* ── SITE LOGO ── */
+    .site-logo { display:flex; align-items:center; text-decoration:none; }
+    .site-logo img {
+      height: 58px;
+      width: auto;
+      max-width: 220px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      transition: opacity 0.25s;
+    }
+    .site-logo img:hover { opacity: 0.82; }
+    .footer-logo img {
+      height: 68px;
+      width: auto;
+      max-width: 260px;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: screen;
+      filter: brightness(1.1);
+      margin-bottom: 14px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Mobile Menu -->
+  <div class="mob-menu" id="mobMenu">
+    <button class="mob-close" onclick="closeMob()"><i class="fa-solid fa-xmark"></i></button>
+    <a href="index.html" onclick="closeMob()">Home</a>
+    <a href="about.html" onclick="closeMob()">About</a>
+    <a href="index.html#services" onclick="closeMob()">Services</a>
+    <a href="#" onclick="closeMob()">Machines</a>
+    <a href="index.html#contact" onclick="closeMob()">Contact</a>
+  </div>
+
+  <!-- Header -->
+  <header id="header">
+    <div class="nav">
+      <a href="index.html" class="site-logo"><img src="aguntalogo.png"></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#services">Services</a>
+        <a href="project.html">Projects</a>
+        <a href="our_machines.html" class="active">Our Machines</a>
+        <a href="contact_us.html" class="nav-cta">Get a Quote</a>
+      </div>
+      <div class="hamburger" onclick="openMob()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-stripe"></div>
+    <div class="hero-body">
+      <div class="wrap">
+        <div class="hero-bread">
+          <a href="index.html">Home</a>
+          <i class="fa-solid fa-chevron-right" style="font-size:0.6rem"></i>
+          <span>Our Machines</span>
+        </div>
+        <h1>HEAVY<br>EQUIPMENT<br><em>&amp; Fleet</em></h1>
+        <p class="hero-sub">Agunta Construction owns and operates a comprehensive fleet of modern, well-maintained heavy machinery — giving us full control over every project we undertake.</p>
+      </div>
+    </div>
+    <div class="hero-vertical">Est. 2007 · Kampala, Uganda</div>
+    <div class="scroll-hint"><div class="scroll-line"></div>Scroll</div>
+  </section>
+
+  <!-- ═══ INTRO BAND ═══ -->
+  <div class="intro-band">
+    <div class="intro-band-inner">
+      <p>Our in-house fleet of <strong>excavators, graders, concrete mixers, dump trucks, cranes, and compactors</strong> means we never rely on third-party contractors for critical plant equipment — ensuring quality, speed, and cost efficiency on every job site.</p>
+      <div class="intro-stats">
+        <div class="is-item"><div class="is-num">30+</div><div class="is-lab">Machines Owned</div></div>
+        <div class="is-item"><div class="is-num">3</div><div class="is-lab">Countries</div></div>
+        <div class="is-item"><div class="is-num">100%</div><div class="is-lab">In-House Fleet</div></div>
+      </div>
+    </div>
+  </div> 
+  <!-- DYNAMIC MACHINES FROM ADMIN -->
+  <section id="adminMachinesSection" style="background:var(--black);padding:80px 0">
+    <div class="wrap">
+      <div style="display:flex;align-items:center;gap:12px;font-size:.7rem;letter-spacing:.28em;text-transform:uppercase;color:var(--orange);font-weight:600;margin-bottom:16px">
+        <span style="width:28px;height:1px;background:var(--orange);display:inline-block"></span> Agunta 
+      </div>
+      <h2 style="font-family:Bebas Neue,sans-serif;font-size:clamp(2.5rem,5vw,5rem);line-height:0.92;margin-bottom:12px">
+        Our <span style="font-family:DM Serif Display,serif;font-style:italic;color:var(--orange)">Equipment</span>
+      </h2>
+      <p style="font-size:.95rem;color:var(--muted);margin-bottom:48px;max-width:520px;line-height:1.8">
+       Key machines owned and operated by Agunta Construction Ltd
+      </p>
+      <div id="adminMachinesGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px" class="admin-mach-grid"></div>
+    </div>
+  </section>
+   <!-- ═══ EQUIPMENT LIST TABLE ═══ -->
+  <section id="equipment-list">
+    <div class="wrap">
+      <div class="reveal">
+        <div class="section-label">Full Inventory</div>
+        <h2 style="font-size:clamp(2.5rem,4vw,4rem);margin-bottom:8px">Equipment Register</h2>
+        <p style="color:var(--muted);font-size:0.9rem">Key machines owned and operated by Agunta Construction Ltd</p>
+      </div>
+      <table class="equip-table reveal" style="transition-delay:0.1s">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Equipment</th>
+            <th>Category</th>
+            <th>Make / Model</th>
+            <th>Qty</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="equip-num">01</div></td>
+            <td><div class="equip-name">Excavator</div><div class="equip-cat">Earthmoving</div></td>
+            <td>Earthmoving</td>
+            <td>Caterpillar 374</td>
+            <td>2</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">02</div></td>
+            <td><div class="equip-name">Motor Grader</div><div class="equip-cat">Road Works</div></td>
+            <td>Earthmoving</td>
+            <td>Caterpillar 140K</td>
+            <td>2</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">03</div></td>
+            <td><div class="equip-name">Telehandler</div><div class="equip-cat">Material Handling</div></td>
+            <td>Earthmoving</td>
+            <td>Merlo Panoramic</td>
+            <td>1</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">04</div></td>
+            <td><div class="equip-name">Self-Loading Concrete Mixer</div><div class="equip-cat">Concrete Works</div></td>
+            <td>Concrete</td>
+            <td>Various · 6–8 m³</td>
+            <td>3</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">05</div></td>
+            <td><div class="equip-name">Transit Concrete Mixer</div><div class="equip-cat">Concrete Transport</div></td>
+            <td>Concrete</td>
+            <td>Truck-Mounted · 7 m³</td>
+            <td>2</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">06</div></td>
+            <td><div class="equip-name">Tipper / Dump Trucks</div><div class="equip-cat">Material Transport</div></td>
+            <td>Transport</td>
+            <td>Sinotruk / MAN / Iveco</td>
+            <td>12+</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">07</div></td>
+            <td><div class="equip-name">Vibratory Road Roller</div><div class="equip-cat">Compaction</div></td>
+            <td>Compaction</td>
+            <td>Dynapac CA250D</td>
+            <td>2</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">08</div></td>
+            <td><div class="equip-name">Plate Compactor</div><div class="equip-cat">Small Compaction</div></td>
+            <td>Compaction</td>
+            <td>Honda GX390 Powered</td>
+            <td>4</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">09</div></td>
+            <td><div class="equip-name">Truck-Mounted Crane</div><div class="equip-cat">Lifting</div></td>
+            <td>Lifting</td>
+            <td>Various · 10–25 ton</td>
+            <td>2</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">10</div></td>
+            <td><div class="equip-name">Electric Chain Hoist</div><div class="equip-cat">Lifting</div></td>
+            <td>Lifting</td>
+            <td>2–5 tonne capacity</td>
+            <td>5</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">11</div></td>
+            <td><div class="equip-name">Piling / Drilling Rig</div><div class="equip-cat">Foundation Works</div></td>
+            <td>Lifting</td>
+            <td>Truck-Mounted Rig</td>
+            <td>1</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+          <tr>
+            <td><div class="equip-num">12</div></td>
+            <td><div class="equip-name">Scaffolding System</div><div class="equip-cat">Formwork &amp; Access</div></td>
+            <td>Small Plant</td>
+            <td>Frame &amp; Prop Sets</td>
+            <td>Large Stock</td>
+            <td><span class="equip-badge badge-own">Company Owned</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CTA BAND -->
+
+  <div class="cta-band">
+    <div class="wrap">
+      <div class="section-label reveal">Ready to Build</div>
+      <h2 class="reveal" style="transition-delay:0.1s">Need Heavy<br>Equipment on Your <em>Site?</em></h2>
+      <p class="reveal" style="transition-delay:0.2s">Our full fleet is available to mobilise across Uganda, South Sudan, Ethiopia, Eritrea, and Ghana. Talk to us about your project today.</p>
+      <div class="cta-actions reveal" style="transition-delay:0.3s">
+        <a href="contact_us.html" class="btn-primary">Request a Quote <i class="fa-solid fa-arrow-right"></i></a>
+        <a href="https://wa.me/256775975266" target="_blank" class="btn-ghost"><i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo"><img src="aguntalogo.png"></a>
+        <p>Building the structures that define skylines and serve communities across Africa since 2007.</p>
+        <div class="footer-socials">
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/256775975266"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Pages</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="project.html">Projects</a></li>
+          <li><a href="#">Our Machines</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="project.html">Commercial</a></li>
+          <li><a href="project.html">Residential</a></li>
+          <li><a href="project.html">Industrial</a></li>
+          <li><a href="project.html">Infrastructure</a></li>
+          <li><a href="project.html">Renovation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+256393242285">+256 393 242 285</a></li>
+          <li><a href="https://wa.me/256775975266">WhatsApp</a></li>
+          <li><a href="contact_us.html">Get a Quote</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Agunta Construction Ltd. All rights reserved.</p>
+      <p>Privacy Policy &nbsp;·&nbsp; Terms of Service</p>
+    </div>
+  </footer>
+
+  <!-- WhatsApp Widget -->
+  <div class="chat-widget">
+    <div class="wa-popup" id="waPopup">
+      <div class="wa-head">
+        <div class="wa-av">A</div>
+        <div class="wa-info">
+          <h4>Agunta Construction</h4>
+          <div class="wa-status">Online · Replies instantly</div>
+        </div>
+        <button class="wa-x" onclick="toggleWA()">×</button>
+      </div>
+      <div class="wa-body">
+        <div class="wa-bubble">👷 Looking to hire our equipment or start a project? Chat with our team now!</div>
+        <button class="wa-go" onclick="goWA()"><i class="fa-brands fa-whatsapp"></i> Start Chat</button>
+      </div>
+    </div>
+    <button class="wa-fab" onclick="toggleWA()"><i class="fa-brands fa-whatsapp"></i></button>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLB(event)">
+    <div class="lb-inner">
+      <button class="lb-close" onclick="closeLB()">&times;</button>
+      <button class="lb-nav lb-prev" onclick="lbNav(-1,event)"><i class="fa-solid fa-chevron-left"></i></button>
+      <img id="lbImg" src="" alt="">
+      <button class="lb-nav lb-next" onclick="lbNav(1,event)"><i class="fa-solid fa-chevron-right"></i></button>
+      <div class="lb-caption" id="lbCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    // ── Cursor ──
+    const cur = document.getElementById('cursor');
+    const crg = document.getElementById('cursorRing');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx+'px'; cur.style.top = my+'px';
+    });
+    (function loop(){
+      rx += (mx-rx)*0.11; ry += (my-ry)*0.11;
+      crg.style.left=rx+'px'; crg.style.top=ry+'px';
+      requestAnimationFrame(loop);
+    })();
+    document.querySelectorAll('a,button,.photo-tile').forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ crg.style.width='50px'; crg.style.height='50px'; });
+      el.addEventListener('mouseleave',()=>{ crg.style.width='34px'; crg.style.height='34px'; });
+    });
+
+    // ── Header scroll ──
+    window.addEventListener('scroll',()=>{
+      document.getElementById('header').classList.toggle('scrolled', scrollY > 60);
+    });
+
+    // ── Hero BG ──
+    const hbg = document.getElementById('heroBg');
+    setTimeout(()=> hbg.classList.add('loaded'), 80);
+    window.addEventListener('scroll',()=>{
+      hbg.style.transform = `scale(1) translateY(${scrollY*0.2}px)`;
+    });
+
+    // ── Reveal on scroll ──
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+    // ── Filter Tabs ──
+    const tabs = document.querySelectorAll('.tab-btn');
+    const cats = document.querySelectorAll('.cat-block');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const cat = tab.dataset.cat;
+        cats.forEach(c => {
+          if(cat === 'all' || c.dataset.cat === cat) {
+            c.style.display = 'block';
+            c.classList.remove('visible');
+            setTimeout(() => c.classList.add('visible'), 50);
+          } else {
+            c.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // ── Lightbox ──
+    const allImages = [];
+    let lbIdx = 0;
+
+    document.querySelectorAll('.photo-tile').forEach(tile => {
+      const onclick = tile.getAttribute('onclick');
+      if(onclick) {
+        const match = onclick.match(/openLB\('([^']+)','([^']+)'\)/);
+        if(match) allImages.push({ src: match[1], cap: match[2] });
+      }
+    });
+
+    function openLB(src, cap) {
+      lbIdx = allImages.findIndex(i => i.src === src);
+      document.getElementById('lbImg').src = src;
+      document.getElementById('lbCaption').textContent = cap;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLB(e) {
+      if(!e || e.target === document.getElementById('lightbox') || e.target.closest('.lb-close')) {
+        document.getElementById('lightbox').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function lbNav(dir, e) {
+      e && e.stopPropagation();
+      lbIdx = (lbIdx + dir + allImages.length) % allImages.length;
+      const img = document.getElementById('lbImg');
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = allImages[lbIdx].src;
+        document.getElementById('lbCaption').textContent = allImages[lbIdx].cap;
+        img.style.opacity = '1';
+      }, 200);
+      img.style.transition = 'opacity 0.2s';
+    }
+
+    document.addEventListener('keydown', e => {
+      if(document.getElementById('lightbox').classList.contains('open')) {
+        if(e.key === 'Escape') closeLB();
+        if(e.key === 'ArrowRight') lbNav(1);
+        if(e.key === 'ArrowLeft') lbNav(-1);
+      }
+    });
+
+
+    // ── Load Admin Machines from API ──
+    async function loadAdminMachines() {
+      const grid = document.getElementById('adminMachinesGrid');
+      grid.innerHTML = '<div class="mach-loading"><i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem;color:#d44d1d;margin-bottom:12px;display:block"></i>Loading fleet...</div>';
+      try {
+        const r = await fetch('/api/machines');
+        const machines = await r.json();
+        if (!machines || machines.length === 0) {
+          grid.innerHTML = '<div class="mach-loading"><i class="fa-solid fa-truck-monster" style="font-size:2rem;opacity:.3;display:block;margin-bottom:12px"></i>No machines added yet.<br><small>Add machines from the Admin Panel</small></div>';
+          return;
+        }
+
+        const catColors = {
+          excavation: '#d44d1d', haulage: '#3b82f6', concrete: '#22c55e',
+          lifting: '#f59e0b', compaction: '#a855f7', general: '#888'
+        };
+
+        grid.innerHTML = machines.map((m, i) => {
+          const fallbackImg = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="400" height="300" fill="%231c1c1c"/><text x="50%25" y="50%25" font-size="48" text-anchor="middle" dominant-baseline="middle" fill="%23444">&#128740;</text></svg>';
+          const imgSrc = m.image || fallbackImg;
+          const color = catColors[m.category] || '#888';
+          const isWide = (i === 0 && machines.length >= 3); // only span if 3+ machines
+
+          return `
+            <div style="position:relative;overflow:hidden;aspect-ratio:${isWide?'16/9':'4/3'};background:var(--charcoal);cursor:pointer;${isWide?'grid-column:span 2':''}"
+                 onclick="openAdminLB('${m.image||''}','${(m.name||'').replace(/'/g,'&apos;')}')">
+              ${m.image
+                ? `<img src="${m.image}" alt="${m.name||''}" style="width:100%;height:100%;object-fit:cover;transition:transform .7s cubic-bezier(0.16,1,0.3,1)" onmouseover="this.style.transform='scale(1.07)'" onmouseout="this.style.transform='scale(1)'">`
+                : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;color:#333;background:var(--steel)"><i class="fa-solid fa-truck-monster"></i></div>`
+              }
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(11,11,11,.95) 0%,rgba(11,11,11,.05) 50%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px;opacity:0;transition:opacity .4s" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0'">
+                <span style="display:inline-block;background:${color};color:#fff;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;padding:3px 10px;margin-bottom:10px;align-self:flex-start">${m.category||'general'}</span>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.05em;margin-bottom:6px">${m.name||''}</div>
+                ${m.specs ? `<div style="font-size:.72rem;color:rgba(255,255,255,.55);margin-bottom:8px">${m.specs}</div>` : ''}
+                ${m.description ? `<div style="font-size:.8rem;color:rgba(255,255,255,.65);line-height:1.6">${m.description.slice(0,100)}${m.description.length>100?'…':''}</div>` : ''}
+                <div style="margin-top:12px;display:flex;align-items:center;gap:6px;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase">
+                  <span style="width:6px;height:6px;border-radius:50%;background:${m.available?'#22c55e':'#ef4444'};display:inline-block"></span>
+                  <span style="color:${m.available?'#22c55e':'#ef4444'}">${m.available?'Available':'Unavailable'}</span>
+                </div>
+              </div>
+              <!-- Always visible label at bottom -->
+              <div style="position:absolute;bottom:0;left:0;right:0;padding:18px 20px;background:linear-gradient(to top,rgba(11,11,11,.85),transparent);pointer-events:none">
+                <div style="font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:${color};margin-bottom:3px">${m.category||'general'}</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.05em">${m.name||''}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+      } catch(err) {
+        console.log('Could not load admin machines:', err);
+      }
+    }
+
+    function openAdminLB(src, cap) {
+      if (!src) return;
+      document.getElementById('lbImg').src = src;
+      document.getElementById('lbCaption').textContent = cap;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    loadAdminMachines();
+
+    // ── Mobile Menu ──
+    function openMob() { document.getElementById('mobMenu').classList.add('open'); }
+    function closeMob() { document.getElementById('mobMenu').classList.remove('open'); }
+
+    // ── WhatsApp ──
+    function toggleWA() { document.getElementById('waPopup').classList.toggle('open'); }
+    function goWA() { window.open('https://wa.me/256775975266','_blank'); document.getElementById('waPopup').classList.remove('open'); }
+    setTimeout(()=> document.getElementById('waPopup').classList.add('open'), 5000);
+  </script>
+</body>
+</html>

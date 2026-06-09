@@ -1,0 +1,17 @@
+[
+  {
+    "id": "423eca64-ad30-4ca4-9176-95c8aecf9b2d",
+    "username": "admin",
+    "password": "$2a$10$47KCFUNcOdOwaxOpJVVsnuShKzthL5O6ZxVF9Ki23to3xuVzw0TkK",
+    "role": "admin",
+    "name": "Admin User"
+  },
+  {
+    "id": "df673f68-5db5-4f5e-ae1b-dede162a01fe",
+    "username": "testuser",
+    "password": "$2a$10$H9Jfp3ZhcvQAC4b/KOi2aeZqs6PdjIm9yNt/uSoU/UiwJOUjbpv5S",
+    "name": "Test User",
+    "role": "editor",
+    "createdAt": "2026-06-07T09:58:44.724Z"
+  }
+]
