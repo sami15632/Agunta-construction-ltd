@@ -35,11 +35,21 @@
         "icon": "fa-globe-africa",
         "title": "Multi-National Operating Licences",
         "desc": "Fully licensed and compliant in Uganda, South Sudan, Ethiopia and Eritrea."
+      },
+      {
+        "icon": "fa-certificate",
+        "title": "URSB Registered",
+        "desc": "Uganda Registration Services Bureau — fully incorporated and legally recognized for formal business operations and corporate compliance. "
+      },
+      {
+        "icon": "fa-certificate",
+        "title": "PPDA Certified",
+        "desc": "Public Procurement and Disposal of Assets — fully compliant and registered for public sector bidding and transparent tendering."
       }
     ]
   },
   "index": {
-    "heroTitle": "We Build Africa's Futuremmm",
+    "heroTitle": "BUILD AFTRICA'S FUTURE WITH PRECISION",
     "heroSub": "A multinational civil engineering company headquartered in Kampala, Uganda, with operations across five African nations.",
     "aboutTitle": "About Agunta Construction",
     "aboutText": "Since 2007, Agunta Construction Ltd has delivered landmark projects across East and West Africa. From high-rise apartments in Kampala to military cantonments and telecom infrastructure — we combine engineering excellence with African expertise.",

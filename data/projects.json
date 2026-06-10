@@ -1,5 +1,31 @@
 [
   {
+    "id": "0f52f538-8d8d-4b19-8e38-58612df632cc",
+    "title": "test",
+    "category": "residential",
+    "status": "ongoing",
+    "location": "Kampala, Uganda",
+    "client": "test",
+    "duration": "2020 – 2023",
+    "description": "h",
+    "image": "/uploads/upload_e91c7283-47af-4f60-8b34-5967a96eb96f.png",
+    "featured": false,
+    "createdAt": "2026-06-09T21:07:07.489Z"
+  },
+  {
+    "id": "e2807867-c0f6-4011-87ec-f2b4c948a5d2",
+    "title": "test",
+    "category": "residential",
+    "status": "ongoing",
+    "location": "Kampala, Uganda",
+    "client": "test",
+    "duration": "2020 – 2023",
+    "description": "h",
+    "image": "/uploads/upload_c7e54016-7a20-40ea-9649-69de81011247.png",
+    "featured": false,
+    "createdAt": "2026-06-09T21:07:06.546Z"
+  },
+  {
     "id": "9a09d204-3b2c-41fb-a8a1-cdf28eb43dd3",
     "title": "Katwe Shopping Mall",
     "category": "realstate",
